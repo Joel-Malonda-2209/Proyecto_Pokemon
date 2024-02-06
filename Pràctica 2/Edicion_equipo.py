@@ -6,7 +6,24 @@ class Ui_MainWindow(object):
         self.setupUi(MainWindow)
         self.asignar_pokemon()
         self.asignar_habilidad()
-    
+        
+    def actualizar_imagen_pokemon(self, data):
+        sprites = data["sprites"]
+        image_url = sprites["front_default"]
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(requests.get(image_url).content)
+        
+        scene = QtWidgets.QGraphicsScene()
+        pixmap_item = QtWidgets.QGraphicsPixmapItem(pixmap)
+        scene.addItem(pixmap_item)
+
+        self.graphicsView.setScene(scene)
+        self.graphicsView.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+        self.graphicsView_8.setScene(scene)
+        self.graphicsView_8.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+
     def asignar_pokemon(self):
         url = "https://pokeapi.co/api/v2/pokemon?limit=151"
         response = requests.get(url)
@@ -28,11 +45,51 @@ class Ui_MainWindow(object):
         response = requests.get(url)
         data = response.json()
 
-        self.Abilidad.clear()  # Limpiar el comboBox de habilidades
+        self.Abilidad.clear()  
 
         if "abilities" in data:
             habilidades = [ability["ability"]["name"].capitalize() for ability in data["abilities"]]
             self.Abilidad.addItems(habilidades)
+        
+        self.obtener_movimientos(data)
+
+        hp, attack, defense, speed = self.obtener_estadisticas(data)
+        self.mostrar_estadisticas(hp, attack, defense, speed)
+
+        self.actualizar_imagen_pokemon(data)
+    
+    def obtener_estadisticas(self, data):
+        stats = data["stats"]
+        hp, attack, defense, speed = 0,0,0,0
+        for stat in stats:
+            if stat["stat"]["name"] == "hp":
+                hp = stat["base_stat"]
+            elif stat["stat"]["name"] == "attack":
+                attack = stat["base_stat"]
+            elif stat["stat"]["name"] == "defense":
+                defense = stat["base_stat"]
+            elif stat["stat"]["name"] == "speed":
+                speed = stat["base_stat"]
+        return hp, attack, defense, speed
+
+    def mostrar_estadisticas(self, hp, attack, defense, speed):
+        self.label_71.setText(f"HP: {hp}")
+        self.label_72.setText(f"Ataque: {attack}")
+        self.label_73.setText(f"Defensa: {defense}")
+        self.label_74.setText(f"Velocidad: {speed}")
+    
+    def obtener_movimientos(self, data):
+        self.comboBox_29.clear()
+        self.comboBox_30.clear()
+        self.comboBox_31.clear()
+        self.comboBox_32.clear()
+
+        if "moves" in data:
+            movimientos = [move["move"]["name"].capitalize() for move in data["moves"]]
+            self.comboBox_29.addItems(movimientos)
+            self.comboBox_30.addItems(movimientos)
+            self.comboBox_31.addItems(movimientos)
+            self.comboBox_32.addItems(movimientos)
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -248,6 +305,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_62.addWidget(self.verticalWidget_24)
         self.comboBox_29 = QtWidgets.QComboBox(parent=self.horizontalWidget_15)
         self.comboBox_29.setObjectName("comboBox_29")
+        self.comboBox_29.addItem("")
+        self.comboBox_29.addItem("")
+        self.comboBox_29.addItem("")
+        self.comboBox_29.addItem("")
         self.verticalLayout_62.addWidget(self.comboBox_29)
         self.comboBox_30 = QtWidgets.QComboBox(parent=self.horizontalWidget_15)
         self.comboBox_30.setObjectName("comboBox_30")
