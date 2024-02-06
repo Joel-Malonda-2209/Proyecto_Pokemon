@@ -5,7 +5,7 @@ class Ui_MainWindow(object):
     def __init__(self):
         self.setupUi(MainWindow)
         self.asignar_pokemon()
-        self.asignar_habilidad()
+        self.asignar_datos()
         
     def actualizar_imagen_pokemon(self, data):
         sprites = data["sprites"]
@@ -35,11 +35,11 @@ class Ui_MainWindow(object):
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItems(nombre_pokemons)
 
-        self.comboBox.currentIndexChanged.connect(self.asignar_habilidad)
+        self.comboBox.currentIndexChanged.connect(self.asignar_datos)
         
         return self.comboBox
     
-    def asignar_habilidad(self):
+    def asignar_datos(self):
         pokemon_seleccionado = self.comboBox.currentText().lower()
         url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_seleccionado}"
         response = requests.get(url)
@@ -55,6 +55,14 @@ class Ui_MainWindow(object):
 
         hp, attack, defense, speed = self.obtener_estadisticas(data)
         self.mostrar_estadisticas(hp, attack, defense, speed)
+
+        nivel = 100
+        tipos = [tipo["type"]["name"].capitalize() for tipo in data["types"]]
+        tipo = '/'.join(tipos)
+
+        self.label_66.setText(str(nivel))
+        self.label_68.setText(tipo)
+
 
         self.actualizar_imagen_pokemon(data)
     
