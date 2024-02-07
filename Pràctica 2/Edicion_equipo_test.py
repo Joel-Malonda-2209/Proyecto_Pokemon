@@ -1,38 +1,113 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 import requests
+import json
+import os
+
 class Ui_MainWindow(object):
     def __init__(self):
         self.setupUi(MainWindow)
         self.asignar_pokemon()
-        self.mostrar_habilidad()
+        self.asignar_datos()
+
+    def guardar_en_json(self):
+        data = {"name": self.comboBox.currentText()}
+        with open("datos_pokemon.json", "w") as json_file:
+            json.dump(data, json_file)
+
+    def actualizar_imagen_pokemon(self, data):
+        sprites = data["sprites"]
+        image_url = sprites["front_default"]
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(requests.get(image_url).content)
         
+        scene = QtWidgets.QGraphicsScene()
+        pixmap_item = QtWidgets.QGraphicsPixmapItem(pixmap)
+        scene.addItem(pixmap_item)
+
+        self.graphicsView.setScene(scene)
+        self.graphicsView.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+        self.graphicsView_8.setScene(scene)
+        self.graphicsView_8.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+
     def asignar_pokemon(self):
         url = "https://pokeapi.co/api/v2/pokemon?limit=151"
         response = requests.get(url)
-        self.data = response.json()
+        data = response.json()
 
-        nombre_pokemons = [pokemon["name"].capitalize() for pokemon in self.data["results"]]
+        nombre_pokemons = [pokemon["name"].capitalize() for pokemon in data["results"]]
         
         self.comboBox = QtWidgets.QComboBox(parent=None)
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItems(nombre_pokemons)
-        self.comboBox.currentIndexChanged.connect(self.mostrar_habilidad)
-        return self.comboBox
 
-    def mostrar_habilidad(self):
+        self.comboBox.currentIndexChanged.connect(self.asignar_datos)
+        
+        return self.comboBox
+    
+    def asignar_datos(self):
         pokemon_seleccionado = self.comboBox.currentText().lower()
         url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_seleccionado}"
         response = requests.get(url)
         data = response.json()
-        
-        habilidades_combobox = QtWidgets.QComboBox(parent=None)
-        habilidades_combobox.setObjectName("habilidades_combobox")
-        
+
+        self.comboBox_11.clear()  
+
         if "abilities" in data:
             habilidades = [ability["ability"]["name"].capitalize() for ability in data["abilities"]]
-            habilidades_combobox.addItems(habilidades)
+            self.comboBox_11.addItems(habilidades)
+        
+        self.obtener_movimientos(data)
+        nivel = 100
+        hp, attack, defense, speed = self.obtener_estadisticas(data,nivel)
 
-        return habilidades_combobox
+        self.mostrar_estadisticas(hp, attack, defense, speed)
+
+        tipos = [tipo["type"]["name"].capitalize() for tipo in data["types"]]
+        tipo = '/'.join(tipos)
+
+        self.label_66.setText(str(nivel))
+        self.label_68.setText(tipo)
+
+
+        self.actualizar_imagen_pokemon(data)
+    
+    def obtener_estadisticas(self, data, nivel):
+        stats = data["stats"]
+        hp, attack, defense, speed = 0,0,0,0
+        for stat in stats:
+            base_stat = stat["base_stat"]
+            if stat["stat"]["name"] == "hp":
+                hp = ((base_stat * 2 * nivel) / 100) + nivel + 10
+            else:
+                if stat["stat"]["name"] == "attack":
+                    attack = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "defense":
+                    defense = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "speed":
+                    speed = ((base_stat * 2 * nivel) / 100) + 5
+        return hp, attack, defense, speed
+
+
+    def mostrar_estadisticas(self, hp, attack, defense, speed):
+        self.label_71.setText(f"HP: {hp}")
+        self.label_72.setText(f"Ataque: {attack}")
+        self.label_73.setText(f"Defensa: {defense}")
+        self.label_74.setText(f"Velocidad: {speed}")
+    
+    def obtener_movimientos(self, data):
+        self.comboBox_29.clear()
+        self.comboBox_30.clear()
+        self.comboBox_31.clear()
+        self.comboBox_32.clear()
+
+        if "moves" in data:
+            movimientos = [move["move"]["name"].capitalize() for move in data["moves"]]
+            self.comboBox_29.addItems(movimientos)
+            self.comboBox_30.addItems(movimientos)
+            self.comboBox_31.addItems(movimientos)
+            self.comboBox_32.addItems(movimientos)
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -58,6 +133,12 @@ class Ui_MainWindow(object):
         self.volverLobby.setStyleSheet("background-color: rgb(206, 206, 206);")
         self.volverLobby.setObjectName("volverLobby")
         self.verticalLayout_5.addWidget(self.volverLobby)
+        self.guardarDatos = QtWidgets.QPushButton(parent=self.horizontalWidget_2)
+        self.guardarDatos.setStyleSheet("background-color: rgb(206, 206, 206);")
+        self.guardarDatos.setObjectName("guardarDatos")
+        self.guardarDatos.setText("Guardar")
+        self.verticalLayout_5.addWidget(self.guardarDatos)
+        self.guardarDatos.clicked.connect(self.guardar_en_json)
         self.verticalLayout_7 = QtWidgets.QVBoxLayout()
         self.verticalLayout_7.setContentsMargins(-1, -1, -1, 20)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
@@ -203,7 +284,9 @@ class Ui_MainWindow(object):
         self.label_69 = QtWidgets.QLabel(parent=self.widget_7)
         self.label_69.setObjectName("label_69")
         self.verticalLayout_65.addWidget(self.label_69)
-        self.verticalLayout_65.addWidget(self.mostrar_habilidad())
+        self.comboBox_11 = QtWidgets.QComboBox(parent=self.widget_7)
+        self.comboBox_11.setObjectName("comboBox_11")
+        self.verticalLayout_65.addWidget(self.comboBox_11)
         self.verticalLayout_62.addWidget(self.widget_7)
         self.verticalWidget_24 = QtWidgets.QWidget(parent=self.horizontalWidget_15)
         self.verticalWidget_24.setStyleSheet("background-color: rgb(232, 232, 232);")
@@ -269,7 +352,9 @@ class Ui_MainWindow(object):
         self.graphicsView_7.setStyleSheet("")
         self.graphicsView_7.setObjectName("graphicsView_7")
         self.verticalLayout_55.addWidget(self.graphicsView_7)
-        self.verticalLayout_55.addWidget(self.asignar_pokemon())
+        self.comboBox_2 = QtWidgets.QComboBox(parent=self.horizontalWidget_13)
+        self.comboBox_2.setObjectName("comboBox_2")
+        self.verticalLayout_55.addWidget(self.comboBox_2)
         self.horizontalWidget_14 = QtWidgets.QWidget(parent=self.horizontalWidget_13)
         self.horizontalWidget_14.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_14.setObjectName("horizontalWidget_14")
@@ -304,7 +389,9 @@ class Ui_MainWindow(object):
         self.label_59 = QtWidgets.QLabel(parent=self.widget_6)
         self.label_59.setObjectName("label_59")
         self.verticalLayout_58.addWidget(self.label_59)
-        self.verticalLayout_58.addWidget(self.mostrar_habilidad())
+        self.comboBox_12 = QtWidgets.QComboBox(parent=self.widget_6)
+        self.comboBox_12.setObjectName("comboBox_12")
+        self.verticalLayout_58.addWidget(self.comboBox_12)
         self.verticalLayout_55.addWidget(self.widget_6)
         self.verticalWidget_22 = QtWidgets.QWidget(parent=self.horizontalWidget_13)
         self.verticalWidget_22.setStyleSheet("background-color: rgb(232, 232, 232);")
@@ -370,7 +457,9 @@ class Ui_MainWindow(object):
         self.graphicsView_6.setStyleSheet("")
         self.graphicsView_6.setObjectName("graphicsView_6")
         self.verticalLayout_48.addWidget(self.graphicsView_6)
-        self.verticalLayout_48.addWidget(self.asignar_pokemon())
+        self.comboBox_3 = QtWidgets.QComboBox(parent=self.horizontalWidget_11)
+        self.comboBox_3.setObjectName("comboBox_3")
+        self.verticalLayout_48.addWidget(self.comboBox_3)
         self.horizontalWidget_12 = QtWidgets.QWidget(parent=self.horizontalWidget_11)
         self.horizontalWidget_12.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_12.setObjectName("horizontalWidget_12")
@@ -473,7 +562,9 @@ class Ui_MainWindow(object):
         self.graphicsView_5.setStyleSheet("")
         self.graphicsView_5.setObjectName("graphicsView_5")
         self.verticalLayout_41.addWidget(self.graphicsView_5)
-        self.verticalLayout_41.addWidget(self.asignar_pokemon())
+        self.comboBox_4 = QtWidgets.QComboBox(parent=self.horizontalWidget_9)
+        self.comboBox_4.setObjectName("comboBox_4")
+        self.verticalLayout_41.addWidget(self.comboBox_4)
         self.horizontalWidget_10 = QtWidgets.QWidget(parent=self.horizontalWidget_9)
         self.horizontalWidget_10.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_10.setObjectName("horizontalWidget_10")
@@ -576,7 +667,9 @@ class Ui_MainWindow(object):
         self.graphicsView_4.setStyleSheet("")
         self.graphicsView_4.setObjectName("graphicsView_4")
         self.verticalLayout_31.addWidget(self.graphicsView_4)
-        self.verticalLayout_31.addWidget(self.asignar_pokemon())
+        self.comboBox_9 = QtWidgets.QComboBox(parent=self.horizontalWidget_4)
+        self.comboBox_9.setObjectName("comboBox_9")
+        self.verticalLayout_31.addWidget(self.comboBox_9)
         self.horizontalWidget_8 = QtWidgets.QWidget(parent=self.horizontalWidget_4)
         self.horizontalWidget_8.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_8.setObjectName("horizontalWidget_8")
@@ -679,7 +772,9 @@ class Ui_MainWindow(object):
         self.graphicsView_2.setStyleSheet("")
         self.graphicsView_2.setObjectName("graphicsView_2")
         self.verticalLayout_11.addWidget(self.graphicsView_2)
-        self.verticalLayout_11.addWidget(self.asignar_pokemon())
+        self.comboBox_10 = QtWidgets.QComboBox(parent=self.horizontalWidget_3)
+        self.comboBox_10.setObjectName("comboBox_10")
+        self.verticalLayout_11.addWidget(self.comboBox_10)
         self.horizontalWidget_5 = QtWidgets.QWidget(parent=self.horizontalWidget_3)
         self.horizontalWidget_5.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_5.setObjectName("horizontalWidget_5")
@@ -824,3 +919,4 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec())
+

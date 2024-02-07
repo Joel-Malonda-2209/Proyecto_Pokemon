@@ -45,11 +45,11 @@ class Ui_MainWindow(object):
         response = requests.get(url)
         data = response.json()
 
-        self.Abilidad.clear()  
+        self.comboBox_11.clear()  
 
         if "abilities" in data:
             habilidades = [ability["ability"]["name"].capitalize() for ability in data["abilities"]]
-            self.Abilidad.addItems(habilidades)
+            self.comboBox_11.addItems(habilidades)
         
         self.obtener_movimientos(data)
 
@@ -288,9 +288,9 @@ class Ui_MainWindow(object):
         self.label_69 = QtWidgets.QLabel(parent=self.widget_7)
         self.label_69.setObjectName("label_69")
         self.verticalLayout_65.addWidget(self.label_69)
-        self.Abilidad = QtWidgets.QComboBox(parent=self.widget_7)
-        self.Abilidad.setObjectName("Abilidad")
-        self.verticalLayout_65.addWidget(self.Abilidad)
+        self.comboBox_11 = QtWidgets.QComboBox(parent=self.widget_7)
+        self.comboBox_11.setObjectName("comboBox_11")
+        self.verticalLayout_65.addWidget(self.comboBox_11)
         self.verticalLayout_62.addWidget(self.widget_7)
         self.verticalWidget_24 = QtWidgets.QWidget(parent=self.horizontalWidget_15)
         self.verticalWidget_24.setStyleSheet("background-color: rgb(232, 232, 232);")
