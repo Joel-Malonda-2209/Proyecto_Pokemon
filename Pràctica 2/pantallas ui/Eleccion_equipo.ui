@@ -291,9 +291,15 @@ background-color: rgb(206, 206, 206);</string>
          </item>
          <item>
           <widget class="QWidget" name="verticalWidget" native="true">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(194, 194, 194);</string>
+           </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>
              <widget class="QWidget" name="verticalWidget" native="true">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(206, 206, 206);</string>
+              </property>
               <layout class="QVBoxLayout" name="verticalLayout_14">
                <item>
                 <widget class="QGraphicsView" name="graphicsView_2">
