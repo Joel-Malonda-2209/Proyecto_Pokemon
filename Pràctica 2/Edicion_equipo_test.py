@@ -1,12 +1,19 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 import requests
+import json
+import os
 
 class Ui_MainWindow(object):
     def __init__(self):
         self.setupUi(MainWindow)
         self.asignar_pokemon()
         self.asignar_datos()
-        
+
+    def guardar_en_json(self):
+        data = {"name": self.comboBox.currentText()}
+        with open("datos_pokemon.json", "w") as json_file:
+            json.dump(data, json_file)
+
     def actualizar_imagen_pokemon(self, data):
         sprites = data["sprites"]
         image_url = sprites["front_default"]
@@ -52,11 +59,11 @@ class Ui_MainWindow(object):
             self.comboBox_11.addItems(habilidades)
         
         self.obtener_movimientos(data)
+        nivel = 100
+        hp, attack, defense, speed = self.obtener_estadisticas(data,nivel)
 
-        hp, attack, defense, speed = self.obtener_estadisticas(data)
         self.mostrar_estadisticas(hp, attack, defense, speed)
 
-        nivel = 100
         tipos = [tipo["type"]["name"].capitalize() for tipo in data["types"]]
         tipo = '/'.join(tipos)
 
@@ -66,19 +73,22 @@ class Ui_MainWindow(object):
 
         self.actualizar_imagen_pokemon(data)
     
-    def obtener_estadisticas(self, data):
+    def obtener_estadisticas(self, data, nivel):
         stats = data["stats"]
         hp, attack, defense, speed = 0,0,0,0
         for stat in stats:
+            base_stat = stat["base_stat"]
             if stat["stat"]["name"] == "hp":
-                hp = stat["base_stat"]
-            elif stat["stat"]["name"] == "attack":
-                attack = stat["base_stat"]
-            elif stat["stat"]["name"] == "defense":
-                defense = stat["base_stat"]
-            elif stat["stat"]["name"] == "speed":
-                speed = stat["base_stat"]
+                hp = ((base_stat * 2 * nivel) / 100) + nivel + 10
+            else:
+                if stat["stat"]["name"] == "attack":
+                    attack = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "defense":
+                    defense = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "speed":
+                    speed = ((base_stat * 2 * nivel) / 100) + 5
         return hp, attack, defense, speed
+
 
     def mostrar_estadisticas(self, hp, attack, defense, speed):
         self.label_71.setText(f"HP: {hp}")
@@ -98,10 +108,465 @@ class Ui_MainWindow(object):
             self.comboBox_30.addItems(movimientos)
             self.comboBox_31.addItems(movimientos)
             self.comboBox_32.addItems(movimientos)
+            
+    def actualizar_imagen_pokemon2(self, data):
+        sprites = data["sprites"]
+        image_url = sprites["front_default"]
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(requests.get(image_url).content)
+        
+        scene = QtWidgets.QGraphicsScene()
+        pixmap_item = QtWidgets.QGraphicsPixmapItem(pixmap)
+        scene.addItem(pixmap_item)
+
+        self.graphicsView_7.setScene(scene)
+        self.graphicsView_7.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+
+    def asignar_pokemon2(self):
+        url = "https://pokeapi.co/api/v2/pokemon?limit=151"
+        response = requests.get(url)
+        data = response.json()
+
+        nombre_pokemons = [pokemon["name"].capitalize() for pokemon in data["results"]]
+        
+        self.comboBox2 = QtWidgets.QComboBox(parent=None)
+        self.comboBox2.setObjectName("comboBox")
+        self.comboBox2.addItems(nombre_pokemons)
+
+        self.comboBox2.currentIndexChanged.connect(self.asignar_datos2)
+        
+        return self.comboBox2
+    
+    def asignar_datos2(self):
+        pokemon_seleccionado = self.comboBox2.currentText().lower()
+        url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_seleccionado}"
+        response = requests.get(url)
+        data = response.json()
+
+        self.comboBox_12.clear()  
+
+        if "abilities" in data:
+            habilidades2 = [ability["ability"]["name"].capitalize() for ability in data["abilities"]]
+            self.comboBox_12.addItems(habilidades2)
+        
+        self.obtener_movimientos2(data)
+
+        nivel = 100
+        hp, attack, defense, speed = self.obtener_estadisticas2(data,nivel)
+        self.mostrar_estadisticas2(hp, attack, defense, speed)
+
+        tipos = [tipo["type"]["name"].capitalize() for tipo in data["types"]]
+        tipo = '/'.join(tipos)
+
+        self.label_56.setText(str(nivel))
+        self.label_58.setText(tipo)
+
+
+        self.actualizar_imagen_pokemon2(data)
+    
+    def obtener_estadisticas2(self, data, nivel):
+        stats = data["stats"]
+        hp, attack, defense, speed = 0,0,0,0
+        for stat in stats:
+            base_stat = stat["base_stat"]
+            if stat["stat"]["name"] == "hp":
+                hp = ((base_stat * 2 * nivel) / 100) + nivel + 10
+            else:
+                if stat["stat"]["name"] == "attack":
+                    attack = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "defense":
+                    defense = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "speed":
+                    speed = ((base_stat * 2 * nivel) / 100) + 5
+        return hp, attack, defense, speed
+
+    def mostrar_estadisticas2(self, hp, attack, defense, speed):
+        self.label_61.setText(f"HP: {hp}")
+        self.label_62.setText(f"Ataque: {attack}")
+        self.label_63.setText(f"Defensa: {defense}")
+        self.label_64.setText(f"Velocidad: {speed}")
+    
+    def obtener_movimientos2(self, data):
+        self.comboBox_25.clear()
+        self.comboBox_26.clear()
+        self.comboBox_27.clear()
+        self.comboBox_28.clear()
+
+        if "moves" in data:
+            movimientos = [move["move"]["name"].capitalize() for move in data["moves"]]
+            self.comboBox_25.addItems(movimientos)
+            self.comboBox_26.addItems(movimientos)
+            self.comboBox_27.addItems(movimientos)
+            self.comboBox_28.addItems(movimientos)
+            
+    def actualizar_imagen_pokemon3(self, data):
+        sprites = data["sprites"]
+        image_url = sprites["front_default"]
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(requests.get(image_url).content)
+        
+        scene = QtWidgets.QGraphicsScene()
+        pixmap_item = QtWidgets.QGraphicsPixmapItem(pixmap)
+        scene.addItem(pixmap_item)
+
+        self.graphicsView_6.setScene(scene)
+        self.graphicsView_6.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+
+    def asignar_pokemon3(self):
+        url = "https://pokeapi.co/api/v2/pokemon?limit=151"
+        response = requests.get(url)
+        data = response.json()
+
+        nombre_pokemons = [pokemon["name"].capitalize() for pokemon in data["results"]]
+        
+        self.comboBox3 = QtWidgets.QComboBox(parent=None)
+        self.comboBox3.setObjectName("comboBox")
+        self.comboBox3.addItems(nombre_pokemons)
+
+        self.comboBox3.currentIndexChanged.connect(self.asignar_datos3)
+        
+        return self.comboBox3
+    
+    def asignar_datos3(self):
+        pokemon_seleccionado = self.comboBox3.currentText().lower()
+        url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_seleccionado}"
+        response = requests.get(url)
+        data = response.json()
+
+        self.comboBox_33.clear()  
+
+        if "abilities" in data:
+            habilidades3 = [ability["ability"]["name"].capitalize() for ability in data["abilities"]]
+            self.comboBox_33.addItems(habilidades3)
+        
+        self.obtener_movimientos3(data)
+
+        nivel = 100
+        hp, attack, defense, speed = self.obtener_estadisticas3(data,nivel)
+        self.mostrar_estadisticas3(hp, attack, defense, speed)
+
+        tipos = [tipo["type"]["name"].capitalize() for tipo in data["types"]]
+        tipo = '/'.join(tipos)
+
+        self.label_46.setText(str(nivel))
+        self.label_48.setText(tipo)
+
+
+        self.actualizar_imagen_pokemon3(data)
+    
+    def obtener_estadisticas3(self, data, nivel):
+        stats = data["stats"]
+        hp, attack, defense, speed = 0,0,0,0
+        for stat in stats:
+            base_stat = stat["base_stat"]
+            if stat["stat"]["name"] == "hp":
+                hp = ((base_stat * 2 * nivel) / 100) + nivel + 10
+            else:
+                if stat["stat"]["name"] == "attack":
+                    attack = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "defense":
+                    defense = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "speed":
+                    speed = ((base_stat * 2 * nivel) / 100) + 5
+        return hp, attack, defense, speed
+
+    def mostrar_estadisticas3(self, hp, attack, defense, speed):
+        self.label_51.setText(f"HP: {hp}")
+        self.label_52.setText(f"Ataque: {attack}")
+        self.label_53.setText(f"Defensa: {defense}")
+        self.label_54.setText(f"Velocidad: {speed}")
+    
+    def obtener_movimientos3(self, data):
+        self.comboBox_21.clear()
+        self.comboBox_22.clear()
+        self.comboBox_23.clear()
+        self.comboBox_24.clear()
+
+        if "moves" in data:
+            movimientos = [move["move"]["name"].capitalize() for move in data["moves"]]
+            self.comboBox_21.addItems(movimientos)
+            self.comboBox_22.addItems(movimientos)
+            self.comboBox_23.addItems(movimientos)
+            self.comboBox_24.addItems(movimientos)
+            
+    def actualizar_imagen_pokemon4(self, data):
+        sprites = data["sprites"]
+        image_url = sprites["front_default"]
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(requests.get(image_url).content)
+        
+        scene = QtWidgets.QGraphicsScene()
+        pixmap_item = QtWidgets.QGraphicsPixmapItem(pixmap)
+        scene.addItem(pixmap_item)
+
+        self.graphicsView_5.setScene(scene)
+        self.graphicsView_5.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+
+    def asignar_pokemon4(self):
+        url = "https://pokeapi.co/api/v2/pokemon?limit=151"
+        response = requests.get(url)
+        data = response.json()
+
+        nombre_pokemons = [pokemon["name"].capitalize() for pokemon in data["results"]]
+        
+        self.comboBox4 = QtWidgets.QComboBox(parent=None)
+        self.comboBox4.setObjectName("comboBox")
+        self.comboBox4.addItems(nombre_pokemons)
+
+        self.comboBox4.currentIndexChanged.connect(self.asignar_datos4)
+        
+        return self.comboBox4
+    
+    def asignar_datos4(self):
+        pokemon_seleccionado = self.comboBox4.currentText().lower()
+        url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_seleccionado}"
+        response = requests.get(url)
+        data = response.json()
+
+        self.comboBox_34.clear()  
+
+        if "abilities" in data:
+            habilidades3 = [ability["ability"]["name"].capitalize() for ability in data["abilities"]]
+            self.comboBox_34.addItems(habilidades3)
+        
+        self.obtener_movimientos4(data)
+
+        nivel = 100
+        hp, attack, defense, speed = self.obtener_estadisticas4(data,nivel)
+        self.mostrar_estadisticas4(hp, attack, defense, speed)
+
+        tipos = [tipo["type"]["name"].capitalize() for tipo in data["types"]]
+        tipo = '/'.join(tipos)
+
+        self.label_36.setText(str(nivel))
+        self.label_38.setText(tipo)
+
+
+        self.actualizar_imagen_pokemon4(data)
+    
+    def obtener_estadisticas4(self, data, nivel):
+        stats = data["stats"]
+        hp, attack, defense, speed = 0,0,0,0
+        for stat in stats:
+            base_stat = stat["base_stat"]
+            if stat["stat"]["name"] == "hp":
+                hp = ((base_stat * 2 * nivel) / 100) + nivel + 10
+            else:
+                if stat["stat"]["name"] == "attack":
+                    attack = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "defense":
+                    defense = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "speed":
+                    speed = ((base_stat * 2 * nivel) / 100) + 5
+        return hp, attack, defense, speed
+
+    def mostrar_estadisticas4(self, hp, attack, defense, speed):
+        self.label_41.setText(f"HP: {hp}")
+        self.label_42.setText(f"Ataque: {attack}")
+        self.label_43.setText(f"Defensa: {defense}")
+        self.label_44.setText(f"Velocidad: {speed}")
+    
+    def obtener_movimientos4(self, data):
+        self.comboBox_17.clear()
+        self.comboBox_18.clear()
+        self.comboBox_19.clear()
+        self.comboBox_20.clear()
+
+        if "moves" in data:
+            movimientos = [move["move"]["name"].capitalize() for move in data["moves"]]
+            self.comboBox_17.addItems(movimientos)
+            self.comboBox_18.addItems(movimientos)
+            self.comboBox_19.addItems(movimientos)
+            self.comboBox_20.addItems(movimientos)
+            
+    def actualizar_imagen_pokemon5(self, data):
+        sprites = data["sprites"]
+        image_url = sprites["front_default"]
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(requests.get(image_url).content)
+        
+        scene = QtWidgets.QGraphicsScene()
+        pixmap_item = QtWidgets.QGraphicsPixmapItem(pixmap)
+        scene.addItem(pixmap_item)
+
+        self.graphicsView_4.setScene(scene)
+        self.graphicsView_4.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+
+    def asignar_pokemon5(self):
+        url = "https://pokeapi.co/api/v2/pokemon?limit=151"
+        response = requests.get(url)
+        data = response.json()
+
+        nombre_pokemons = [pokemon["name"].capitalize() for pokemon in data["results"]]
+        
+        self.comboBox5 = QtWidgets.QComboBox(parent=None)
+        self.comboBox5.setObjectName("comboBox")
+        self.comboBox5.addItems(nombre_pokemons)
+
+        self.comboBox5.currentIndexChanged.connect(self.asignar_datos5)
+        
+        return self.comboBox5
+    
+    def asignar_datos5(self):
+        pokemon_seleccionado = self.comboBox5.currentText().lower()
+        url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_seleccionado}"
+        response = requests.get(url)
+        data = response.json()
+
+        self.comboBox_35.clear()  
+
+        if "abilities" in data:
+            habilidades3 = [ability["ability"]["name"].capitalize() for ability in data["abilities"]]
+            self.comboBox_35.addItems(habilidades3)
+        
+        self.obtener_movimientos5(data)
+
+        nivel = 100
+        hp, attack, defense, speed = self.obtener_estadisticas5(data,nivel)
+        self.mostrar_estadisticas5(hp, attack, defense, speed)
+
+        tipos = [tipo["type"]["name"].capitalize() for tipo in data["types"]]
+        tipo = '/'.join(tipos)
+
+        self.label_10.setText(str(nivel))
+        self.label_16.setText(tipo)
+
+
+        self.actualizar_imagen_pokemon5(data)
+    
+    def obtener_estadisticas5(self, data, nivel):
+        stats = data["stats"]
+        hp, attack, defense, speed = 0,0,0,0
+        for stat in stats:
+            base_stat = stat["base_stat"]
+            if stat["stat"]["name"] == "hp":
+                hp = ((base_stat * 2 * nivel) / 100) + nivel + 10
+            else:
+                if stat["stat"]["name"] == "attack":
+                    attack = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "defense":
+                    defense = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "speed":
+                    speed = ((base_stat * 2 * nivel) / 100) + 5
+        return hp, attack, defense, speed
+
+    def mostrar_estadisticas5(self, hp, attack, defense, speed):
+        self.label_31.setText(f"HP: {hp}")
+        self.label_32.setText(f"Ataque: {attack}")
+        self.label_33.setText(f"Defensa: {defense}")
+        self.label_34.setText(f"Velocidad: {speed}")
+    
+    def obtener_movimientos5(self, data):
+        self.comboBox_13.clear()
+        self.comboBox_14.clear()
+        self.comboBox_15.clear()
+        self.comboBox_16.clear()
+
+        if "moves" in data:
+            movimientos = [move["move"]["name"].capitalize() for move in data["moves"]]
+            self.comboBox_13.addItems(movimientos)
+            self.comboBox_14.addItems(movimientos)
+            self.comboBox_15.addItems(movimientos)
+            self.comboBox_16.addItems(movimientos)
+            
+    def actualizar_imagen_pokemon6(self, data):
+        sprites = data["sprites"]
+        image_url = sprites["front_default"]
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(requests.get(image_url).content)
+        
+        scene = QtWidgets.QGraphicsScene()
+        pixmap_item = QtWidgets.QGraphicsPixmapItem(pixmap)
+        scene.addItem(pixmap_item)
+
+        self.graphicsView_2.setScene(scene)
+        self.graphicsView_2.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+
+    def asignar_pokemon6(self):
+        url = "https://pokeapi.co/api/v2/pokemon?limit=151"
+        response = requests.get(url)
+        data = response.json()
+
+        nombre_pokemons = [pokemon["name"].capitalize() for pokemon in data["results"]]
+        
+        self.comboBox6 = QtWidgets.QComboBox(parent=None)
+        self.comboBox6.setObjectName("comboBox")
+        self.comboBox6.addItems(nombre_pokemons)
+
+        self.comboBox6.currentIndexChanged.connect(self.asignar_datos6)
+        
+        return self.comboBox6
+    
+    def asignar_datos6(self):
+        pokemon_seleccionado = self.comboBox6.currentText().lower()
+        url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_seleccionado}"
+        response = requests.get(url)
+        data = response.json()
+
+        self.comboBox_36.clear()  
+
+        if "abilities" in data:
+            habilidades6 = [ability["ability"]["name"].capitalize() for ability in data["abilities"]]
+            self.comboBox_36.addItems(habilidades6)
+        
+        self.obtener_movimientos6(data)
+
+        nivel = 100
+        hp, attack, defense, speed = self.obtener_estadisticas6(data,nivel)
+        self.mostrar_estadisticas6(hp, attack, defense, speed)
+
+        tipos = [tipo["type"]["name"].capitalize() for tipo in data["types"]]
+        tipo = '/'.join(tipos)
+
+        self.label_6.setText(str(nivel))
+        self.label_8.setText(tipo)
+
+
+        self.actualizar_imagen_pokemon6(data)
+    
+    def obtener_estadisticas6(self, data, nivel):
+        stats = data["stats"]
+        hp, attack, defense, speed = 0,0,0,0
+        for stat in stats:
+            base_stat = stat["base_stat"]
+            if stat["stat"]["name"] == "hp":
+                hp = ((base_stat * 2 * nivel) / 100) + nivel + 10
+            else:
+                if stat["stat"]["name"] == "attack":
+                    attack = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "defense":
+                    defense = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "speed":
+                    speed = ((base_stat * 2 * nivel) / 100) + 5
+        return hp, attack, defense, speed
+
+    def mostrar_estadisticas6(self, hp, attack, defense, speed):
+        self.label_19.setText(f"HP: {hp}")
+        self.label_20.setText(f"Ataque: {attack}")
+        self.label_21.setText(f"Defensa: {defense}")
+        self.label_22.setText(f"Velocidad: {speed}")
+    
+    def obtener_movimientos6(self, data):
+        self.comboBox_5.clear()
+        self.comboBox_6.clear()
+        self.comboBox_7.clear()
+        self.comboBox_8.clear()
+
+        if "moves" in data:
+            movimientos = [move["move"]["name"].capitalize() for move in data["moves"]]
+            self.comboBox_5.addItems(movimientos)
+            self.comboBox_6.addItems(movimientos)
+            self.comboBox_7.addItems(movimientos)
+            self.comboBox_8.addItems(movimientos)
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1610, 873)
+        MainWindow.resize(1610, 775)
         MainWindow.setStyleSheet("background-color: rgb(170, 85, 255);")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setStyleSheet("background-color: rgb(255, 251, 207);")
@@ -123,6 +588,12 @@ class Ui_MainWindow(object):
         self.volverLobby.setStyleSheet("background-color: rgb(206, 206, 206);")
         self.volverLobby.setObjectName("volverLobby")
         self.verticalLayout_5.addWidget(self.volverLobby)
+        self.guardarDatos = QtWidgets.QPushButton(parent=self.horizontalWidget_2)
+        self.guardarDatos.setStyleSheet("background-color: rgb(206, 206, 206);")
+        self.guardarDatos.setObjectName("guardarDatos")
+        self.guardarDatos.setText("Guardar")
+        self.verticalLayout_5.addWidget(self.guardarDatos)
+        self.guardarDatos.clicked.connect(self.guardar_en_json)
         self.verticalLayout_7 = QtWidgets.QVBoxLayout()
         self.verticalLayout_7.setContentsMargins(-1, -1, -1, 20)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
@@ -134,10 +605,13 @@ class Ui_MainWindow(object):
         self.lineEdit_7 = QtWidgets.QLineEdit(parent=self.verticalWidget_13)
         self.lineEdit_7.setObjectName("lineEdit_7")
         self.verticalLayout_36.addWidget(self.lineEdit_7)
+        self.pushButton = QtWidgets.QPushButton(parent=self.verticalWidget_13)
+        self.pushButton.setObjectName("pushButton")
+        self.verticalLayout_36.addWidget(self.pushButton)
         self.horizontalLayout_16 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_16.setObjectName("horizontalLayout_16")
         self.graphicsView = QtWidgets.QGraphicsView(parent=self.verticalWidget_13)
-        self.graphicsView.setStyleSheet("border-image: url(:/bulbasur.png);")
+        self.graphicsView.setStyleSheet("")
         self.graphicsView.setObjectName("graphicsView")
         self.horizontalLayout_16.addWidget(self.graphicsView)
         self.verticalLayout_36.addLayout(self.horizontalLayout_16)
@@ -150,10 +624,13 @@ class Ui_MainWindow(object):
         self.lineEdit_10 = QtWidgets.QLineEdit(parent=self.verticalWidget_16)
         self.lineEdit_10.setObjectName("lineEdit_10")
         self.verticalLayout_39.addWidget(self.lineEdit_10)
+        self.pushButton_2 = QtWidgets.QPushButton(parent=self.verticalWidget_16)
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.verticalLayout_39.addWidget(self.pushButton_2)
         self.horizontalLayout_19 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_19.setObjectName("horizontalLayout_19")
         self.graphicsView_11 = QtWidgets.QGraphicsView(parent=self.verticalWidget_16)
-        self.graphicsView_11.setStyleSheet("border-image: url(:/bulbasur.png);")
+        self.graphicsView_11.setStyleSheet("")
         self.graphicsView_11.setObjectName("graphicsView_11")
         self.horizontalLayout_19.addWidget(self.graphicsView_11)
         self.verticalLayout_39.addLayout(self.horizontalLayout_19)
@@ -166,10 +643,13 @@ class Ui_MainWindow(object):
         self.lineEdit_12 = QtWidgets.QLineEdit(parent=self.verticalWidget_26)
         self.lineEdit_12.setObjectName("lineEdit_12")
         self.verticalLayout_68.addWidget(self.lineEdit_12)
+        self.pushButton_3 = QtWidgets.QPushButton(parent=self.verticalWidget_26)
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.verticalLayout_68.addWidget(self.pushButton_3)
         self.horizontalLayout_29 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_29.setObjectName("horizontalLayout_29")
         self.graphicsView_13 = QtWidgets.QGraphicsView(parent=self.verticalWidget_26)
-        self.graphicsView_13.setStyleSheet("border-image: url(:/bulbasur.png);")
+        self.graphicsView_13.setStyleSheet("")
         self.graphicsView_13.setObjectName("graphicsView_13")
         self.horizontalLayout_29.addWidget(self.graphicsView_13)
         self.verticalLayout_68.addLayout(self.horizontalLayout_29)
@@ -182,46 +662,17 @@ class Ui_MainWindow(object):
         self.lineEdit_11 = QtWidgets.QLineEdit(parent=self.verticalWidget_25)
         self.lineEdit_11.setObjectName("lineEdit_11")
         self.verticalLayout_67.addWidget(self.lineEdit_11)
+        self.pushButton_4 = QtWidgets.QPushButton(parent=self.verticalWidget_25)
+        self.pushButton_4.setObjectName("pushButton_4")
+        self.verticalLayout_67.addWidget(self.pushButton_4)
         self.horizontalLayout_28 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_28.setObjectName("horizontalLayout_28")
         self.graphicsView_12 = QtWidgets.QGraphicsView(parent=self.verticalWidget_25)
-        self.graphicsView_12.setStyleSheet("border-image: url(:/bulbasur.png);")
+        self.graphicsView_12.setStyleSheet("")
         self.graphicsView_12.setObjectName("graphicsView_12")
         self.horizontalLayout_28.addWidget(self.graphicsView_12)
         self.verticalLayout_67.addLayout(self.horizontalLayout_28)
         self.verticalLayout_7.addWidget(self.verticalWidget_25)
-        self.verticalWidget_15 = QtWidgets.QWidget(parent=self.horizontalWidget_2)
-        self.verticalWidget_15.setStyleSheet("background-color: rgb(234, 234, 234);")
-        self.verticalWidget_15.setObjectName("verticalWidget_15")
-        self.verticalLayout_38 = QtWidgets.QVBoxLayout(self.verticalWidget_15)
-        self.verticalLayout_38.setObjectName("verticalLayout_38")
-        self.lineEdit_9 = QtWidgets.QLineEdit(parent=self.verticalWidget_15)
-        self.lineEdit_9.setObjectName("lineEdit_9")
-        self.verticalLayout_38.addWidget(self.lineEdit_9)
-        self.horizontalLayout_18 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_18.setObjectName("horizontalLayout_18")
-        self.graphicsView_10 = QtWidgets.QGraphicsView(parent=self.verticalWidget_15)
-        self.graphicsView_10.setStyleSheet("border-image: url(:/bulbasur.png);")
-        self.graphicsView_10.setObjectName("graphicsView_10")
-        self.horizontalLayout_18.addWidget(self.graphicsView_10)
-        self.verticalLayout_38.addLayout(self.horizontalLayout_18)
-        self.verticalLayout_7.addWidget(self.verticalWidget_15)
-        self.verticalWidget_14 = QtWidgets.QWidget(parent=self.horizontalWidget_2)
-        self.verticalWidget_14.setStyleSheet("background-color: rgb(234, 234, 234);")
-        self.verticalWidget_14.setObjectName("verticalWidget_14")
-        self.verticalLayout_37 = QtWidgets.QVBoxLayout(self.verticalWidget_14)
-        self.verticalLayout_37.setObjectName("verticalLayout_37")
-        self.lineEdit_8 = QtWidgets.QLineEdit(parent=self.verticalWidget_14)
-        self.lineEdit_8.setObjectName("lineEdit_8")
-        self.verticalLayout_37.addWidget(self.lineEdit_8)
-        self.horizontalLayout_17 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_17.setObjectName("horizontalLayout_17")
-        self.graphicsView_9 = QtWidgets.QGraphicsView(parent=self.verticalWidget_14)
-        self.graphicsView_9.setStyleSheet("border-image: url(:/bulbasur.png);")
-        self.graphicsView_9.setObjectName("graphicsView_9")
-        self.horizontalLayout_17.addWidget(self.graphicsView_9)
-        self.verticalLayout_37.addLayout(self.horizontalLayout_17)
-        self.verticalLayout_7.addWidget(self.verticalWidget_14)
         self.verticalLayout_5.addLayout(self.verticalLayout_7)
         self.horizontalLayout_5.addWidget(self.horizontalWidget_2)
         self.horizontalLayout_7.addLayout(self.horizontalLayout_5)
@@ -237,7 +688,7 @@ class Ui_MainWindow(object):
         self.scrollArea_8.setWidgetResizable(True)
         self.scrollArea_8.setObjectName("scrollArea_8")
         self.scrollAreaWidgetContents_8 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_8.setGeometry(QtCore.QRect(0, 0, 203, 833))
+        self.scrollAreaWidgetContents_8.setGeometry(QtCore.QRect(0, 0, 203, 735))
         self.scrollAreaWidgetContents_8.setObjectName("scrollAreaWidgetContents_8")
         self.verticalLayout_61 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_8)
         self.verticalLayout_61.setObjectName("verticalLayout_61")
@@ -250,7 +701,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_62.setObjectName("verticalLayout_62")
         self.graphicsView_8 = QtWidgets.QGraphicsView(parent=self.horizontalWidget_15)
         self.graphicsView_8.setMaximumSize(QtCore.QSize(16777215, 350))
-        self.graphicsView_8.setStyleSheet("border-image: url(:/bulbasur.png);")
+        self.graphicsView_8.setStyleSheet("")
         self.graphicsView_8.setObjectName("graphicsView_8")
         self.verticalLayout_62.addWidget(self.graphicsView_8)
         self.verticalLayout_62.addWidget(self.asignar_pokemon())
@@ -313,31 +764,15 @@ class Ui_MainWindow(object):
         self.verticalLayout_62.addWidget(self.verticalWidget_24)
         self.comboBox_29 = QtWidgets.QComboBox(parent=self.horizontalWidget_15)
         self.comboBox_29.setObjectName("comboBox_29")
-        self.comboBox_29.addItem("")
-        self.comboBox_29.addItem("")
-        self.comboBox_29.addItem("")
-        self.comboBox_29.addItem("")
         self.verticalLayout_62.addWidget(self.comboBox_29)
         self.comboBox_30 = QtWidgets.QComboBox(parent=self.horizontalWidget_15)
         self.comboBox_30.setObjectName("comboBox_30")
-        self.comboBox_30.addItem("")
-        self.comboBox_30.addItem("")
-        self.comboBox_30.addItem("")
-        self.comboBox_30.addItem("")
         self.verticalLayout_62.addWidget(self.comboBox_30)
         self.comboBox_31 = QtWidgets.QComboBox(parent=self.horizontalWidget_15)
         self.comboBox_31.setObjectName("comboBox_31")
-        self.comboBox_31.addItem("")
-        self.comboBox_31.addItem("")
-        self.comboBox_31.addItem("")
-        self.comboBox_31.addItem("")
         self.verticalLayout_62.addWidget(self.comboBox_31)
         self.comboBox_32 = QtWidgets.QComboBox(parent=self.horizontalWidget_15)
         self.comboBox_32.setObjectName("comboBox_32")
-        self.comboBox_32.addItem("")
-        self.comboBox_32.addItem("")
-        self.comboBox_32.addItem("")
-        self.comboBox_32.addItem("")
         self.verticalLayout_62.addWidget(self.comboBox_32)
         self.horizontalLayout_26.addLayout(self.verticalLayout_62)
         self.verticalLayout_61.addWidget(self.horizontalWidget_15)
@@ -356,7 +791,7 @@ class Ui_MainWindow(object):
         self.scrollArea_7.setWidgetResizable(True)
         self.scrollArea_7.setObjectName("scrollArea_7")
         self.scrollAreaWidgetContents_7 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_7.setGeometry(QtCore.QRect(0, 0, 202, 833))
+        self.scrollAreaWidgetContents_7.setGeometry(QtCore.QRect(0, 0, 202, 735))
         self.scrollAreaWidgetContents_7.setObjectName("scrollAreaWidgetContents_7")
         self.verticalLayout_54 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_7)
         self.verticalLayout_54.setObjectName("verticalLayout_54")
@@ -369,12 +804,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_55.setObjectName("verticalLayout_55")
         self.graphicsView_7 = QtWidgets.QGraphicsView(parent=self.horizontalWidget_13)
         self.graphicsView_7.setMaximumSize(QtCore.QSize(16777215, 350))
-        self.graphicsView_7.setStyleSheet("border-image: url(:/bulbasur.png);")
+        self.graphicsView_7.setStyleSheet("")
         self.graphicsView_7.setObjectName("graphicsView_7")
         self.verticalLayout_55.addWidget(self.graphicsView_7)
-        self.comboBox_2 = QtWidgets.QComboBox(parent=self.horizontalWidget_13)
-        self.comboBox_2.setObjectName("comboBox_2")
-        self.verticalLayout_55.addWidget(self.comboBox_2)
+        self.verticalLayout_55.addWidget(self.asignar_pokemon2())
         self.horizontalWidget_14 = QtWidgets.QWidget(parent=self.horizontalWidget_13)
         self.horizontalWidget_14.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_14.setObjectName("horizontalWidget_14")
@@ -409,10 +842,9 @@ class Ui_MainWindow(object):
         self.label_59 = QtWidgets.QLabel(parent=self.widget_6)
         self.label_59.setObjectName("label_59")
         self.verticalLayout_58.addWidget(self.label_59)
-        self.label_60 = QtWidgets.QLabel(parent=self.widget_6)
-        self.label_60.setText("")
-        self.label_60.setObjectName("label_60")
-        self.verticalLayout_58.addWidget(self.label_60)
+        self.comboBox_12 = QtWidgets.QComboBox(parent=self.widget_6)
+        self.comboBox_12.setObjectName("comboBox_12")
+        self.verticalLayout_58.addWidget(self.comboBox_12)
         self.verticalLayout_55.addWidget(self.widget_6)
         self.verticalWidget_22 = QtWidgets.QWidget(parent=self.horizontalWidget_13)
         self.verticalWidget_22.setStyleSheet("background-color: rgb(232, 232, 232);")
@@ -435,31 +867,15 @@ class Ui_MainWindow(object):
         self.verticalLayout_55.addWidget(self.verticalWidget_22)
         self.comboBox_25 = QtWidgets.QComboBox(parent=self.horizontalWidget_13)
         self.comboBox_25.setObjectName("comboBox_25")
-        self.comboBox_25.addItem("")
-        self.comboBox_25.addItem("")
-        self.comboBox_25.addItem("")
-        self.comboBox_25.addItem("")
         self.verticalLayout_55.addWidget(self.comboBox_25)
         self.comboBox_26 = QtWidgets.QComboBox(parent=self.horizontalWidget_13)
         self.comboBox_26.setObjectName("comboBox_26")
-        self.comboBox_26.addItem("")
-        self.comboBox_26.addItem("")
-        self.comboBox_26.addItem("")
-        self.comboBox_26.addItem("")
         self.verticalLayout_55.addWidget(self.comboBox_26)
         self.comboBox_27 = QtWidgets.QComboBox(parent=self.horizontalWidget_13)
         self.comboBox_27.setObjectName("comboBox_27")
-        self.comboBox_27.addItem("")
-        self.comboBox_27.addItem("")
-        self.comboBox_27.addItem("")
-        self.comboBox_27.addItem("")
         self.verticalLayout_55.addWidget(self.comboBox_27)
         self.comboBox_28 = QtWidgets.QComboBox(parent=self.horizontalWidget_13)
         self.comboBox_28.setObjectName("comboBox_28")
-        self.comboBox_28.addItem("")
-        self.comboBox_28.addItem("")
-        self.comboBox_28.addItem("")
-        self.comboBox_28.addItem("")
         self.verticalLayout_55.addWidget(self.comboBox_28)
         self.horizontalLayout_24.addLayout(self.verticalLayout_55)
         self.verticalLayout_54.addWidget(self.horizontalWidget_13)
@@ -478,7 +894,7 @@ class Ui_MainWindow(object):
         self.scrollArea_6.setWidgetResizable(True)
         self.scrollArea_6.setObjectName("scrollArea_6")
         self.scrollAreaWidgetContents_6 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_6.setGeometry(QtCore.QRect(0, 0, 202, 833))
+        self.scrollAreaWidgetContents_6.setGeometry(QtCore.QRect(0, 0, 202, 735))
         self.scrollAreaWidgetContents_6.setObjectName("scrollAreaWidgetContents_6")
         self.verticalLayout_47 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_6)
         self.verticalLayout_47.setObjectName("verticalLayout_47")
@@ -491,12 +907,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_48.setObjectName("verticalLayout_48")
         self.graphicsView_6 = QtWidgets.QGraphicsView(parent=self.horizontalWidget_11)
         self.graphicsView_6.setMaximumSize(QtCore.QSize(16777215, 350))
-        self.graphicsView_6.setStyleSheet("border-image: url(:/bulbasur.png);")
+        self.graphicsView_6.setStyleSheet("")
         self.graphicsView_6.setObjectName("graphicsView_6")
         self.verticalLayout_48.addWidget(self.graphicsView_6)
-        self.comboBox_3 = QtWidgets.QComboBox(parent=self.horizontalWidget_11)
-        self.comboBox_3.setObjectName("comboBox_3")
-        self.verticalLayout_48.addWidget(self.comboBox_3)
+        self.verticalLayout_48.addWidget(self.asignar_pokemon3())
         self.horizontalWidget_12 = QtWidgets.QWidget(parent=self.horizontalWidget_11)
         self.horizontalWidget_12.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_12.setObjectName("horizontalWidget_12")
@@ -531,10 +945,9 @@ class Ui_MainWindow(object):
         self.label_49 = QtWidgets.QLabel(parent=self.widget_5)
         self.label_49.setObjectName("label_49")
         self.verticalLayout_51.addWidget(self.label_49)
-        self.label_50 = QtWidgets.QLabel(parent=self.widget_5)
-        self.label_50.setText("")
-        self.label_50.setObjectName("label_50")
-        self.verticalLayout_51.addWidget(self.label_50)
+        self.comboBox_33 = QtWidgets.QComboBox(parent=self.widget_5)
+        self.comboBox_33.setObjectName("comboBox_33")
+        self.verticalLayout_51.addWidget(self.comboBox_33)
         self.verticalLayout_48.addWidget(self.widget_5)
         self.verticalWidget_20 = QtWidgets.QWidget(parent=self.horizontalWidget_11)
         self.verticalWidget_20.setStyleSheet("background-color: rgb(232, 232, 232);")
@@ -557,31 +970,15 @@ class Ui_MainWindow(object):
         self.verticalLayout_48.addWidget(self.verticalWidget_20)
         self.comboBox_21 = QtWidgets.QComboBox(parent=self.horizontalWidget_11)
         self.comboBox_21.setObjectName("comboBox_21")
-        self.comboBox_21.addItem("")
-        self.comboBox_21.addItem("")
-        self.comboBox_21.addItem("")
-        self.comboBox_21.addItem("")
         self.verticalLayout_48.addWidget(self.comboBox_21)
         self.comboBox_22 = QtWidgets.QComboBox(parent=self.horizontalWidget_11)
         self.comboBox_22.setObjectName("comboBox_22")
-        self.comboBox_22.addItem("")
-        self.comboBox_22.addItem("")
-        self.comboBox_22.addItem("")
-        self.comboBox_22.addItem("")
         self.verticalLayout_48.addWidget(self.comboBox_22)
         self.comboBox_23 = QtWidgets.QComboBox(parent=self.horizontalWidget_11)
         self.comboBox_23.setObjectName("comboBox_23")
-        self.comboBox_23.addItem("")
-        self.comboBox_23.addItem("")
-        self.comboBox_23.addItem("")
-        self.comboBox_23.addItem("")
         self.verticalLayout_48.addWidget(self.comboBox_23)
         self.comboBox_24 = QtWidgets.QComboBox(parent=self.horizontalWidget_11)
         self.comboBox_24.setObjectName("comboBox_24")
-        self.comboBox_24.addItem("")
-        self.comboBox_24.addItem("")
-        self.comboBox_24.addItem("")
-        self.comboBox_24.addItem("")
         self.verticalLayout_48.addWidget(self.comboBox_24)
         self.horizontalLayout_22.addLayout(self.verticalLayout_48)
         self.verticalLayout_47.addWidget(self.horizontalWidget_11)
@@ -600,7 +997,7 @@ class Ui_MainWindow(object):
         self.scrollArea_5.setWidgetResizable(True)
         self.scrollArea_5.setObjectName("scrollArea_5")
         self.scrollAreaWidgetContents_5 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 202, 833))
+        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 202, 735))
         self.scrollAreaWidgetContents_5.setObjectName("scrollAreaWidgetContents_5")
         self.verticalLayout_40 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_5)
         self.verticalLayout_40.setObjectName("verticalLayout_40")
@@ -613,12 +1010,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_41.setObjectName("verticalLayout_41")
         self.graphicsView_5 = QtWidgets.QGraphicsView(parent=self.horizontalWidget_9)
         self.graphicsView_5.setMaximumSize(QtCore.QSize(16777215, 350))
-        self.graphicsView_5.setStyleSheet("border-image: url(:/bulbasur.png);")
+        self.graphicsView_5.setStyleSheet("")
         self.graphicsView_5.setObjectName("graphicsView_5")
         self.verticalLayout_41.addWidget(self.graphicsView_5)
-        self.comboBox_4 = QtWidgets.QComboBox(parent=self.horizontalWidget_9)
-        self.comboBox_4.setObjectName("comboBox_4")
-        self.verticalLayout_41.addWidget(self.comboBox_4)
+        self.verticalLayout_41.addWidget(self.asignar_pokemon4())
         self.horizontalWidget_10 = QtWidgets.QWidget(parent=self.horizontalWidget_9)
         self.horizontalWidget_10.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_10.setObjectName("horizontalWidget_10")
@@ -653,10 +1048,9 @@ class Ui_MainWindow(object):
         self.label_39 = QtWidgets.QLabel(parent=self.widget_4)
         self.label_39.setObjectName("label_39")
         self.verticalLayout_44.addWidget(self.label_39)
-        self.label_40 = QtWidgets.QLabel(parent=self.widget_4)
-        self.label_40.setText("")
-        self.label_40.setObjectName("label_40")
-        self.verticalLayout_44.addWidget(self.label_40)
+        self.comboBox_34 = QtWidgets.QComboBox(parent=self.widget_4)
+        self.comboBox_34.setObjectName("comboBox_34")
+        self.verticalLayout_44.addWidget(self.comboBox_34)
         self.verticalLayout_41.addWidget(self.widget_4)
         self.verticalWidget_18 = QtWidgets.QWidget(parent=self.horizontalWidget_9)
         self.verticalWidget_18.setStyleSheet("background-color: rgb(232, 232, 232);")
@@ -679,31 +1073,15 @@ class Ui_MainWindow(object):
         self.verticalLayout_41.addWidget(self.verticalWidget_18)
         self.comboBox_17 = QtWidgets.QComboBox(parent=self.horizontalWidget_9)
         self.comboBox_17.setObjectName("comboBox_17")
-        self.comboBox_17.addItem("")
-        self.comboBox_17.addItem("")
-        self.comboBox_17.addItem("")
-        self.comboBox_17.addItem("")
         self.verticalLayout_41.addWidget(self.comboBox_17)
         self.comboBox_18 = QtWidgets.QComboBox(parent=self.horizontalWidget_9)
         self.comboBox_18.setObjectName("comboBox_18")
-        self.comboBox_18.addItem("")
-        self.comboBox_18.addItem("")
-        self.comboBox_18.addItem("")
-        self.comboBox_18.addItem("")
         self.verticalLayout_41.addWidget(self.comboBox_18)
         self.comboBox_19 = QtWidgets.QComboBox(parent=self.horizontalWidget_9)
         self.comboBox_19.setObjectName("comboBox_19")
-        self.comboBox_19.addItem("")
-        self.comboBox_19.addItem("")
-        self.comboBox_19.addItem("")
-        self.comboBox_19.addItem("")
         self.verticalLayout_41.addWidget(self.comboBox_19)
         self.comboBox_20 = QtWidgets.QComboBox(parent=self.horizontalWidget_9)
         self.comboBox_20.setObjectName("comboBox_20")
-        self.comboBox_20.addItem("")
-        self.comboBox_20.addItem("")
-        self.comboBox_20.addItem("")
-        self.comboBox_20.addItem("")
         self.verticalLayout_41.addWidget(self.comboBox_20)
         self.horizontalLayout_20.addLayout(self.verticalLayout_41)
         self.verticalLayout_40.addWidget(self.horizontalWidget_9)
@@ -722,7 +1100,7 @@ class Ui_MainWindow(object):
         self.scrollArea_4.setWidgetResizable(True)
         self.scrollArea_4.setObjectName("scrollArea_4")
         self.scrollAreaWidgetContents_4 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 203, 833))
+        self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 203, 735))
         self.scrollAreaWidgetContents_4.setObjectName("scrollAreaWidgetContents_4")
         self.verticalLayout_30 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_4)
         self.verticalLayout_30.setObjectName("verticalLayout_30")
@@ -735,12 +1113,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_31.setObjectName("verticalLayout_31")
         self.graphicsView_4 = QtWidgets.QGraphicsView(parent=self.horizontalWidget_4)
         self.graphicsView_4.setMaximumSize(QtCore.QSize(16777215, 350))
-        self.graphicsView_4.setStyleSheet("border-image: url(:/bulbasur.png);")
+        self.graphicsView_4.setStyleSheet("")
         self.graphicsView_4.setObjectName("graphicsView_4")
         self.verticalLayout_31.addWidget(self.graphicsView_4)
-        self.comboBox_9 = QtWidgets.QComboBox(parent=self.horizontalWidget_4)
-        self.comboBox_9.setObjectName("comboBox_9")
-        self.verticalLayout_31.addWidget(self.comboBox_9)
+        self.verticalLayout_31.addWidget(self.asignar_pokemon5())
         self.horizontalWidget_8 = QtWidgets.QWidget(parent=self.horizontalWidget_4)
         self.horizontalWidget_8.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_8.setObjectName("horizontalWidget_8")
@@ -775,10 +1151,9 @@ class Ui_MainWindow(object):
         self.label_17 = QtWidgets.QLabel(parent=self.widget_3)
         self.label_17.setObjectName("label_17")
         self.verticalLayout_34.addWidget(self.label_17)
-        self.label_18 = QtWidgets.QLabel(parent=self.widget_3)
-        self.label_18.setText("")
-        self.label_18.setObjectName("label_18")
-        self.verticalLayout_34.addWidget(self.label_18)
+        self.comboBox_35 = QtWidgets.QComboBox(parent=self.widget_3)
+        self.comboBox_35.setObjectName("comboBox_35")
+        self.verticalLayout_34.addWidget(self.comboBox_35)
         self.verticalLayout_31.addWidget(self.widget_3)
         self.verticalWidget_12 = QtWidgets.QWidget(parent=self.horizontalWidget_4)
         self.verticalWidget_12.setStyleSheet("background-color: rgb(232, 232, 232);")
@@ -801,31 +1176,15 @@ class Ui_MainWindow(object):
         self.verticalLayout_31.addWidget(self.verticalWidget_12)
         self.comboBox_13 = QtWidgets.QComboBox(parent=self.horizontalWidget_4)
         self.comboBox_13.setObjectName("comboBox_13")
-        self.comboBox_13.addItem("")
-        self.comboBox_13.addItem("")
-        self.comboBox_13.addItem("")
-        self.comboBox_13.addItem("")
         self.verticalLayout_31.addWidget(self.comboBox_13)
         self.comboBox_14 = QtWidgets.QComboBox(parent=self.horizontalWidget_4)
         self.comboBox_14.setObjectName("comboBox_14")
-        self.comboBox_14.addItem("")
-        self.comboBox_14.addItem("")
-        self.comboBox_14.addItem("")
-        self.comboBox_14.addItem("")
         self.verticalLayout_31.addWidget(self.comboBox_14)
         self.comboBox_15 = QtWidgets.QComboBox(parent=self.horizontalWidget_4)
         self.comboBox_15.setObjectName("comboBox_15")
-        self.comboBox_15.addItem("")
-        self.comboBox_15.addItem("")
-        self.comboBox_15.addItem("")
-        self.comboBox_15.addItem("")
         self.verticalLayout_31.addWidget(self.comboBox_15)
         self.comboBox_16 = QtWidgets.QComboBox(parent=self.horizontalWidget_4)
         self.comboBox_16.setObjectName("comboBox_16")
-        self.comboBox_16.addItem("")
-        self.comboBox_16.addItem("")
-        self.comboBox_16.addItem("")
-        self.comboBox_16.addItem("")
         self.verticalLayout_31.addWidget(self.comboBox_16)
         self.horizontalLayout_14.addLayout(self.verticalLayout_31)
         self.verticalLayout_30.addWidget(self.horizontalWidget_4)
@@ -844,7 +1203,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 202, 833))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 202, 735))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
@@ -857,12 +1216,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_11.setObjectName("verticalLayout_11")
         self.graphicsView_2 = QtWidgets.QGraphicsView(parent=self.horizontalWidget_3)
         self.graphicsView_2.setMaximumSize(QtCore.QSize(16777215, 350))
-        self.graphicsView_2.setStyleSheet("border-image: url(:/bulbasur.png);")
+        self.graphicsView_2.setStyleSheet("")
         self.graphicsView_2.setObjectName("graphicsView_2")
         self.verticalLayout_11.addWidget(self.graphicsView_2)
-        self.comboBox_10 = QtWidgets.QComboBox(parent=self.horizontalWidget_3)
-        self.comboBox_10.setObjectName("comboBox_10")
-        self.verticalLayout_11.addWidget(self.comboBox_10)
+        self.verticalLayout_11.addWidget(self.asignar_pokemon6())
         self.horizontalWidget_5 = QtWidgets.QWidget(parent=self.horizontalWidget_3)
         self.horizontalWidget_5.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_5.setObjectName("horizontalWidget_5")
@@ -897,10 +1254,9 @@ class Ui_MainWindow(object):
         self.label_11 = QtWidgets.QLabel(parent=self.widget)
         self.label_11.setObjectName("label_11")
         self.verticalLayout_14.addWidget(self.label_11)
-        self.label_12 = QtWidgets.QLabel(parent=self.widget)
-        self.label_12.setText("")
-        self.label_12.setObjectName("label_12")
-        self.verticalLayout_14.addWidget(self.label_12)
+        self.comboBox_36 = QtWidgets.QComboBox(parent=self.widget)
+        self.comboBox_36.setObjectName("comboBox_36")
+        self.verticalLayout_14.addWidget(self.comboBox_36)
         self.verticalLayout_11.addWidget(self.widget)
         self.verticalWidget_5 = QtWidgets.QWidget(parent=self.horizontalWidget_3)
         self.verticalWidget_5.setStyleSheet("background-color: rgb(232, 232, 232);")
@@ -923,31 +1279,15 @@ class Ui_MainWindow(object):
         self.verticalLayout_11.addWidget(self.verticalWidget_5)
         self.comboBox_5 = QtWidgets.QComboBox(parent=self.horizontalWidget_3)
         self.comboBox_5.setObjectName("comboBox_5")
-        self.comboBox_5.addItem("")
-        self.comboBox_5.addItem("")
-        self.comboBox_5.addItem("")
-        self.comboBox_5.addItem("")
         self.verticalLayout_11.addWidget(self.comboBox_5)
         self.comboBox_6 = QtWidgets.QComboBox(parent=self.horizontalWidget_3)
         self.comboBox_6.setObjectName("comboBox_6")
-        self.comboBox_6.addItem("")
-        self.comboBox_6.addItem("")
-        self.comboBox_6.addItem("")
-        self.comboBox_6.addItem("")
         self.verticalLayout_11.addWidget(self.comboBox_6)
         self.comboBox_7 = QtWidgets.QComboBox(parent=self.horizontalWidget_3)
         self.comboBox_7.setObjectName("comboBox_7")
-        self.comboBox_7.addItem("")
-        self.comboBox_7.addItem("")
-        self.comboBox_7.addItem("")
-        self.comboBox_7.addItem("")
         self.verticalLayout_11.addWidget(self.comboBox_7)
         self.comboBox_8 = QtWidgets.QComboBox(parent=self.horizontalWidget_3)
         self.comboBox_8.setObjectName("comboBox_8")
-        self.comboBox_8.addItem("")
-        self.comboBox_8.addItem("")
-        self.comboBox_8.addItem("")
-        self.comboBox_8.addItem("")
         self.verticalLayout_11.addWidget(self.comboBox_8)
         self.horizontalLayout_3.addLayout(self.verticalLayout_11)
         self.verticalLayout_10.addWidget(self.horizontalWidget_3)
@@ -959,19 +1299,19 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-    
-
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.volverLobby.setText(_translate("MainWindow", "Volver a Lobby"))
         self.lineEdit_7.setText(_translate("MainWindow", "Equipo 1"))
+        self.pushButton.setText(_translate("MainWindow", "Cambiar de equipo"))
         self.lineEdit_10.setText(_translate("MainWindow", "Equipo 2"))
+        self.pushButton_2.setText(_translate("MainWindow", "Cambiar de equipo"))
         self.lineEdit_12.setText(_translate("MainWindow", "Equipo 3"))
+        self.pushButton_3.setText(_translate("MainWindow", "Cambiar de equipo"))
         self.lineEdit_11.setText(_translate("MainWindow", "Equipo 4"))
-        self.lineEdit_9.setText(_translate("MainWindow", "Equipo 5"))
-        self.lineEdit_8.setText(_translate("MainWindow", "Equipo 6"))
+        self.pushButton_4.setText(_translate("MainWindow", "Cambiar de equipo"))
         self.label_65.setText(_translate("MainWindow", "Level"))
         self.label_67.setText(_translate("MainWindow", "Type"))
         self.label_69.setText(_translate("MainWindow", "Ability"))
@@ -979,22 +1319,6 @@ class Ui_MainWindow(object):
         self.label_72.setText(_translate("MainWindow", "Ataque: "))
         self.label_73.setText(_translate("MainWindow", "Defensa: "))
         self.label_74.setText(_translate("MainWindow", "Velocidad: "))
-        self.comboBox_29.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_29.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_29.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_29.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_30.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_30.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_30.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_30.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_31.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_31.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_31.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_31.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_32.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_32.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_32.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_32.setItemText(3, _translate("MainWindow", "Ataque4"))
         self.label_55.setText(_translate("MainWindow", "Level"))
         self.label_57.setText(_translate("MainWindow", "Type"))
         self.label_59.setText(_translate("MainWindow", "Ability"))
@@ -1002,22 +1326,6 @@ class Ui_MainWindow(object):
         self.label_62.setText(_translate("MainWindow", "Ataque: "))
         self.label_63.setText(_translate("MainWindow", "Defensa: "))
         self.label_64.setText(_translate("MainWindow", "Velocidad: "))
-        self.comboBox_25.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_25.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_25.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_25.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_26.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_26.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_26.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_26.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_27.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_27.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_27.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_27.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_28.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_28.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_28.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_28.setItemText(3, _translate("MainWindow", "Ataque4"))
         self.label_45.setText(_translate("MainWindow", "Level"))
         self.label_47.setText(_translate("MainWindow", "Type"))
         self.label_49.setText(_translate("MainWindow", "Ability"))
@@ -1025,22 +1333,6 @@ class Ui_MainWindow(object):
         self.label_52.setText(_translate("MainWindow", "Ataque: "))
         self.label_53.setText(_translate("MainWindow", "Defensa: "))
         self.label_54.setText(_translate("MainWindow", "Velocidad: "))
-        self.comboBox_21.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_21.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_21.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_21.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_22.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_22.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_22.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_22.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_23.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_23.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_23.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_23.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_24.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_24.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_24.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_24.setItemText(3, _translate("MainWindow", "Ataque4"))
         self.label_35.setText(_translate("MainWindow", "Level"))
         self.label_37.setText(_translate("MainWindow", "Type"))
         self.label_39.setText(_translate("MainWindow", "Ability"))
@@ -1048,22 +1340,6 @@ class Ui_MainWindow(object):
         self.label_42.setText(_translate("MainWindow", "Ataque: "))
         self.label_43.setText(_translate("MainWindow", "Defensa: "))
         self.label_44.setText(_translate("MainWindow", "Velocidad: "))
-        self.comboBox_17.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_17.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_17.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_17.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_18.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_18.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_18.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_18.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_19.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_19.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_19.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_19.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_20.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_20.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_20.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_20.setItemText(3, _translate("MainWindow", "Ataque4"))
         self.label_9.setText(_translate("MainWindow", "Level"))
         self.label_15.setText(_translate("MainWindow", "Type"))
         self.label_17.setText(_translate("MainWindow", "Ability"))
@@ -1071,22 +1347,6 @@ class Ui_MainWindow(object):
         self.label_32.setText(_translate("MainWindow", "Ataque: "))
         self.label_33.setText(_translate("MainWindow", "Defensa: "))
         self.label_34.setText(_translate("MainWindow", "Velocidad: "))
-        self.comboBox_13.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_13.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_13.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_13.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_14.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_14.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_14.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_14.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_15.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_15.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_15.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_15.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_16.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_16.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_16.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_16.setItemText(3, _translate("MainWindow", "Ataque4"))
         self.label_5.setText(_translate("MainWindow", "Level"))
         self.label_7.setText(_translate("MainWindow", "Type"))
         self.label_11.setText(_translate("MainWindow", "Ability"))
@@ -1094,22 +1354,6 @@ class Ui_MainWindow(object):
         self.label_20.setText(_translate("MainWindow", "Ataque: "))
         self.label_21.setText(_translate("MainWindow", "Defensa: "))
         self.label_22.setText(_translate("MainWindow", "Velocidad: "))
-        self.comboBox_5.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_5.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_5.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_5.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_6.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_6.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_6.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_6.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_7.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_7.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_7.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_7.setItemText(3, _translate("MainWindow", "Ataque4"))
-        self.comboBox_8.setItemText(0, _translate("MainWindow", "Ataque rapido"))
-        self.comboBox_8.setItemText(1, _translate("MainWindow", "Ataque lento"))
-        self.comboBox_8.setItemText(2, _translate("MainWindow", "Ataque 3"))
-        self.comboBox_8.setItemText(3, _translate("MainWindow", "Ataque4"))
 
 
 if __name__ == "__main__":
@@ -1120,3 +1364,4 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec())
+
