@@ -9,7 +9,7 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtGui import QPixmap
 from images import *
-
+import json
 
 
 class PantRegistro(object):
@@ -104,6 +104,7 @@ class PantRegistro(object):
 "background-color: rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.AccederLogin.setObjectName("AccederLogin")
+        self.AccederLogin.clicked.connect(self.registrar)
         self.horizontalLayout_4.addWidget(self.AccederLogin)
         self.Cancelar = QtWidgets.QPushButton(parent=self.verticalWidget1)
         self.Cancelar.setMaximumSize(QtCore.QSize(16777215, 40))
@@ -113,6 +114,8 @@ class PantRegistro(object):
 "background-color: rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.Cancelar.setObjectName("Cancelar")
+        self.MainWindow = MainWindow
+        self.Cancelar.clicked.connect(self.volver_a_login)
         self.horizontalLayout_4.addWidget(self.Cancelar)
         self.verticalLayout_2.addLayout(self.horizontalLayout_4)
         self.horizontalLayout_3.addWidget(self.verticalWidget1)
@@ -161,7 +164,55 @@ class PantRegistro(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
+    def volver_a_login(self):
+            self.MainWindow.close()
+            
+            from NovaLogin import Login
+            self.registro_window = Login()
+            self.registro_window.setupUi(self.MainWindow) 
+            self.MainWindow.show()
+            
 
+    def registrar(self):
+            nombre= self.lineEdit_2.text()
+            correo = self.lineEdit_3.text()
+            contraseña = self.lineEdit_4.text()
+            repetir_contraseña = self.lineEdit.text()
+            genero = "Chico" if self.radioButton.isChecked() else "Chica"
+            
+            if not nombre or not correo or not contraseña or not repetir_contraseña:
+                QtWidgets.QMessageBox.critical(self.centralwidget, "Error", "Todos los campos son obligatorios.")    
+                return
+        
+            if contraseña != repetir_contraseña:
+                    QtWidgets.QMessageBox.critical(self.centralwidget, "Error", "Las contraseñas no coincide.")
+                    return
+            
+            try:
+                    with open('usuarios.json', 'r') as file:
+                            usuarios = json.load(file)
+                            
+                            for usuario in usuarios:
+                                    if usuario['correo'] == correo:
+                                            QtWidgets.QMessageBox.critical(self.centralwidget, "Error", "Ya existe un usuario con este correo electrónico.")
+                                            return
+            except FileNotFoundError:
+                    usuarios = []
+            nuevo_usuario = {
+                    'nombre': nombre,
+                    'correo': correo,
+                    'contraseña': contraseña,
+                    'género': genero
+            }
+            
+            usuarios.append(nuevo_usuario)
+            
+            with open('usuarios.json', 'w') as file:
+                    json.dump(usuarios, file, indent=2)
+            
+            
+            QtWidgets.QMessageBox.information(self.centralwidget, "Registro Exitoso", "Usuario registrado con éxito.")
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

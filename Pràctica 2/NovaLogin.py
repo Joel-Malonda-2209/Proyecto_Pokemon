@@ -11,6 +11,8 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from seleccion_partida import SelPartida as Ui_SecondWindow
 from pantalla_registro import PantRegistro as Ui_ThridWindow
 from images import *
+import json
+from pantalla_registro import PantRegistro
 
 class Login(object):
     def setupUi(self, MainWindow):
@@ -83,6 +85,7 @@ class Login(object):
         self.Acceder.setMaximumSize(QtCore.QSize(16777215, 35))
         self.Acceder.setStyleSheet("background-color: rgb(0, 170, 255);")
         self.Acceder.setObjectName("Acceder")
+       
         self.horizontalLayout_2.addWidget(self.Acceder)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
@@ -90,6 +93,7 @@ class Login(object):
         self.Registrarse.setMaximumSize(QtCore.QSize(16777215, 35))
         self.Registrarse.setStyleSheet("background-color: rgb(0, 170, 255);")
         self.Registrarse.setObjectName("Registrarse")
+        self.Registrarse.clicked.connect(self.abrir_pantalla_registro)
         self.horizontalLayout_2.addWidget(self.Registrarse)
         self.verticalLayout_6.addLayout(self.horizontalLayout_2)
         self.horizontalLayout.addWidget(self.verticalWidget_2)
@@ -114,10 +118,28 @@ class Login(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
+        self.MainWindow = MainWindow
+        self.Acceder.clicked.connect(self.verificar_credenciales)
         self.Acceder.clicked.connect(self.abrirPantallaPartidas)
-        self.Registrarse.clicked.connect(self.abrirPantallaRegistro)
+        
+        
+    def verificar_credenciales(self):
+        correo = self.lineEdit.text()
+        contraseña = self.lineEdit_2.text()
+        
+        try:
+            with open('usuarios.json', 'r') as file:
+                usuarios = json.load(file)
+                
+            for usuario in usuarios:
+                if usuario['correo'] == correo and usuario['contraseña'] == contraseña:
+                    self.abrirPantallaPartidas()
+                    return
+            QtWidgets.QMessageBox.critical(self.centralwidget, "Error de inicio de sesión", "Credenciales incorrectas.")  
 
+        except FileNotFoundError:
+            QtWidgets.QMessageBox.critical(self.centralwidget, "Error", "Archivo de usuarios no encontrado.")
+            
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -129,23 +151,40 @@ class Login(object):
         self.Acceder.setText(_translate("MainWindow", "Acceder"))
         self.Registrarse.setText(_translate("MainWindow", "Registrarse"))
 
-    def abrirPantallaPartidas(self):
-        for i in reversed(range(self.verticalLayout_2.count())):
-            widget = self.verticalLayout_2.itemAt(i).widget()
-            if widget is not None:
-                widget.deleteLater()
-        
-        self.ui = Ui_SecondWindow()
-        self.ui.setupUi(MainWindow)
     
-    def abrirPantallaRegistro(self):
-        for i in reversed(range(self.verticalLayout_2.count())):
-            widget = self.verticalLayout_2.itemAt(i).widget()
-            if widget is not None:
-                widget.deleteLater()
+    def abrir_pantalla_registro(self):
+        self.MainWindow.close()
+
+        self.registro_window = PantRegistro()
+        self.registro_window.setupUi(self.MainWindow)
+        self.MainWindow.show()
         
-        self.ui = Ui_ThridWindow()
-        self.ui.setupUi(MainWindow)
+    def abrirPantallaPartidas(self):
+        correo = self.lineEdit.text()
+        contraseña = self.lineEdit_2.text()
+
+        try:
+            with open('usuarios.json', 'r') as file:
+                usuarios = json.load(file)
+
+            for usuario in usuarios:
+                if usuario['correo'] == correo and usuario['contraseña'] == contraseña:
+                    
+                    for i in reversed(range(self.verticalLayout_2.count())):
+                        widget = self.verticalLayout_2.itemAt(i).widget()
+                        if widget is not None:
+                            widget.deleteLater()
+
+                    self.ui = Ui_SecondWindow()
+                    self.ui.setupUi(MainWindow)
+                    return
+
+           
+            QtWidgets.QMessageBox.critical(self.centralwidget, "Error de inicio de sesión", "Credenciales incorrectas.")
+
+        except FileNotFoundError:
+            QtWidgets.QMessageBox.critical(self.centralwidget, "Error", "Archivo de usuarios no encontrado.")
+
 
 if __name__ == "__main__":
     import sys

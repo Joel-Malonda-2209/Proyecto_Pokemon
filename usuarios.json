@@ -1,0 +1,14 @@
+[
+  {
+    "nombre": "isabel",
+    "correo": "isabelitavaliente@gmail.com",
+    "contrase\u00f1a": "1234",
+    "g\u00e9nero": "Chica"
+  },
+  {
+    "nombre": "joel",
+    "correo": "joelmalonda@gmail.com",
+    "contrase\u00f1a": "1234",
+    "g\u00e9nero": "Chico"
+  }
+]
