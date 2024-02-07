@@ -36,6 +36,8 @@ class SelPartida(object):
         self.cerrarSesion.setMaximumSize(QtCore.QSize(100, 16777215))
         self.cerrarSesion.setStyleSheet("background-color: rgb(85, 85, 255);")
         self.cerrarSesion.setObjectName("cerrarSesion")
+        self.MainWindow = MainWindow
+        self.cerrarSesion.clicked.connect(self.volver_a_login)
         self.verticalLayout_8.addWidget(self.cerrarSesion)
         self.verticalLayout_6.addWidget(self.verticalWidget_2)
         self.horizontalWidget_2 = QtWidgets.QWidget(parent=self.horizontalWidget)
@@ -139,6 +141,14 @@ class SelPartida(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
+    def volver_a_login(self):
+            self.MainWindow.close()
+            
+            from NovaLogin import Login
+            login_window = Login()
+            login_window.setupUi(self.MainWindow)
+            self.MainWindow.show()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
