@@ -1,4 +1,4 @@
-from PyQt6 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 import requests
 import json
 import os
@@ -108,6 +108,461 @@ class Ui_MainWindow(object):
             self.comboBox_30.addItems(movimientos)
             self.comboBox_31.addItems(movimientos)
             self.comboBox_32.addItems(movimientos)
+            
+    def actualizar_imagen_pokemon2(self, data):
+        sprites = data["sprites"]
+        image_url = sprites["front_default"]
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(requests.get(image_url).content)
+        
+        scene = QtWidgets.QGraphicsScene()
+        pixmap_item = QtWidgets.QGraphicsPixmapItem(pixmap)
+        scene.addItem(pixmap_item)
+
+        self.graphicsView_7.setScene(scene)
+        self.graphicsView_7.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+
+    def asignar_pokemon2(self):
+        url = "https://pokeapi.co/api/v2/pokemon?limit=151"
+        response = requests.get(url)
+        data = response.json()
+
+        nombre_pokemons = [pokemon["name"].capitalize() for pokemon in data["results"]]
+        
+        self.comboBox2 = QtWidgets.QComboBox(parent=None)
+        self.comboBox2.setObjectName("comboBox")
+        self.comboBox2.addItems(nombre_pokemons)
+
+        self.comboBox2.currentIndexChanged.connect(self.asignar_datos2)
+        
+        return self.comboBox2
+    
+    def asignar_datos2(self):
+        pokemon_seleccionado = self.comboBox2.currentText().lower()
+        url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_seleccionado}"
+        response = requests.get(url)
+        data = response.json()
+
+        self.comboBox_12.clear()  
+
+        if "abilities" in data:
+            habilidades2 = [ability["ability"]["name"].capitalize() for ability in data["abilities"]]
+            self.comboBox_12.addItems(habilidades2)
+        
+        self.obtener_movimientos2(data)
+
+        nivel = 100
+        hp, attack, defense, speed = self.obtener_estadisticas2(data,nivel)
+        self.mostrar_estadisticas2(hp, attack, defense, speed)
+
+        tipos = [tipo["type"]["name"].capitalize() for tipo in data["types"]]
+        tipo = '/'.join(tipos)
+
+        self.label_56.setText(str(nivel))
+        self.label_58.setText(tipo)
+
+
+        self.actualizar_imagen_pokemon2(data)
+    
+    def obtener_estadisticas2(self, data, nivel):
+        stats = data["stats"]
+        hp, attack, defense, speed = 0,0,0,0
+        for stat in stats:
+            base_stat = stat["base_stat"]
+            if stat["stat"]["name"] == "hp":
+                hp = ((base_stat * 2 * nivel) / 100) + nivel + 10
+            else:
+                if stat["stat"]["name"] == "attack":
+                    attack = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "defense":
+                    defense = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "speed":
+                    speed = ((base_stat * 2 * nivel) / 100) + 5
+        return hp, attack, defense, speed
+
+    def mostrar_estadisticas2(self, hp, attack, defense, speed):
+        self.label_61.setText(f"HP: {hp}")
+        self.label_62.setText(f"Ataque: {attack}")
+        self.label_63.setText(f"Defensa: {defense}")
+        self.label_64.setText(f"Velocidad: {speed}")
+    
+    def obtener_movimientos2(self, data):
+        self.comboBox_25.clear()
+        self.comboBox_26.clear()
+        self.comboBox_27.clear()
+        self.comboBox_28.clear()
+
+        if "moves" in data:
+            movimientos = [move["move"]["name"].capitalize() for move in data["moves"]]
+            self.comboBox_25.addItems(movimientos)
+            self.comboBox_26.addItems(movimientos)
+            self.comboBox_27.addItems(movimientos)
+            self.comboBox_28.addItems(movimientos)
+            
+    def actualizar_imagen_pokemon3(self, data):
+        sprites = data["sprites"]
+        image_url = sprites["front_default"]
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(requests.get(image_url).content)
+        
+        scene = QtWidgets.QGraphicsScene()
+        pixmap_item = QtWidgets.QGraphicsPixmapItem(pixmap)
+        scene.addItem(pixmap_item)
+
+        self.graphicsView_6.setScene(scene)
+        self.graphicsView_6.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+
+    def asignar_pokemon3(self):
+        url = "https://pokeapi.co/api/v2/pokemon?limit=151"
+        response = requests.get(url)
+        data = response.json()
+
+        nombre_pokemons = [pokemon["name"].capitalize() for pokemon in data["results"]]
+        
+        self.comboBox3 = QtWidgets.QComboBox(parent=None)
+        self.comboBox3.setObjectName("comboBox")
+        self.comboBox3.addItems(nombre_pokemons)
+
+        self.comboBox3.currentIndexChanged.connect(self.asignar_datos3)
+        
+        return self.comboBox3
+    
+    def asignar_datos3(self):
+        pokemon_seleccionado = self.comboBox3.currentText().lower()
+        url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_seleccionado}"
+        response = requests.get(url)
+        data = response.json()
+
+        self.comboBox_33.clear()  
+
+        if "abilities" in data:
+            habilidades3 = [ability["ability"]["name"].capitalize() for ability in data["abilities"]]
+            self.comboBox_33.addItems(habilidades3)
+        
+        self.obtener_movimientos3(data)
+
+        nivel = 100
+        hp, attack, defense, speed = self.obtener_estadisticas3(data,nivel)
+        self.mostrar_estadisticas3(hp, attack, defense, speed)
+
+        tipos = [tipo["type"]["name"].capitalize() for tipo in data["types"]]
+        tipo = '/'.join(tipos)
+
+        self.label_46.setText(str(nivel))
+        self.label_48.setText(tipo)
+
+
+        self.actualizar_imagen_pokemon3(data)
+    
+    def obtener_estadisticas3(self, data, nivel):
+        stats = data["stats"]
+        hp, attack, defense, speed = 0,0,0,0
+        for stat in stats:
+            base_stat = stat["base_stat"]
+            if stat["stat"]["name"] == "hp":
+                hp = ((base_stat * 2 * nivel) / 100) + nivel + 10
+            else:
+                if stat["stat"]["name"] == "attack":
+                    attack = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "defense":
+                    defense = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "speed":
+                    speed = ((base_stat * 2 * nivel) / 100) + 5
+        return hp, attack, defense, speed
+
+    def mostrar_estadisticas3(self, hp, attack, defense, speed):
+        self.label_51.setText(f"HP: {hp}")
+        self.label_52.setText(f"Ataque: {attack}")
+        self.label_53.setText(f"Defensa: {defense}")
+        self.label_54.setText(f"Velocidad: {speed}")
+    
+    def obtener_movimientos3(self, data):
+        self.comboBox_21.clear()
+        self.comboBox_22.clear()
+        self.comboBox_23.clear()
+        self.comboBox_24.clear()
+
+        if "moves" in data:
+            movimientos = [move["move"]["name"].capitalize() for move in data["moves"]]
+            self.comboBox_21.addItems(movimientos)
+            self.comboBox_22.addItems(movimientos)
+            self.comboBox_23.addItems(movimientos)
+            self.comboBox_24.addItems(movimientos)
+            
+    def actualizar_imagen_pokemon4(self, data):
+        sprites = data["sprites"]
+        image_url = sprites["front_default"]
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(requests.get(image_url).content)
+        
+        scene = QtWidgets.QGraphicsScene()
+        pixmap_item = QtWidgets.QGraphicsPixmapItem(pixmap)
+        scene.addItem(pixmap_item)
+
+        self.graphicsView_5.setScene(scene)
+        self.graphicsView_5.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+
+    def asignar_pokemon4(self):
+        url = "https://pokeapi.co/api/v2/pokemon?limit=151"
+        response = requests.get(url)
+        data = response.json()
+
+        nombre_pokemons = [pokemon["name"].capitalize() for pokemon in data["results"]]
+        
+        self.comboBox4 = QtWidgets.QComboBox(parent=None)
+        self.comboBox4.setObjectName("comboBox")
+        self.comboBox4.addItems(nombre_pokemons)
+
+        self.comboBox4.currentIndexChanged.connect(self.asignar_datos4)
+        
+        return self.comboBox4
+    
+    def asignar_datos4(self):
+        pokemon_seleccionado = self.comboBox4.currentText().lower()
+        url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_seleccionado}"
+        response = requests.get(url)
+        data = response.json()
+
+        self.comboBox_34.clear()  
+
+        if "abilities" in data:
+            habilidades3 = [ability["ability"]["name"].capitalize() for ability in data["abilities"]]
+            self.comboBox_34.addItems(habilidades3)
+        
+        self.obtener_movimientos4(data)
+
+        nivel = 100
+        hp, attack, defense, speed = self.obtener_estadisticas4(data,nivel)
+        self.mostrar_estadisticas4(hp, attack, defense, speed)
+
+        tipos = [tipo["type"]["name"].capitalize() for tipo in data["types"]]
+        tipo = '/'.join(tipos)
+
+        self.label_36.setText(str(nivel))
+        self.label_38.setText(tipo)
+
+
+        self.actualizar_imagen_pokemon4(data)
+    
+    def obtener_estadisticas4(self, data, nivel):
+        stats = data["stats"]
+        hp, attack, defense, speed = 0,0,0,0
+        for stat in stats:
+            base_stat = stat["base_stat"]
+            if stat["stat"]["name"] == "hp":
+                hp = ((base_stat * 2 * nivel) / 100) + nivel + 10
+            else:
+                if stat["stat"]["name"] == "attack":
+                    attack = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "defense":
+                    defense = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "speed":
+                    speed = ((base_stat * 2 * nivel) / 100) + 5
+        return hp, attack, defense, speed
+
+    def mostrar_estadisticas4(self, hp, attack, defense, speed):
+        self.label_41.setText(f"HP: {hp}")
+        self.label_42.setText(f"Ataque: {attack}")
+        self.label_43.setText(f"Defensa: {defense}")
+        self.label_44.setText(f"Velocidad: {speed}")
+    
+    def obtener_movimientos4(self, data):
+        self.comboBox_17.clear()
+        self.comboBox_18.clear()
+        self.comboBox_19.clear()
+        self.comboBox_20.clear()
+
+        if "moves" in data:
+            movimientos = [move["move"]["name"].capitalize() for move in data["moves"]]
+            self.comboBox_17.addItems(movimientos)
+            self.comboBox_18.addItems(movimientos)
+            self.comboBox_19.addItems(movimientos)
+            self.comboBox_20.addItems(movimientos)
+            
+    def actualizar_imagen_pokemon5(self, data):
+        sprites = data["sprites"]
+        image_url = sprites["front_default"]
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(requests.get(image_url).content)
+        
+        scene = QtWidgets.QGraphicsScene()
+        pixmap_item = QtWidgets.QGraphicsPixmapItem(pixmap)
+        scene.addItem(pixmap_item)
+
+        self.graphicsView_4.setScene(scene)
+        self.graphicsView_4.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+
+    def asignar_pokemon5(self):
+        url = "https://pokeapi.co/api/v2/pokemon?limit=151"
+        response = requests.get(url)
+        data = response.json()
+
+        nombre_pokemons = [pokemon["name"].capitalize() for pokemon in data["results"]]
+        
+        self.comboBox5 = QtWidgets.QComboBox(parent=None)
+        self.comboBox5.setObjectName("comboBox")
+        self.comboBox5.addItems(nombre_pokemons)
+
+        self.comboBox5.currentIndexChanged.connect(self.asignar_datos5)
+        
+        return self.comboBox5
+    
+    def asignar_datos5(self):
+        pokemon_seleccionado = self.comboBox5.currentText().lower()
+        url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_seleccionado}"
+        response = requests.get(url)
+        data = response.json()
+
+        self.comboBox_35.clear()  
+
+        if "abilities" in data:
+            habilidades3 = [ability["ability"]["name"].capitalize() for ability in data["abilities"]]
+            self.comboBox_35.addItems(habilidades3)
+        
+        self.obtener_movimientos5(data)
+
+        nivel = 100
+        hp, attack, defense, speed = self.obtener_estadisticas5(data,nivel)
+        self.mostrar_estadisticas5(hp, attack, defense, speed)
+
+        tipos = [tipo["type"]["name"].capitalize() for tipo in data["types"]]
+        tipo = '/'.join(tipos)
+
+        self.label_10.setText(str(nivel))
+        self.label_16.setText(tipo)
+
+
+        self.actualizar_imagen_pokemon5(data)
+    
+    def obtener_estadisticas5(self, data, nivel):
+        stats = data["stats"]
+        hp, attack, defense, speed = 0,0,0,0
+        for stat in stats:
+            base_stat = stat["base_stat"]
+            if stat["stat"]["name"] == "hp":
+                hp = ((base_stat * 2 * nivel) / 100) + nivel + 10
+            else:
+                if stat["stat"]["name"] == "attack":
+                    attack = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "defense":
+                    defense = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "speed":
+                    speed = ((base_stat * 2 * nivel) / 100) + 5
+        return hp, attack, defense, speed
+
+    def mostrar_estadisticas5(self, hp, attack, defense, speed):
+        self.label_31.setText(f"HP: {hp}")
+        self.label_32.setText(f"Ataque: {attack}")
+        self.label_33.setText(f"Defensa: {defense}")
+        self.label_34.setText(f"Velocidad: {speed}")
+    
+    def obtener_movimientos5(self, data):
+        self.comboBox_13.clear()
+        self.comboBox_14.clear()
+        self.comboBox_15.clear()
+        self.comboBox_16.clear()
+
+        if "moves" in data:
+            movimientos = [move["move"]["name"].capitalize() for move in data["moves"]]
+            self.comboBox_13.addItems(movimientos)
+            self.comboBox_14.addItems(movimientos)
+            self.comboBox_15.addItems(movimientos)
+            self.comboBox_16.addItems(movimientos)
+            
+    def actualizar_imagen_pokemon6(self, data):
+        sprites = data["sprites"]
+        image_url = sprites["front_default"]
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(requests.get(image_url).content)
+        
+        scene = QtWidgets.QGraphicsScene()
+        pixmap_item = QtWidgets.QGraphicsPixmapItem(pixmap)
+        scene.addItem(pixmap_item)
+
+        self.graphicsView_2.setScene(scene)
+        self.graphicsView_2.fitInView(pixmap_item, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+
+    def asignar_pokemon6(self):
+        url = "https://pokeapi.co/api/v2/pokemon?limit=151"
+        response = requests.get(url)
+        data = response.json()
+
+        nombre_pokemons = [pokemon["name"].capitalize() for pokemon in data["results"]]
+        
+        self.comboBox6 = QtWidgets.QComboBox(parent=None)
+        self.comboBox6.setObjectName("comboBox")
+        self.comboBox6.addItems(nombre_pokemons)
+
+        self.comboBox6.currentIndexChanged.connect(self.asignar_datos6)
+        
+        return self.comboBox6
+    
+    def asignar_datos6(self):
+        pokemon_seleccionado = self.comboBox6.currentText().lower()
+        url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_seleccionado}"
+        response = requests.get(url)
+        data = response.json()
+
+        self.comboBox_36.clear()  
+
+        if "abilities" in data:
+            habilidades6 = [ability["ability"]["name"].capitalize() for ability in data["abilities"]]
+            self.comboBox_36.addItems(habilidades6)
+        
+        self.obtener_movimientos6(data)
+
+        nivel = 100
+        hp, attack, defense, speed = self.obtener_estadisticas6(data,nivel)
+        self.mostrar_estadisticas6(hp, attack, defense, speed)
+
+        tipos = [tipo["type"]["name"].capitalize() for tipo in data["types"]]
+        tipo = '/'.join(tipos)
+
+        self.label_6.setText(str(nivel))
+        self.label_8.setText(tipo)
+
+
+        self.actualizar_imagen_pokemon6(data)
+    
+    def obtener_estadisticas6(self, data, nivel):
+        stats = data["stats"]
+        hp, attack, defense, speed = 0,0,0,0
+        for stat in stats:
+            base_stat = stat["base_stat"]
+            if stat["stat"]["name"] == "hp":
+                hp = ((base_stat * 2 * nivel) / 100) + nivel + 10
+            else:
+                if stat["stat"]["name"] == "attack":
+                    attack = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "defense":
+                    defense = ((base_stat * 2 * nivel) / 100) + 5
+                elif stat["stat"]["name"] == "speed":
+                    speed = ((base_stat * 2 * nivel) / 100) + 5
+        return hp, attack, defense, speed
+
+    def mostrar_estadisticas6(self, hp, attack, defense, speed):
+        self.label_19.setText(f"HP: {hp}")
+        self.label_20.setText(f"Ataque: {attack}")
+        self.label_21.setText(f"Defensa: {defense}")
+        self.label_22.setText(f"Velocidad: {speed}")
+    
+    def obtener_movimientos6(self, data):
+        self.comboBox_5.clear()
+        self.comboBox_6.clear()
+        self.comboBox_7.clear()
+        self.comboBox_8.clear()
+
+        if "moves" in data:
+            movimientos = [move["move"]["name"].capitalize() for move in data["moves"]]
+            self.comboBox_5.addItems(movimientos)
+            self.comboBox_6.addItems(movimientos)
+            self.comboBox_7.addItems(movimientos)
+            self.comboBox_8.addItems(movimientos)
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -352,9 +807,7 @@ class Ui_MainWindow(object):
         self.graphicsView_7.setStyleSheet("")
         self.graphicsView_7.setObjectName("graphicsView_7")
         self.verticalLayout_55.addWidget(self.graphicsView_7)
-        self.comboBox_2 = QtWidgets.QComboBox(parent=self.horizontalWidget_13)
-        self.comboBox_2.setObjectName("comboBox_2")
-        self.verticalLayout_55.addWidget(self.comboBox_2)
+        self.verticalLayout_55.addWidget(self.asignar_pokemon2())
         self.horizontalWidget_14 = QtWidgets.QWidget(parent=self.horizontalWidget_13)
         self.horizontalWidget_14.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_14.setObjectName("horizontalWidget_14")
@@ -457,9 +910,7 @@ class Ui_MainWindow(object):
         self.graphicsView_6.setStyleSheet("")
         self.graphicsView_6.setObjectName("graphicsView_6")
         self.verticalLayout_48.addWidget(self.graphicsView_6)
-        self.comboBox_3 = QtWidgets.QComboBox(parent=self.horizontalWidget_11)
-        self.comboBox_3.setObjectName("comboBox_3")
-        self.verticalLayout_48.addWidget(self.comboBox_3)
+        self.verticalLayout_48.addWidget(self.asignar_pokemon3())
         self.horizontalWidget_12 = QtWidgets.QWidget(parent=self.horizontalWidget_11)
         self.horizontalWidget_12.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_12.setObjectName("horizontalWidget_12")
@@ -562,9 +1013,7 @@ class Ui_MainWindow(object):
         self.graphicsView_5.setStyleSheet("")
         self.graphicsView_5.setObjectName("graphicsView_5")
         self.verticalLayout_41.addWidget(self.graphicsView_5)
-        self.comboBox_4 = QtWidgets.QComboBox(parent=self.horizontalWidget_9)
-        self.comboBox_4.setObjectName("comboBox_4")
-        self.verticalLayout_41.addWidget(self.comboBox_4)
+        self.verticalLayout_41.addWidget(self.asignar_pokemon4())
         self.horizontalWidget_10 = QtWidgets.QWidget(parent=self.horizontalWidget_9)
         self.horizontalWidget_10.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_10.setObjectName("horizontalWidget_10")
@@ -667,9 +1116,7 @@ class Ui_MainWindow(object):
         self.graphicsView_4.setStyleSheet("")
         self.graphicsView_4.setObjectName("graphicsView_4")
         self.verticalLayout_31.addWidget(self.graphicsView_4)
-        self.comboBox_9 = QtWidgets.QComboBox(parent=self.horizontalWidget_4)
-        self.comboBox_9.setObjectName("comboBox_9")
-        self.verticalLayout_31.addWidget(self.comboBox_9)
+        self.verticalLayout_31.addWidget(self.asignar_pokemon5())
         self.horizontalWidget_8 = QtWidgets.QWidget(parent=self.horizontalWidget_4)
         self.horizontalWidget_8.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_8.setObjectName("horizontalWidget_8")
@@ -772,9 +1219,7 @@ class Ui_MainWindow(object):
         self.graphicsView_2.setStyleSheet("")
         self.graphicsView_2.setObjectName("graphicsView_2")
         self.verticalLayout_11.addWidget(self.graphicsView_2)
-        self.comboBox_10 = QtWidgets.QComboBox(parent=self.horizontalWidget_3)
-        self.comboBox_10.setObjectName("comboBox_10")
-        self.verticalLayout_11.addWidget(self.comboBox_10)
+        self.verticalLayout_11.addWidget(self.asignar_pokemon6())
         self.horizontalWidget_5 = QtWidgets.QWidget(parent=self.horizontalWidget_3)
         self.horizontalWidget_5.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.horizontalWidget_5.setObjectName("horizontalWidget_5")
