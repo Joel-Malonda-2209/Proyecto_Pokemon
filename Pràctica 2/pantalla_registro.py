@@ -8,6 +8,7 @@
 
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtGui import QPixmap
+from images import *
 
 
 

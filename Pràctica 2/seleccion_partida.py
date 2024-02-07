@@ -7,7 +7,7 @@
 
 
 from PySide6 import QtCore, QtGui, QtWidgets
-
+from images import *
 
 
 class SelPartida(object):
