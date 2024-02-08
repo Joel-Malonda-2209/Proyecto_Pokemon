@@ -1,7 +1,6 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 import requests
 
-
 class PokemonWidget(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -17,7 +16,6 @@ class PokemonWidget(QtWidgets.QWidget):
         self.img_widget_layout = QtWidgets.QVBoxLayout(self.img_widget)
         self.img_widget_layout.setObjectName("img_widget_layout")
 
-        # Cambiar el tipo de widget de QGraphicsView a QLabel
         self.img_pokemon = QtWidgets.QGraphicsView(self.img_widget)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -279,8 +277,6 @@ class Ui_MainWindow(object):
             move_widget.clear()
             move_widget.addItems([move["move"]["name"].capitalize() for move in moves])
 
-
-
     def get_pokemon_type(self, pokemon_url):
         response = requests.get(pokemon_url)
         if response.status_code == 200:
@@ -340,7 +336,6 @@ class Ui_MainWindow(object):
                 scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
         else:
             print("No se pudo cargar la imagen del Pokémon")
-
 
 if __name__ == "__main__":
     import sys
