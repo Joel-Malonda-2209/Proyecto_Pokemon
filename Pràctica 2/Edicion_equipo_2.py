@@ -14,9 +14,7 @@ class PokemonWidget(QtWidgets.QWidget):
         self.img_widget.setObjectName("img_widget")
         self.img_widget_layout = QtWidgets.QVBoxLayout(self.img_widget)
         self.img_widget_layout.setObjectName("img_widget_layout")
-        
-        # Cambiar el tipo de widget de QGraphicsView a QLabel
-        self.img_pokemon = QtWidgets.QLabel(self.img_widget)
+        self.img_pokemon = QtWidgets.QGraphicsView(self.img_widget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -24,7 +22,6 @@ class PokemonWidget(QtWidgets.QWidget):
         self.img_pokemon.setSizePolicy(sizePolicy)
         self.img_pokemon.setObjectName("img_pokemon")
         self.img_widget_layout.addWidget(self.img_pokemon)
-        
         layout.addWidget(self.img_widget)
 
         self.name_widget = QtWidgets.QWidget(self)
@@ -196,22 +193,43 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
         # Llamamos a la función que carga los nombres de los Pokémon en el ComboBox
-        self.load_pokemon_data()
+        self.load_pokemon_names()
 
-    def load_pokemon_data(self):
+    def load_pokemon_names(self):
         url = "https://pokeapi.co/api/v2/pokemon?limit=151"  # Obtener solo los primeros 151 Pokémon
         response = requests.get(url)
         if response.status_code == 200:
             data = response.json()
-            pokemon_data = [(pokemon['name'].capitalize(), pokemon['url']) for pokemon in data['results']]
+            pokemon_names = [pokemon['name'].capitalize() for pokemon in data['results']]
             for i in range(6):  # Suponiendo que hay 6 Pokémon en la interfaz
                 combo_box = getattr(self, f"pokemon_widget{i+1}").name_pokemon
-                combo_box.addItems([pokemon[0] for pokemon in pokemon_data])
-                combo_box.currentIndexChanged.connect(lambda index, widget_index=i+1: self.update_ability_and_image(index, widget_index, pokemon_data))
+                combo_box.addItems(pokemon_names)
+
+                # Conectar la señal currentIndexChanged del ComboBox de nombres de Pokémon con la función update_ability_combobox
+                combo_box.currentIndexChanged.connect(lambda index, widget_index=i+1: self.update_ability_combobox(index, widget_index))
+
+                # Cargar las habilidades del primer Pokémon en el ComboBox de habilidades
+                abilities = self.get_pokemon_abilities(pokemon_names[0])
+                ability_combobox = getattr(self, f"pokemon_widget{i+1}").ability_comboBox
+                ability_combobox.addItems(abilities)
         else:
-            print("Error al obtener los datos de los Pokémon")
-    def update_ability_and_image(self, index, widget_index, pokemon_data):
-        pokemon_name, pokemon_url = pokemon_data[index]
+            print("Error al obtener los nombres de los Pokémon")
+
+    def get_pokemon_abilities(self, pokemon_name):
+        url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_name.lower()}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            abilities = [ability['ability']['name'].capitalize() for ability in data['abilities']]
+            return abilities
+        else:
+            print(f"Error al obtener las habilidades del Pokémon {pokemon_name}")
+            return []
+
+    def update_ability_combobox(self, index, widget_index):
+        # Obtener el nombre del Pokémon seleccionado en el ComboBox de nombres de Pokémon
+        combo_box = getattr(self, f"pokemon_widget{widget_index}").name_pokemon
+        pokemon_name = combo_box.currentText()
 
         # Obtener el ComboBox de habilidades correspondiente al widget Pokémon
         ability_combobox = getattr(self, f"pokemon_widget{widget_index}").ability_comboBox
@@ -220,41 +238,8 @@ class Ui_MainWindow(object):
         ability_combobox.clear()
 
         # Cargar las habilidades del Pokémon seleccionado
-        abilities = self.get_pokemon_abilities(pokemon_url)
+        abilities = self.get_pokemon_abilities(pokemon_name)
         ability_combobox.addItems(abilities)
-
-        # Cargar la imagen del Pokémon seleccionado
-        pokemon_image_url = self.get_pokemon_image_url(pokemon_url)
-        self.load_pokemon_image(pokemon_image_url, widget_index)
-
-    def get_pokemon_abilities(self, pokemon_url):
-        response = requests.get(pokemon_url)
-        if response.status_code == 200:
-            data = response.json()
-            abilities = [ability['ability']['name'].capitalize() for ability in data['abilities']]
-            return abilities
-        else:
-            print("Error al obtener las habilidades del Pokémon")
-            return []
-
-    def get_pokemon_image_url(self, pokemon_url):
-        response = requests.get(pokemon_url)
-        if response.status_code == 200:
-            data = response.json()
-            return data['sprites']['front_default']
-        else:
-            print("Error al obtener la URL de la imagen del Pokémon")
-            return ""
-
-    def load_pokemon_image(self, url, widget_index):
-        if url:
-            pixmap = QtGui.QPixmap()
-            pixmap.loadFromData(requests.get(url).content)
-            label = getattr(self, f"pokemon_widget{widget_index}").img_pokemon
-            label.setPixmap(pixmap)
-        else:
-            print("No se pudo cargar la imagen del Pokémon")
-
 
 if __name__ == "__main__":
     import sys
