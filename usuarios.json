@@ -28,5 +28,17 @@
     "correo": "p@gmail.com",
     "contrase\u00f1a": "1",
     "g\u00e9nero": "Chica"
+  },
+  {
+    "nombre": "Joel",
+    "correo": "mal@gmail.com",
+    "contrase\u00f1a": "1",
+    "g\u00e9nero": "Chico"
+  },
+  {
+    "nombre": "Antonio",
+    "correo": "Antonio@gmail.com",
+    "contrase\u00f1a": "123456",
+    "g\u00e9nero": "Chico"
   }
 ]
