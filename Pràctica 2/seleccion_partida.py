@@ -138,8 +138,8 @@ class SelPartida(object):
             self.MainWindow.close()
             
             from NovaLogin import Login
-            login_window = Login()
-            login_window.setupUi(self.MainWindow)
+            self.registro_window = Login()
+            self.registro_window.setupUi(self.MainWindow) 
             self.MainWindow.show()
 
     def retranslateUi(self, MainWindow):

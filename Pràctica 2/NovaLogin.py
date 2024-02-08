@@ -195,7 +195,7 @@ class Login(object):
                             widget.deleteLater()
 
                     self.ui = Ui_SecondWindow()
-                    self.ui.setupUi(MainWindow)
+                    self.ui.setupUi(self.MainWindow)
                     return
 
            
