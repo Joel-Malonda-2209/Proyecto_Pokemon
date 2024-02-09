@@ -11,6 +11,7 @@ from recursos2 import *
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.MainWindow = MainWindow
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(808, 601)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
@@ -155,6 +156,7 @@ class Ui_MainWindow(object):
         self.abandonar.setStyleSheet("border-style: solid;border-width:2px; border-color: rgb(0,0,0); color: rgb(0,0,0); border-radius: 5px;\n"
 "background-color: rgb(171, 219, 205);")
         self.abandonar.setObjectName("abandonar")
+        self.abandonar.clicked.connect(self.abandonarPartida)
         self.gridLayout_2.addWidget(self.abandonar, 2, 1, 1, 1)
         self.horizontalLayout_3.addWidget(self.gridWidget2)
         self.Mochila = QtWidgets.QPushButton(parent=self.horizontalWidget)
@@ -202,7 +204,14 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
+    def abandonarPartida(self):
+        self.MainWindow.close()
+        
+        from seleccion_partida import SelPartida
+        self.rapida = SelPartida()
+        self.rapida.setupUi(self.MainWindow) 
+        self.MainWindow.show()
+    
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
