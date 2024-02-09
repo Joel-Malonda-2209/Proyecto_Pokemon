@@ -1,14 +1,13 @@
-
 from PySide6 import QtCore, QtGui, QtWidgets
 from recursos2 import *
 import json
-import random 
+import random
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         self.MainWindow = MainWindow
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(808, 601)
+        MainWindow.resize(1048, 601)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -57,37 +56,47 @@ class Ui_MainWindow(object):
         self.gridWidget1.setObjectName("gridWidget1")
         self.gridLayout = QtWidgets.QGridLayout(self.gridWidget1)
         self.gridLayout.setObjectName("gridLayout")
-        self.label_7 = QtWidgets.QLabel(parent=self.gridWidget1)
-        self.label_7.setMinimumSize(QtCore.QSize(0, 200))
-        self.label_7.setText("")
-        self.label_7.setObjectName("label_7")
-        self.gridLayout.addWidget(self.label_7, 1, 0, 1, 1)
-        self.frame = QtWidgets.QFrame(parent=self.gridWidget1)
-        self.frame.setStyleSheet("image: url(:/elipse.png);")
-        self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.frame.setObjectName("frame")
-        self.gridLayout.addWidget(self.frame, 2, 0, 1, 1)
-        self.label_2 = QtWidgets.QLabel(parent=self.gridWidget1)
-        self.label_2.setMinimumSize(QtCore.QSize(120, 80))
-        self.label_2.setMaximumSize(QtCore.QSize(350, 200))
-        self.label_2.setStyleSheet("background-color: rgb(55, 59, 61); border-radius: 10px;")
-        self.label_2.setText("")
-        self.label_2.setObjectName("label_2")
-        self.gridLayout.addWidget(self.label_2, 2, 2, 1, 1)
+        spacerItem = QtWidgets.QSpacerItem(20, 100, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed)
+        self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
+        self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_8.setObjectName("horizontalLayout_8")
+        self.graphicsView = QtWidgets.QGraphicsView(parent=self.gridWidget1)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.graphicsView.sizePolicy().hasHeightForWidth())
+        self.graphicsView.setSizePolicy(sizePolicy)
+        self.graphicsView.setObjectName("graphicsView")
+        self.horizontalLayout_8.addWidget(self.graphicsView)
         self.label = QtWidgets.QLabel(parent=self.gridWidget1)
-        self.label.setMinimumSize(QtCore.QSize(120, 80))
-        self.label.setMaximumSize(QtCore.QSize(350, 200))
-        self.label.setStyleSheet("background-color: rgb(55, 59, 61); border-radius: 10px;")
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy)
+        self.label.setMaximumSize(QtCore.QSize(250, 16777215))
+        self.label.setStyleSheet("background-color: rgb(64, 64, 64);")
         self.label.setText("")
         self.label.setObjectName("label")
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
-        self.frame_5 = QtWidgets.QFrame(parent=self.gridWidget1)
-        self.frame_5.setStyleSheet("image: url(:/elipse.png);")
-        self.frame_5.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
-        self.frame_5.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.frame_5.setObjectName("frame_5")
-        self.gridLayout.addWidget(self.frame_5, 1, 2, 1, 1)
+        self.horizontalLayout_8.addWidget(self.label)
+        self.gridLayout.addLayout(self.horizontalLayout_8, 3, 0, 1, 1)
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.label_2 = QtWidgets.QLabel(parent=self.gridWidget1)
+        self.label_2.setMaximumSize(QtCore.QSize(250, 16777215))
+        self.label_2.setStyleSheet("background-color: rgb(64, 64, 64);")
+        self.label_2.setText("")
+        self.label_2.setObjectName("label_2")
+        self.horizontalLayout_5.addWidget(self.label_2)
+        self.graphicsView_2 = QtWidgets.QGraphicsView(parent=self.gridWidget1)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.graphicsView_2.sizePolicy().hasHeightForWidth())
+        self.graphicsView_2.setSizePolicy(sizePolicy)
+        self.graphicsView_2.setObjectName("graphicsView_2")
+        self.horizontalLayout_5.addWidget(self.graphicsView_2)
+        self.gridLayout.addLayout(self.horizontalLayout_5, 0, 0, 1, 1)
         self.horizontalLayout_7.addWidget(self.gridWidget1)
         self.verticalWidget2 = QtWidgets.QWidget(parent=self.widget)
         self.verticalWidget2.setMinimumSize(QtCore.QSize(100, 0))
@@ -156,9 +165,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.gridWidget2)
         self.Mochila = QtWidgets.QPushButton(parent=self.horizontalWidget)
         self.Mochila.setMaximumSize(QtCore.QSize(150, 150))
-        self.Mochila.setStyleSheet("image: url(:/bolsa.png);")
+        self.Mochila.setStyleSheet("image:url(:/bolsa.png)")
         self.Mochila.setText("")
         self.Mochila.setObjectName("Mochila")
+        self.Mochila.clicked.connect(self.cambiarPokemon)
         self.horizontalLayout_3.addWidget(self.Mochila)
         self.verticalLayout_2.addWidget(self.horizontalWidget)
         self.horizontalLayout.addLayout(self.verticalLayout_2)
@@ -199,19 +209,15 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-    
-    
-        with open("pokemon_first_generation.json") as f:
-            data = json.load(f)
-        
-        random_pokemon = random.choice(data)
 
-        pixmap = QtGui.QPixmap(random_pokemon["image_url"])
-        label = QtWidgets.QLabel(self.frame)
-        label.setPixmap(pixmap)
-        label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.gridLayout.addWidget(label, 0,0,1,1)
-    
+    def cambiarPokemon(self):
+        self.MainWindow.close()
+        
+        from pantalla_cambiar_pokemon import Ui_MainWindow
+        self.cambiar = Ui_MainWindow()
+        self.cambiar.setupUi(self.MainWindow) 
+        self.MainWindow.show()
+        
     def abandonarPartida(self):
         self.MainWindow.close()
         
