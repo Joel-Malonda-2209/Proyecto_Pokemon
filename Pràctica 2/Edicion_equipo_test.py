@@ -365,7 +365,8 @@ class Ui_MainWindow(object):
 
         
     def save_button_clicked(self):
-        team_data = []
+        team_name = self.team_info_widget.team_edit.text()  # Obtener el nombre del equipo
+        team_data = {'team_name': team_name, 'pokemon_team': []}  # Crear un diccionario para almacenar el nombre del equipo y los datos de los Pokémon
         for i in range(1, 7):
             pokemon_widget = getattr(self, f"pokemon_widget{i}")
             pokemon_info = {
@@ -379,10 +380,11 @@ class Ui_MainWindow(object):
                         pokemon_widget.move_4.currentText()],
                 'img_url': pokemon_widget.img_pokemon.img_url
             }
-            team_data.append(pokemon_info)
+            team_data['pokemon_team'].append(pokemon_info)
 
         with open('team_data.json', 'w') as file:
             json.dump(team_data, file)
+
 
 
     def save_team_data(self, team_data):
