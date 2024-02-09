@@ -1,4 +1,4 @@
-from PyQt6 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MainWindow(object):
@@ -183,6 +183,7 @@ class Ui_MainWindow(object):
         self.volverInicio = QtWidgets.QPushButton(parent=self.horizontalWidget_4)
         self.volverInicio.setStyleSheet("background-color: rgb(223, 223, 223);")
         self.volverInicio.setObjectName("volverInicio")
+        self.volverInicio.clicked.connect(self.volver_a_partidas)
         self.horizontalLayout_5.addWidget(self.volverInicio)
         self.empezarJugar = QtWidgets.QPushButton(parent=self.horizontalWidget_4)
         self.empezarJugar.setStyleSheet("background-color: rgb(223, 223, 223);")
@@ -197,7 +198,16 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.MainWindow = MainWindow
 
+    def volver_a_partidas(self):
+        self.MainWindow.close()
+            
+        from seleccion_partida import SelPartida
+        self.registro_window = SelPartida()
+        self.registro_window.setupUi(self.MainWindow) 
+        self.MainWindow.show()
+        
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))

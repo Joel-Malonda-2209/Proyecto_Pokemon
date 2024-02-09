@@ -98,6 +98,7 @@ class SelPartida(object):
         self.ladder.setStyleSheet("background-color: rgb(255, 170, 0);\n"
 "color: rgb(255, 255, 255);")
         self.ladder.setObjectName("ladder")
+        self.ladder.clicked.connect(self.abrir_eleccion_equipo)
         self.verticalLayout_4.addWidget(self.ladder)
         self.verticalLayout_2.addWidget(self.verticalWidget_3)
         self.verticalWidget_4 = QtWidgets.QWidget(parent=self.horizontalWidget)
@@ -133,7 +134,14 @@ class SelPartida(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        
+    def abrir_eleccion_equipo(self):
+            self.MainWindow.close()
+            
+            from Eleccion_equipo import Ui_MainWindow
+            self.eleccion = Ui_MainWindow()
+            self.eleccion.setupUi(self.MainWindow) 
+            self.MainWindow.show()
+    
     def volver_a_login(self):
             self.MainWindow.close()
             
