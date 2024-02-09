@@ -101,7 +101,8 @@
             "Grassy-glide",
             "Tera-blast",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
     },
     {
         "name": "Ivysaur",
@@ -202,7 +203,8 @@
             "Grassy-glide",
             "Tera-blast",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"
     },
     {
         "name": "Venusaur",
@@ -316,7 +318,8 @@
             "Terrain-pulse",
             "Tera-blast",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
     },
     {
         "name": "Charmander",
@@ -439,7 +442,8 @@
             "Breaking-swipe",
             "Tera-blast",
             "Temper-flare"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
     },
     {
         "name": "Charmeleon",
@@ -560,7 +564,8 @@
             "Breaking-swipe",
             "Tera-blast",
             "Temper-flare"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png"
     },
     {
         "name": "Charizard",
@@ -709,7 +714,8 @@
             "Tera-blast",
             "Dragon-cheer",
             "Temper-flare"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
     },
     {
         "name": "Squirtle",
@@ -833,7 +839,8 @@
             "Tera-blast",
             "Ice-spinner",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"
     },
     {
         "name": "Wartortle",
@@ -952,7 +959,8 @@
             "Tera-blast",
             "Ice-spinner",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png"
     },
     {
         "name": "Blastoise",
@@ -1090,7 +1098,8 @@
             "Tera-blast",
             "Ice-spinner",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png"
     },
     {
         "name": "Caterpie",
@@ -1113,7 +1122,8 @@
             "Snore",
             "Bug-bite",
             "Electroweb"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png"
     },
     {
         "name": "Metapod",
@@ -1135,7 +1145,8 @@
             "Iron-defense",
             "Bug-bite",
             "Electroweb"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/11.png"
     },
     {
         "name": "Butterfree",
@@ -1239,7 +1250,8 @@
             "Infestation",
             "Pollen-puff",
             "Dual-wingbeat"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/12.png"
     },
     {
         "name": "Weedle",
@@ -1261,7 +1273,8 @@
             "String-shot",
             "Bug-bite",
             "Electroweb"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/13.png"
     },
     {
         "name": "Kakuna",
@@ -1283,7 +1296,8 @@
             "Iron-defense",
             "Bug-bite",
             "Electroweb"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/14.png"
     },
     {
         "name": "Beedrill",
@@ -1383,7 +1397,8 @@
             "Laser-focus",
             "Throat-chop",
             "Brutal-swing"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png"
     },
     {
         "name": "Pidgey",
@@ -1466,7 +1481,8 @@
             "Work-up",
             "Hurricane",
             "Confide"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/16.png"
     },
     {
         "name": "Pidgeotto",
@@ -1545,7 +1561,8 @@
             "Work-up",
             "Hurricane",
             "Confide"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/17.png"
     },
     {
         "name": "Pidgeot",
@@ -1627,7 +1644,8 @@
             "Hurricane",
             "Confide",
             "Laser-focus"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/18.png"
     },
     {
         "name": "Rattata",
@@ -1728,7 +1746,8 @@
             "Wild-charge",
             "Confide",
             "Laser-focus"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/19.png"
     },
     {
         "name": "Raticate",
@@ -1831,7 +1850,8 @@
             "Laser-focus",
             "Throat-chop",
             "Stomping-tantrum"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/20.png"
     },
     {
         "name": "Spearow",
@@ -1918,7 +1938,8 @@
             "Work-up",
             "Drill-run",
             "Confide"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/21.png"
     },
     {
         "name": "Fearow",
@@ -2005,7 +2026,8 @@
             "Confide",
             "Laser-focus",
             "Throat-chop"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/22.png"
     },
     {
         "name": "Ekans",
@@ -2119,7 +2141,8 @@
             "Lash-out",
             "Tera-blast",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/23.png"
     },
     {
         "name": "Arbok",
@@ -2239,7 +2262,8 @@
             "Lash-out",
             "Tera-blast",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/24.png"
     },
     {
         "name": "Pikachu",
@@ -2362,7 +2386,8 @@
             "Trailblaze",
             "Alluring-voice",
             "Upper-hand"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
     },
     {
         "name": "Raichu",
@@ -2489,7 +2514,8 @@
             "Trailblaze",
             "Alluring-voice",
             "Upper-hand"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/26.png"
     },
     {
         "name": "Sandshrew",
@@ -2606,7 +2632,8 @@
             "Steel-roller",
             "Scorching-sands",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/27.png"
     },
     {
         "name": "Sandslash",
@@ -2727,7 +2754,8 @@
             "Steel-roller",
             "Scorching-sands",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/28.png"
     },
     {
         "name": "Nidoran-f",
@@ -2824,7 +2852,8 @@
             "Chip-away",
             "Confide",
             "Venom-drench"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/29.png"
     },
     {
         "name": "Nidorina",
@@ -2920,7 +2949,8 @@
             "Confide",
             "Venom-drench",
             "Stomping-tantrum"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/30.png"
     },
     {
         "name": "Nidoqueen",
@@ -3072,7 +3102,8 @@
             "Stomping-tantrum",
             "Body-press",
             "Scorching-sands"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/31.png"
     },
     {
         "name": "Nidoran-m",
@@ -3171,7 +3202,8 @@
             "Confide",
             "Venom-drench",
             "Smart-strike"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/32.png"
     },
     {
         "name": "Nidorino",
@@ -3266,7 +3298,8 @@
             "Venom-drench",
             "Smart-strike",
             "Stomping-tantrum"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/33.png"
     },
     {
         "name": "Nidoking",
@@ -3419,7 +3452,8 @@
             "Stomping-tantrum",
             "Body-press",
             "Scorching-sands"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/34.png"
     },
     {
         "name": "Clefairy",
@@ -3596,7 +3630,8 @@
             "Tera-blast",
             "Chilling-water",
             "Alluring-voice"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png"
     },
     {
         "name": "Clefable",
@@ -3775,7 +3810,8 @@
             "Tera-blast",
             "Chilling-water",
             "Alluring-voice"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/36.png"
     },
     {
         "name": "Vulpix",
@@ -3880,7 +3916,8 @@
             "Baby-doll-eyes",
             "Burning-jealousy",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/37.png"
     },
     {
         "name": "Ninetales",
@@ -3995,7 +4032,8 @@
             "Burning-jealousy",
             "Scorching-sands",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/38.png"
     },
     {
         "name": "Jigglypuff",
@@ -4162,7 +4200,8 @@
             "Chilling-water",
             "Alluring-voice",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png"
     },
     {
         "name": "Wigglytuff",
@@ -4334,7 +4373,8 @@
             "Chilling-water",
             "Alluring-voice",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/40.png"
     },
     {
         "name": "Zubat",
@@ -4434,7 +4474,8 @@
             "Confide",
             "Venom-drench",
             "Dual-wingbeat"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/41.png"
     },
     {
         "name": "Golbat",
@@ -4533,7 +4574,8 @@
             "Confide",
             "Venom-drench",
             "Dual-wingbeat"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/42.png"
     },
     {
         "name": "Oddish",
@@ -4625,7 +4667,8 @@
             "Grassy-glide",
             "Tera-blast",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/43.png"
     },
     {
         "name": "Gloom",
@@ -4721,7 +4764,8 @@
             "Grassy-glide",
             "Tera-blast",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/44.png"
     },
     {
         "name": "Vileplume",
@@ -4825,7 +4869,8 @@
             "Corrosive-gas",
             "Tera-blast",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png"
     },
     {
         "name": "Paras",
@@ -4930,7 +4975,8 @@
             "Fell-stinger",
             "Grassy-terrain",
             "Confide"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/46.png"
     },
     {
         "name": "Parasect",
@@ -5029,7 +5075,8 @@
             "Struggle-bug",
             "Confide",
             "Throat-chop"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png"
     },
     {
         "name": "Venonat",
@@ -5122,7 +5169,8 @@
             "Tera-blast",
             "Pounce",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/48.png"
     },
     {
         "name": "Venomoth",
@@ -5233,7 +5281,8 @@
             "Tera-blast",
             "Pounce",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/49.png"
     },
     {
         "name": "Diglett",
@@ -5334,7 +5383,8 @@
             "Stomping-tantrum",
             "Scorching-sands",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/50.png"
     },
     {
         "name": "Dugtrio",
@@ -5436,7 +5486,8 @@
             "Stomping-tantrum",
             "Scorching-sands",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/51.png"
     },
     {
         "name": "Meowth",
@@ -5564,7 +5615,8 @@
             "Tera-blast",
             "Trailblaze",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png"
     },
     {
         "name": "Persian",
@@ -5693,7 +5745,8 @@
             "Tera-blast",
             "Trailblaze",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/53.png"
     },
     {
         "name": "Psyduck",
@@ -5831,7 +5884,8 @@
             "Trailblaze",
             "Chilling-water",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/54.png"
     },
     {
         "name": "Golduck",
@@ -5971,7 +6025,8 @@
             "Trailblaze",
             "Chilling-water",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/55.png"
     },
     {
         "name": "Mankey",
@@ -6108,7 +6163,8 @@
             "Stomping-tantrum",
             "Lash-out",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/56.png"
     },
     {
         "name": "Primeape",
@@ -6242,7 +6298,8 @@
             "Lash-out",
             "Tera-blast",
             "Rage-fist"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/57.png"
     },
     {
         "name": "Growlithe",
@@ -6342,7 +6399,8 @@
             "Raging-fury",
             "Tera-blast",
             "Temper-flare"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/58.png"
     },
     {
         "name": "Arcanine",
@@ -6451,7 +6509,8 @@
             "Scorching-sands",
             "Tera-blast",
             "Temper-flare"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/59.png"
     },
     {
         "name": "Poliwag",
@@ -6547,7 +6606,8 @@
             "Liquidation",
             "Tera-blast",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/60.png"
     },
     {
         "name": "Poliwhirl",
@@ -6657,7 +6717,8 @@
             "Liquidation",
             "Tera-blast",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/61.png"
     },
     {
         "name": "Poliwrath",
@@ -6792,7 +6853,8 @@
             "Tera-blast",
             "Chilling-water",
             "Upper-hand"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/62.png"
     },
     {
         "name": "Abra",
@@ -6907,7 +6969,8 @@
             "Dazzling-gleam",
             "Psychic-terrain",
             "Speed-swap"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/63.png"
     },
     {
         "name": "Kadabra",
@@ -7028,7 +7091,8 @@
             "Psychic-terrain",
             "Speed-swap",
             "Expanding-force"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/64.png"
     },
     {
         "name": "Alakazam",
@@ -7157,7 +7221,8 @@
             "Psychic-terrain",
             "Speed-swap",
             "Expanding-force"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/65.png"
     },
     {
         "name": "Machop",
@@ -7272,7 +7337,8 @@
             "Confide",
             "Power-up-punch",
             "Coaching"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/66.png"
     },
     {
         "name": "Machoke",
@@ -7381,7 +7447,8 @@
             "Power-up-punch",
             "Stomping-tantrum",
             "Coaching"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/67.png"
     },
     {
         "name": "Machamp",
@@ -7500,7 +7567,8 @@
             "Throat-chop",
             "Stomping-tantrum",
             "Coaching"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/68.png"
     },
     {
         "name": "Bellsprout",
@@ -7598,7 +7666,8 @@
             "Tera-blast",
             "Pounce",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/69.png"
     },
     {
         "name": "Weepinbell",
@@ -7698,7 +7767,8 @@
             "Tera-blast",
             "Pounce",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/70.png"
     },
     {
         "name": "Victreebel",
@@ -7805,7 +7875,8 @@
             "Tera-blast",
             "Pounce",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/71.png"
     },
     {
         "name": "Tentacool",
@@ -7916,7 +7987,8 @@
             "Tera-blast",
             "Pounce",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/72.png"
     },
     {
         "name": "Tentacruel",
@@ -8034,7 +8106,8 @@
             "Tera-blast",
             "Pounce",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/73.png"
     },
     {
         "name": "Geodude",
@@ -8139,7 +8212,8 @@
             "High-horsepower",
             "Stomping-tantrum",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/74.png"
     },
     {
         "name": "Graveler",
@@ -8248,7 +8322,8 @@
             "Body-press",
             "Tera-blast",
             "Hard-press"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/75.png"
     },
     {
         "name": "Golem",
@@ -8363,7 +8438,8 @@
             "Body-press",
             "Tera-blast",
             "Hard-press"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/76.png"
     },
     {
         "name": "Ponyta",
@@ -8449,7 +8525,8 @@
             "Mystical-fire",
             "High-horsepower",
             "Solar-blade"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/77.png"
     },
     {
         "name": "Rapidash",
@@ -8545,7 +8622,8 @@
             "Throat-chop",
             "Smart-strike",
             "Scorching-sands"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/78.png"
     },
     {
         "name": "Slowpoke",
@@ -8678,7 +8756,8 @@
             "Tera-blast",
             "Snowscape",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/79.png"
     },
     {
         "name": "Slowbro",
@@ -8832,7 +8911,8 @@
             "Snowscape",
             "Chilling-water",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/80.png"
     },
     {
         "name": "Magnemite",
@@ -8925,7 +9005,8 @@
             "Steel-beam",
             "Rising-voltage",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/81.png"
     },
     {
         "name": "Magneton",
@@ -9021,7 +9102,8 @@
             "Steel-beam",
             "Rising-voltage",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/82.png"
     },
     {
         "name": "Farfetchd",
@@ -9135,7 +9217,8 @@
             "Throat-chop",
             "Brutal-swing",
             "Dual-wingbeat"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/83.png"
     },
     {
         "name": "Doduo",
@@ -9232,7 +9315,8 @@
             "Throat-chop",
             "Lunge",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/84.png"
     },
     {
         "name": "Dodrio",
@@ -9337,7 +9421,8 @@
             "Tera-blast",
             "Pounce",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/85.png"
     },
     {
         "name": "Seel",
@@ -9443,7 +9528,8 @@
             "Ice-spinner",
             "Snowscape",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/86.png"
     },
     {
         "name": "Dewgong",
@@ -9555,7 +9641,8 @@
             "Snowscape",
             "Chilling-water",
             "Alluring-voice"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/87.png"
     },
     {
         "name": "Grimer",
@@ -9668,7 +9755,8 @@
             "Infestation",
             "Power-up-punch",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/88.png"
     },
     {
         "name": "Muk",
@@ -9790,7 +9878,8 @@
             "Lunge",
             "Lash-out",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/89.png"
     },
     {
         "name": "Shellder",
@@ -9884,7 +9973,8 @@
             "Ice-spinner",
             "Snowscape",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/90.png"
     },
     {
         "name": "Cloyster",
@@ -9991,7 +10081,8 @@
             "Ice-spinner",
             "Snowscape",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/91.png"
     },
     {
         "name": "Gastly",
@@ -10104,7 +10195,8 @@
             "Poltergeist",
             "Corrosive-gas",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/92.png"
     },
     {
         "name": "Haunter",
@@ -10219,7 +10311,8 @@
             "Poltergeist",
             "Corrosive-gas",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/93.png"
     },
     {
         "name": "Gengar",
@@ -10359,7 +10452,8 @@
             "Corrosive-gas",
             "Tera-blast",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
     },
     {
         "name": "Onix",
@@ -10467,7 +10561,8 @@
             "Breaking-swipe",
             "Meteor-beam",
             "Scorching-sands"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/95.png"
     },
     {
         "name": "Drowzee",
@@ -10601,7 +10696,8 @@
             "Tera-blast",
             "Trailblaze",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/96.png"
     },
     {
         "name": "Hypno",
@@ -10738,7 +10834,8 @@
             "Tera-blast",
             "Trailblaze",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/97.png"
     },
     {
         "name": "Krabby",
@@ -10839,7 +10936,8 @@
             "Razor-shell",
             "Confide",
             "Liquidation"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/98.png"
     },
     {
         "name": "Kingler",
@@ -10943,7 +11041,8 @@
             "Brutal-swing",
             "Stomping-tantrum",
             "Liquidation"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/99.png"
     },
     {
         "name": "Voltorb",
@@ -11029,7 +11128,8 @@
             "Eerie-impulse",
             "Electric-terrain",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/100.png"
     },
     {
         "name": "Electrode",
@@ -11121,7 +11221,8 @@
             "Electric-terrain",
             "Tera-blast",
             "Supercell-slam"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/101.png"
     },
     {
         "name": "Exeggcute",
@@ -11227,7 +11328,8 @@
             "Grassy-glide",
             "Tera-blast",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/102.png"
     },
     {
         "name": "Exeggutor",
@@ -11344,7 +11446,8 @@
             "Terrain-pulse",
             "Tera-blast",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/103.png"
     },
     {
         "name": "Cubone",
@@ -11459,7 +11562,8 @@
             "Brutal-swing",
             "Stomping-tantrum",
             "Scorching-sands"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/104.png"
     },
     {
         "name": "Marowak",
@@ -11576,7 +11680,8 @@
             "Brutal-swing",
             "Stomping-tantrum",
             "Scorching-sands"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/105.png"
     },
     {
         "name": "Hitmonlee",
@@ -11698,7 +11803,8 @@
             "Tera-blast",
             "Axe-kick",
             "Upper-hand"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/106.png"
     },
     {
         "name": "Hitmonchan",
@@ -11819,7 +11925,8 @@
             "Tera-blast",
             "Trailblaze",
             "Upper-hand"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/107.png"
     },
     {
         "name": "Lickitung",
@@ -11954,7 +12061,8 @@
             "Body-press",
             "Steel-roller",
             "Terrain-pulse"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/108.png"
     },
     {
         "name": "Koffing",
@@ -12052,7 +12160,8 @@
             "Infestation",
             "Corrosive-gas",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/109.png"
     },
     {
         "name": "Weezing",
@@ -12149,7 +12258,8 @@
             "Infestation",
             "Corrosive-gas",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/110.png"
     },
     {
         "name": "Rhyhorn",
@@ -12275,7 +12385,8 @@
             "Scorching-sands",
             "Tera-blast",
             "Supercell-slam"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/111.png"
     },
     {
         "name": "Rhydon",
@@ -12431,7 +12542,8 @@
             "Scorching-sands",
             "Tera-blast",
             "Supercell-slam"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png"
     },
     {
         "name": "Chansey",
@@ -12590,7 +12702,8 @@
             "Snowscape",
             "Trailblaze",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/113.png"
     },
     {
         "name": "Tangela",
@@ -12688,7 +12801,8 @@
             "Confide",
             "Infestation",
             "Grassy-glide"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/114.png"
     },
     {
         "name": "Kangaskhan",
@@ -12828,7 +12942,8 @@
             "Confide",
             "Power-up-punch",
             "Terrain-pulse"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/115.png"
     },
     {
         "name": "Horsea",
@@ -12919,7 +13034,8 @@
             "Flip-turn",
             "Tera-blast",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/116.png"
     },
     {
         "name": "Seadra",
@@ -13011,7 +13127,8 @@
             "Tera-blast",
             "Snowscape",
             "Chilling-water"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/117.png"
     },
     {
         "name": "Goldeen",
@@ -13105,7 +13222,8 @@
             "Smart-strike",
             "Scale-shot",
             "Flip-turn"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/118.png"
     },
     {
         "name": "Seaking",
@@ -13198,7 +13316,8 @@
             "Smart-strike",
             "Scale-shot",
             "Flip-turn"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/119.png"
     },
     {
         "name": "Staryu",
@@ -13296,7 +13415,8 @@
             "Confide",
             "Dazzling-gleam",
             "Flip-turn"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/120.png"
     },
     {
         "name": "Starmie",
@@ -13407,7 +13527,8 @@
             "Expanding-force",
             "Meteor-beam",
             "Flip-turn"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/121.png"
     },
     {
         "name": "Mr-mime",
@@ -13553,7 +13674,8 @@
             "Power-up-punch",
             "Psychic-terrain",
             "Expanding-force"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/122.png"
     },
     {
         "name": "Scyther",
@@ -13660,7 +13782,8 @@
             "Tera-blast",
             "Pounce",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/123.png"
     },
     {
         "name": "Jynx",
@@ -13800,7 +13923,8 @@
             "Aurora-veil",
             "Expanding-force",
             "Triple-axel"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/124.png"
     },
     {
         "name": "Electabuzz",
@@ -13916,7 +14040,8 @@
             "Tera-blast",
             "Trailblaze",
             "Supercell-slam"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/125.png"
     },
     {
         "name": "Magmar",
@@ -14033,7 +14158,8 @@
             "Scorching-sands",
             "Tera-blast",
             "Temper-flare"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/126.png"
     },
     {
         "name": "Pinsir",
@@ -14137,7 +14263,8 @@
             "High-horsepower",
             "Throat-chop",
             "Brutal-swing"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/127.png"
     },
     {
         "name": "Tauros",
@@ -14251,7 +14378,8 @@
             "Tera-blast",
             "Raging-bull",
             "Trailblaze"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/128.png"
     },
     {
         "name": "Magikarp",
@@ -14274,7 +14402,8 @@
             "Splash",
             "Flail",
             "Bounce"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/129.png"
     },
     {
         "name": "Gyarados",
@@ -14393,7 +14522,8 @@
             "Chilling-water",
             "Dragon-cheer",
             "Temper-flare"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/130.png"
     },
     {
         "name": "Lapras",
@@ -14524,7 +14654,8 @@
             "Dragon-cheer",
             "Alluring-voice",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/131.png"
     },
     {
         "name": "Ditto",
@@ -14543,7 +14674,8 @@
         },
         "moves": [
             "Transform"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
     },
     {
         "name": "Eevee",
@@ -14636,7 +14768,8 @@
             "Tera-blast",
             "Trailblaze",
             "Alluring-voice"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png"
     },
     {
         "name": "Vaporeon",
@@ -14751,7 +14884,8 @@
             "Trailblaze",
             "Chilling-water",
             "Alluring-voice"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/134.png"
     },
     {
         "name": "Jolteon",
@@ -14866,7 +15000,8 @@
             "Tera-blast",
             "Trailblaze",
             "Alluring-voice"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/135.png"
     },
     {
         "name": "Flareon",
@@ -14978,7 +15113,8 @@
             "Trailblaze",
             "Alluring-voice",
             "Temper-flare"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/136.png"
     },
     {
         "name": "Porygon",
@@ -15083,7 +15219,8 @@
             "Eerie-impulse",
             "Speed-swap",
             "Tera-blast"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/137.png"
     },
     {
         "name": "Omanyte",
@@ -15182,7 +15319,8 @@
             "Reflect-type",
             "Confide",
             "Meteor-beam"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/138.png"
     },
     {
         "name": "Omastar",
@@ -15287,7 +15425,8 @@
             "Confide",
             "Liquidation",
             "Meteor-beam"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/139.png"
     },
     {
         "name": "Kabuto",
@@ -15389,7 +15528,8 @@
             "Confide",
             "Liquidation",
             "Meteor-beam"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/140.png"
     },
     {
         "name": "Kabutops",
@@ -15511,7 +15651,8 @@
             "Liquidation",
             "Meteor-beam",
             "Flip-turn"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/141.png"
     },
     {
         "name": "Aerodactyl",
@@ -15628,7 +15769,8 @@
             "Psychic-fangs",
             "Meteor-beam",
             "Dual-wingbeat"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/142.png"
     },
     {
         "name": "Snorlax",
@@ -15783,7 +15925,8 @@
             "Chilling-water",
             "Hard-press",
             "Supercell-slam"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png"
     },
     {
         "name": "Articuno",
@@ -15889,7 +16032,8 @@
             "Tera-blast",
             "Ice-spinner",
             "Snowscape"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/144.png"
     },
     {
         "name": "Zapdos",
@@ -15994,7 +16138,8 @@
             "Dual-wingbeat",
             "Tera-blast",
             "Supercell-slam"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/145.png"
     },
     {
         "name": "Moltres",
@@ -16094,7 +16239,8 @@
             "Scorching-sands",
             "Tera-blast",
             "Temper-flare"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/146.png"
     },
     {
         "name": "Dratini",
@@ -16198,7 +16344,8 @@
             "Tera-blast",
             "Chilling-water",
             "Dragon-cheer"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/147.png"
     },
     {
         "name": "Dragonair",
@@ -16300,7 +16447,8 @@
             "Tera-blast",
             "Chilling-water",
             "Dragon-cheer"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/148.png"
     },
     {
         "name": "Dragonite",
@@ -16455,7 +16603,8 @@
             "Snowscape",
             "Chilling-water",
             "Dragon-cheer"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png"
     },
     {
         "name": "Mewtwo",
@@ -16640,7 +16789,8 @@
             "Trailblaze",
             "Chilling-water",
             "Psychic-noise"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png"
     },
     {
         "name": "Mew",
@@ -17032,6 +17182,7 @@
             "Supercell-slam",
             "Psychic-noise",
             "Upper-hand"
-        ]
+        ],
+        "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png"
     }
 ]

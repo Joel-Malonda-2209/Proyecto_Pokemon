@@ -40,5 +40,11 @@
     "correo": "isa@gmail.com",
     "contrase\u00f1a": "1",
     "g\u00e9nero": "Chica"
+  },
+  {
+    "nombre": "pepe",
+    "correo": "pepe@gmail.com",
+    "contrase\u00f1a": "12",
+    "g\u00e9nero": "Chico"
   }
 ]

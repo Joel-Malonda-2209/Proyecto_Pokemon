@@ -20,7 +20,8 @@ def get_pokemon_info(pokemon_url):
             'abilities': [ability['ability']['name'].capitalize() for ability in data['abilities']],
             'type': data['types'][0]['type']['name'].capitalize(),
             'stats': {stat['stat']['name'].capitalize(): stat['base_stat'] for stat in data['stats']},
-            'moves': [move['move']['name'].capitalize() for move in data['moves']]
+            'moves': [move['move']['name'].capitalize() for move in data['moves']],
+            'image_url': data['sprites']['front_default'] 
         }
         return pokemon_data
     else:
