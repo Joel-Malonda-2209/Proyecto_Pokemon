@@ -237,7 +237,9 @@ class PantRegistro(object):
             
             
             QtWidgets.QMessageBox.information(self.centralwidget, "Registro Exitoso", "Usuario registrado con éxito.")
-
+        
+            self.volver_a_login()
+            
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -247,7 +249,7 @@ class PantRegistro(object):
         self.lineEdit.line_edit.setPlaceholderText(_translate("MainWindow", "Repetir Contraseña"))
         self.radioButton.setText(_translate("MainWindow", "Chico"))
         self.radioButton_2.setText(_translate("MainWindow", "Chica"))
-        self.AccederLogin.setText(_translate("MainWindow", "Acceder"))
+        self.AccederLogin.setText(_translate("MainWindow", "Registrarse"))
         self.Cancelar.setText(_translate("MainWindow", "Cancelar"))
         self.label.setText(_translate("MainWindow", "Bueno, cuéntame algo sobre ti."))
     
