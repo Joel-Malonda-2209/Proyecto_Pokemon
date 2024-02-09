@@ -1,6 +1,7 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 import requests
 
+
 class PokemonWidget(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -185,14 +186,20 @@ class Ui_MainWindow(object):
         self.back_lobby.setObjectName("back_lobby")
         self.team_layout.addWidget(self.back_lobby)
 
-        team_info_widget = TeamInfoWidget(self.team_widget)
-        self.team_layout.addWidget(team_info_widget)
-        team_info_widget2 = TeamInfoWidget(self.team_widget)
-        self.team_layout.addWidget(team_info_widget2)
-        team_info_widget3 = TeamInfoWidget(self.team_widget)
-        self.team_layout.addWidget(team_info_widget3)
-        team_info_widget4 = TeamInfoWidget(self.team_widget)
-        self.team_layout.addWidget(team_info_widget4)
+        self.save_button = QtWidgets.QPushButton(
+            "Guardar equipo", self.team_widget)
+        self.save_button.setStyleSheet("background-color: rgb(206, 206, 206);")
+        self.save_button.setObjectName("save_button")
+        self.team_layout.addWidget(self.save_button)
+
+        self.team_info_widget = TeamInfoWidget(self.team_widget)
+        self.team_layout.addWidget(self.team_info_widget)
+        self.team_info_widget2 = TeamInfoWidget(self.team_widget)
+        self.team_layout.addWidget(self.team_info_widget2)
+        self.team_info_widget3 = TeamInfoWidget(self.team_widget)
+        self.team_layout.addWidget(self.team_info_widget3)
+        self.team_info_widget4 = TeamInfoWidget(self.team_widget)
+        self.team_layout.addWidget(self.team_info_widget4)
         self.central_widget.addWidget(self.team_widget)
 
         self.pokemon_widget1 = PokemonWidget(self.centralwidget)
@@ -207,8 +214,8 @@ class Ui_MainWindow(object):
         self.central_widget.addWidget(self.pokemon_widget5)
         self.pokemon_widget6 = PokemonWidget(self.centralwidget)
         self.central_widget.addWidget(self.pokemon_widget6)
-        MainWindow.setCentralWidget(self.centralwidget)
 
+        MainWindow.setCentralWidget(self.centralwidget)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -264,7 +271,22 @@ class Ui_MainWindow(object):
             self.get_pokemon_move(data, widget_index)
         else:
             print("Error al obtener los movimientos del Pokémon")
-            
+
+        # Asignar la imagen del primer Pokémon al img_first_pokemon en TeamInfoWidget
+        if widget_index == 1:
+            img_first_pokemon = self.team_info_widget.img_first_pokemon
+            pixmap = QtGui.QPixmap()
+            pixmap.loadFromData(requests.get(pokemon_image_url).content)
+            scene = QtWidgets.QGraphicsScene()
+            scene.addPixmap(pixmap)
+            img_first_pokemon.setScene(scene)
+            img_first_pokemon.fitInView(
+                scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        else:
+            print("")
+
+
+
     def get_pokemon_move(self, data, widget_index):
         moves = data.get("moves", [])
         move_widgets = [
@@ -275,7 +297,8 @@ class Ui_MainWindow(object):
         ]
         for move_widget, move_name in zip(move_widgets, moves):
             move_widget.clear()
-            move_widget.addItems([move["move"]["name"].capitalize() for move in moves])
+            move_widget.addItems(
+                [move["move"]["name"].capitalize() for move in moves])
 
     def get_pokemon_type(self, pokemon_url):
         response = requests.get(pokemon_url)
