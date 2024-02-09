@@ -37,7 +37,7 @@ class Ui_MainWindow(object):
         self.graphicsView.setSizePolicy(sizePolicy)
         self.graphicsView.setStyleSheet("border-image: url(:/bulbasur.png);")
         self.graphicsView.setObjectName("graphicsView")
-        self.x.addWidget(self.graphicsView)
+        self.verticalLayout_11.addWidget(self.graphicsView)
         self.verticalLayout_5.addWidget(self.verticalWidget)
         self.label = QtWidgets.QLabel(parent=self.verticalWidget_21)
         self.label.setMaximumSize(QtCore.QSize(16777215, 25))

@@ -163,6 +163,7 @@ class Ui_MainWindow(object):
         self.abandonar2.setStyleSheet("border-style: solid;border-width:2px; border-color: rgb(0,0,0); color: rgb(0,0,0); border-radius: 5px;\n"
 "background-color: rgb(171, 219, 205);")
         self.abandonar2.setObjectName("abandonar2")
+        self.abandonar2.clicked.connect(self.abandonarPartida)
         self.gridLayout_2.addWidget(self.abandonar2, 2, 1, 1, 1)
         self.horizontalLayout_3.addWidget(self.gridWidget2)
         self.Mochila2 = QtWidgets.QPushButton(parent=self.horizontalWidget)
@@ -218,6 +219,14 @@ class Ui_MainWindow(object):
         from pantalla_lucha_definitiva import Ui_MainWindow
         self.cambiar = Ui_MainWindow()
         self.cambiar.setupUi(self.MainWindow) 
+        self.MainWindow.show()
+    
+    def abandonarPartida(self):
+        self.MainWindow.close()
+        
+        from seleccion_partida import SelPartida
+        self.rapida = SelPartida()
+        self.rapida.setupUi(self.MainWindow) 
         self.MainWindow.show()
         
     def retranslateUi(self, MainWindow):

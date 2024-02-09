@@ -128,7 +128,6 @@ class Ui_MainWindow(object):
         self.gridWidget2 = QtWidgets.QWidget(parent=self.horizontalWidget)
         self.gridWidget2.setMinimumSize(QtCore.QSize(250, 0))
         self.gridWidget2.setMaximumSize(QtCore.QSize(500, 16777215))
-        self.gridWidget2.setStyleSheet("background-image: url(:/pokeball.png);")
         self.gridWidget2.setObjectName("gridWidget2")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.gridWidget2)
         self.gridLayout_2.setObjectName("gridLayout_2")
