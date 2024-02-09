@@ -359,8 +359,10 @@ class Ui_MainWindow(object):
             graphics_view.setScene(scene)
             graphics_view.fitInView(
                 scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+            graphics_view.img_url = url
         else:
             print("No se pudo cargar la imagen del Pokémon")
+
         
     def save_button_clicked(self):
         team_data = []
@@ -372,12 +374,13 @@ class Ui_MainWindow(object):
                 'level': pokemon_widget.set_level.text(),
                 'type': pokemon_widget.set_type.text(),
                 'moves': [pokemon_widget.move_1.currentText(),
-                          pokemon_widget.move_2.currentText(),
-                          pokemon_widget.move_3.currentText(),
-                          pokemon_widget.move_4.currentText()]
+                        pokemon_widget.move_2.currentText(),
+                        pokemon_widget.move_3.currentText(),
+                        pokemon_widget.move_4.currentText()],
+                'img_url': pokemon_widget.img_pokemon.img_url
             }
             team_data.append(pokemon_info)
-        
+
         with open('team_data.json', 'w') as file:
             json.dump(team_data, file)
 
