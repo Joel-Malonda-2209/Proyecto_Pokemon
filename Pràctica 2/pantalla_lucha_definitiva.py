@@ -9,7 +9,7 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from recursos2 import *
 
-print("hola")
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         self.MainWindow = MainWindow

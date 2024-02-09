@@ -1,7 +1,6 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from recursos2 import *
 
-print("hola")
 class SelPartida(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
