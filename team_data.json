@@ -1,0 +1,74 @@
+[
+    {
+        "name": "Charizard",
+        "ability": "Blaze",
+        "level": "100",
+        "type": "Fire/Flying",
+        "moves": [
+            "Mega-punch",
+            "Mega-kick",
+            "Headbutt",
+            "Smokescreen"
+        ]
+    },
+    {
+        "name": "Doduo",
+        "ability": "Run-away",
+        "level": "100",
+        "type": "Normal/Flying",
+        "moves": [
+            "Haze",
+            "Thrash",
+            "Headbutt",
+            "Jump-kick"
+        ]
+    },
+    {
+        "name": "Nidoking",
+        "ability": "Poison-point",
+        "level": "100",
+        "type": "Poison/Ground",
+        "moves": [
+            "Mega-punch",
+            "Mega-punch",
+            "Mega-punch",
+            "Mega-punch"
+        ]
+    },
+    {
+        "name": "Pikachu",
+        "ability": "Static",
+        "level": "100",
+        "type": "Electric",
+        "moves": [
+            "Mega-punch",
+            "Mega-punch",
+            "Mega-punch",
+            "Mega-punch"
+        ]
+    },
+    {
+        "name": "Poliwag",
+        "ability": "Water-absorb",
+        "level": "100",
+        "type": "Water",
+        "moves": [
+            "Pound",
+            "Pound",
+            "Pound",
+            "Pound"
+        ]
+    },
+    {
+        "name": "Alakazam",
+        "ability": "Synchronize",
+        "level": "100",
+        "type": "Psychic",
+        "moves": [
+            "Mega-punch",
+            "Mega-punch",
+            "Mega-punch",
+            "Mega-punch"
+        ]
+    }
+]

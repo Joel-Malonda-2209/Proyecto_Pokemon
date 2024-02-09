@@ -1,5 +1,6 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 import requests
+import json
 
 
 class PokemonWidget(QtWidgets.QWidget):
@@ -147,6 +148,7 @@ class TeamInfoWidget(QtWidgets.QWidget):
 
         self.change_team = QtWidgets.QPushButton("Change Team", self)
         self.change_team.setObjectName("change_team")
+        self.change_team.clicked.connect(self.change_team_clicked)
         layout.addWidget(self.change_team)
 
         self.img_first_pokemon = QtWidgets.QGraphicsView(self)
@@ -190,6 +192,7 @@ class Ui_MainWindow(object):
             "Guardar equipo", self.team_widget)
         self.save_button.setStyleSheet("background-color: rgb(206, 206, 206);")
         self.save_button.setObjectName("save_button")
+        self.save_button.clicked.connect(self.save_button_clicked)
         self.team_layout.addWidget(self.save_button)
 
         self.team_info_widget = TeamInfoWidget(self.team_widget)
@@ -359,7 +362,50 @@ class Ui_MainWindow(object):
                 scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
         else:
             print("No se pudo cargar la imagen del Pokémon")
+        
+    def save_button_clicked(self):
+        team_data = []
+        for i in range(1, 7):
+            pokemon_widget = getattr(self, f"pokemon_widget{i}")
+            pokemon_info = {
+                'name': pokemon_widget.name_pokemon.currentText(),
+                'ability': pokemon_widget.ability_comboBox.currentText(),
+                'level': pokemon_widget.set_level.text(),
+                'type': pokemon_widget.set_type.text(),
+                'moves': [pokemon_widget.move_1.currentText(),
+                          pokemon_widget.move_2.currentText(),
+                          pokemon_widget.move_3.currentText(),
+                          pokemon_widget.move_4.currentText()]
+            }
+            team_data.append(pokemon_info)
+        
+        with open('team_data.json', 'w') as file:
+            json.dump(team_data, file)
 
+    def change_team_clicked(self):
+        team_data = self.load_team_data()
+        if team_data:
+            for i, pokemon_info in enumerate(team_data, 1):
+                pokemon_widget = getattr(self, f"pokemon_widget{i}")
+                pokemon_widget.name_pokemon.setCurrentText(pokemon_info['name'])
+                pokemon_widget.ability_comboBox.setCurrentText(pokemon_info['ability'])
+                pokemon_widget.set_level.setText(pokemon_info['level'])
+                pokemon_widget.set_type.setText(pokemon_info['type'])
+                for j, move in enumerate(pokemon_info['moves'], 1):
+                    getattr(pokemon_widget, f"move_{j}").setCurrentText(move)
+
+    def save_team_data(self, team_data):
+        with open('team_data.json', 'w') as file:
+            json.dump(team_data, file)
+
+    def load_team_data(self):
+        try:
+            with open('team_data.json', 'r') as file:
+                team_data = json.load(file)
+                return team_data
+        except FileNotFoundError:
+            print("Archivo 'team_data.json' no encontrado.")
+            return None
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
