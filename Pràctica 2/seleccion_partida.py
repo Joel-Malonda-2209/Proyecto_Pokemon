@@ -1,7 +1,6 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from recursos2 import *
 
-
 class SelPartida(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -71,6 +70,7 @@ class SelPartida(object):
         self.partidaRapida.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(85, 255, 0);")
         self.partidaRapida.setObjectName("partidaRapida")
+        self.partidaRapida.clicked.connect(self.iraPartidaRapida)
         self.verticalLayout_3.addWidget(self.partidaRapida)
         self.verticalLayout_2.addWidget(self.verticalWidget_21)
         self.verticalWidget_3 = QtWidgets.QWidget(parent=self.horizontalWidget)
@@ -134,6 +134,15 @@ class SelPartida(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
+    def iraPartidaRapida(self):
+            self.MainWindow.close()
+        
+            from pantalla_lucha_definitiva import Ui_MainWindow
+            self.rapida = Ui_MainWindow()
+            self.rapida.setupUi(self.MainWindow) 
+            self.MainWindow.show()
+        
     def abrir_eleccion_equipo(self):
             self.MainWindow.close()
             
