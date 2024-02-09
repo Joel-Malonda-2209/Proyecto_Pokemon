@@ -35,7 +35,7 @@
          <widget class="QWidget" name="widget" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
-            <widget class="QFrame" name="frame_2">
+            <widget class="QWidget" name="verticalWidget" native="true">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -48,15 +48,24 @@
                <height>16777215</height>
               </size>
              </property>
-             <property name="styleSheet">
-              <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(128, 128, 128), stop:0.495 rgb(128, 128, 128), stop:0.505 rgb(64, 64, 64), stop:1 rgb(64, 64, 64));</string>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_4">
+              <item>
+               <widget class="QWidget" name="gridWidget" native="true">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(128, 128, 128);</string>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_3"/>
+               </widget>
+              </item>
+              <item>
+               <widget class="QWidget" name="verticalWidget" native="true">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(64, 64, 64);</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_6"/>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>
@@ -164,7 +173,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QFrame" name="frame_3">
+            <widget class="QWidget" name="verticalWidget" native="true">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -177,15 +186,24 @@
                <height>16777215</height>
               </size>
              </property>
-             <property name="styleSheet">
-              <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(64, 64, 64), stop:0.495 rgb(64, 64, 64), stop:0.505 rgb(128, 128, 128), stop:1 rgb(128, 128, 128));</string>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <item>
+               <widget class="QWidget" name="verticalWidget_2" native="true">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(64, 64, 64);</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_7"/>
+               </widget>
+              </item>
+              <item>
+               <widget class="QWidget" name="gridWidget_2" native="true">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(128, 128, 128);</string>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_4"/>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
           </layout>
@@ -481,8 +499,6 @@ background-color: rgb(171, 219, 205);</string>
    </layout>
   </widget>
  </widget>
- <resources>
-  <include location="archivo.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
