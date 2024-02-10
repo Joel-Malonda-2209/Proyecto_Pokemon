@@ -227,7 +227,7 @@ class PantRegistro(object):
                     'nombre': nombre,
                     'correo': correo,
                     'contraseña': contraseña,
-                    'género': genero
+                    'genero': genero
             }
             
             usuarios.append(nuevo_usuario)

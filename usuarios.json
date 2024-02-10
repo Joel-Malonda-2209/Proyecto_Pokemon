@@ -1,50 +1,20 @@
 [
   {
-    "nombre": "isabel",
+    "nombre": "isa",
     "correo": "isabelitavaliente@gmail.com",
     "contrase\u00f1a": "1234",
-    "g\u00e9nero": "Chica"
+    "genero": "Chica"
   },
   {
-    "nombre": "Seulgi",
-    "correo": "seulgi@gmail.com",
-    "contrase\u00f1a": "123456",
-    "g\u00e9nero": "Chico"
-  },
-  {
-    "nombre": "prueba",
-    "correo": "p@gmail.com",
+    "nombre": "pruebachica",
+    "correo": "chica@gmail.com",
     "contrase\u00f1a": "1",
-    "g\u00e9nero": "Chica"
+    "genero": "Chica"
   },
   {
-    "nombre": "Joel",
-    "correo": "mal@gmail.com",
+    "nombre": "pruebachico",
+    "correo": "chico@gmail.com",
     "contrase\u00f1a": "1",
-    "g\u00e9nero": "Chico"
-  },
-  {
-    "nombre": "Antonio",
-    "correo": "Antonio@gmail.com",
-    "contrase\u00f1a": "123456",
-    "g\u00e9nero": "Chico"
-  },
-  {
-    "nombre": "a",
-    "correo": "a@gmail.com",
-    "contrase\u00f1a": "1",
-    "g\u00e9nero": "Chica"
-  },
-  {
-    "nombre": "isa",
-    "correo": "isa@gmail.com",
-    "contrase\u00f1a": "1",
-    "g\u00e9nero": "Chica"
-  },
-  {
-    "nombre": "pepe",
-    "correo": "pepe@gmail.com",
-    "contrase\u00f1a": "12",
-    "g\u00e9nero": "Chico"
+    "genero": "Chico"
   }
 ]

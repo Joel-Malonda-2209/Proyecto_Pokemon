@@ -153,6 +153,7 @@ class Login(object):
                 
             for usuario in usuarios:
                 if usuario['correo'] == correo and usuario['contraseña'] == contraseña:
+                    self.guardar_correo_en_archivo(usuario)
                     self.abrirPantallaPartidas()
                     return
             QtWidgets.QMessageBox.critical(self.centralwidget, "Error de inicio de sesión", "Credenciales incorrectas.")  
@@ -204,6 +205,14 @@ class Login(object):
         except FileNotFoundError:
             QtWidgets.QMessageBox.critical(self.centralwidget, "Error", "Archivo de usuarios no encontrado.")
 
+    def guardar_correo_en_archivo(self, correo):
+       
+        try:
+            with open('correo.json', 'w') as file:
+                json.dump({"correo": correo}, file, indent=2)
+
+        except FileNotFoundError:
+            QtWidgets.QMessageBox.critical(self.centralwidget, "Error", f"Archivo {correo}_info.json no encontrado.")
 
 if __name__ == "__main__":
     import sys

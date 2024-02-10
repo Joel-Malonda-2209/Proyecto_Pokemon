@@ -210,7 +210,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
+        self.leer_datos_correo()
         self.obtener_pokemon(self.label, self.graphicsView)
         self.obtener_pokemon(self.label_2, self.graphicsView_2)
 
@@ -227,7 +227,35 @@ class Ui_MainWindow(object):
                 label_pokeball.setPixmap(pokeball_image)
                 self.gridLayout_3.addWidget(label_pokeball, i, j)
       
+    def leer_datos_correo(self):
+    
+        try:
+            with open("correo.json", 'r') as file:
+                correo_data = json.load(file)
+            
+            genero = correo_data['correo']['genero']
+            
+            if genero.lower() == "chica":
+                self.mostrar_imagen(":/maya.png", self.verticalWidget1)
+            else:
+                self.mostrar_imagen(":/leon.png", self.verticalWidget1)
 
+        except FileNotFoundError:
+            QtWidgets.QMessageBox.critical(self.centralwidget, "Error", "Archivo correo.json no encontrado.")
+        except KeyError:
+            QtWidgets.QMessageBox.critical(self.centralwidget, "Error", "Clave 'genero' no encontrada en el archivo correo.json.")
+            
+        
+    def mostrar_imagen(self, imagen_path, vertical_widget):
+        vertical_widget.setStyleSheet(f"""
+            background-image: url({imagen_path});
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 200px 300px;
+        """)        
+        vertical_widget.setAutoFillBackground(True)
+                
+        
     def obtener_pokemon(self, label, graphicsView, ):
 
         with open("pokemon_first_generation.json", "r") as json_file:
