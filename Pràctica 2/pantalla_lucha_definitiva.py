@@ -4,6 +4,7 @@ import requests
 import json
 import random
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         self.MainWindow = MainWindow
@@ -210,11 +211,22 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.obtener_pokemon(self.label, self.graphicsView, self.gridLayout_3)
-        self.obtener_pokemon(self.label_2, self.graphicsView_2, self.gridLayout_4)
+        self.obtener_pokemon(self.label, self.graphicsView)
+        self.obtener_pokemon(self.label_2, self.graphicsView_2)
+        self.agregar_pokeballs()
 
+    def agregar_pokeballs(self):
+        pokeball_image = "image:url(:/pokeball.png)" 
 
-    def obtener_pokemon(self, label, graphicsView, gridLayout):
+        
+        for _ in range(6):
+            pokeball_label = QtWidgets.QLabel(parent=self.gridWidget_2)
+            pokeball_label.setMaximumSize(QtCore.QSize(50, 50))  
+            pokeball_label.setPixmap(QtGui.QPixmap(pokeball_image))
+            self.gridLayout_4.addWidget(pokeball_label)
+        self.gridWidget_2.setLayout(self.gridLayout_4)
+
+    def obtener_pokemon(self, label, graphicsView, ):
 
         with open("pokemon_first_generation.json", "r") as json_file:
             pokemon_data = json.load(json_file)
@@ -226,8 +238,14 @@ class Ui_MainWindow(object):
         pokemon_type = random_pokemon.get("type", "")
 
         
-        label.setText(f"<span style='color: white'>Nombre: {pokemon_name}<br>Vida: <span style='color: green'>{pokemon_life}</span><br>Tipo: {pokemon_type}</span>") 
-        
+        label.setText(
+            f"<span style='color: white; margin: 5px;'>"
+            f"&nbsp;&nbsp;&nbsp;Nombre: {pokemon_name}<br>"
+            f"&nbsp;&nbsp;&nbsp;Vida: <span style='color: green'>{pokemon_life}</span><br>"
+            f"&nbsp;&nbsp;&nbsp;Tipo: {pokemon_type}"
+            "</span>"
+        )
+           
         image_url = random_pokemon.get("image_url", "")
 
         response = requests.get(image_url)
@@ -235,17 +253,15 @@ class Ui_MainWindow(object):
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(response.content)
 
+        self.obtener_movimientos(pokemon_data)
+
         scene = QtWidgets.QGraphicsScene()
         scene.addPixmap(pixmap)
 
         graphicsView.setScene(scene)
         graphicsView.setSceneRect(0, 0, pixmap.width(), pixmap.height())
         
-        label_pokemon = QtWidgets.QLabel(parent=gridLayout.parent())
-        label_pokemon.setPixmap(pixmap)
-        gridLayout.addWidget(label_pokemon)
         
-        self.obtener_movimientos(pokemon_data)
         
     def obtener_movimientos(self, pokemon_data):
 
