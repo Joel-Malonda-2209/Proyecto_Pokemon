@@ -1,12 +1,13 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 import json
 import requests
+
 class VistaPokemonWidget(QtWidgets.QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, main_window=None):
         super().__init__(parent)
         self.setObjectName("vista_pokemon_1")
         self.setStyleSheet("background-color: rgb(206, 206, 206);")
-
+        self.MainWindow = main_window 
         self.vista_pokemon_2 = QtWidgets.QVBoxLayout(self)
         self.vista_pokemon_2.setObjectName("vista_pokemon_2")
 
@@ -37,8 +38,17 @@ class VistaPokemonWidget(QtWidgets.QWidget):
         self.editar = QtWidgets.QPushButton(self)
         self.editar.setObjectName("editar")
         self.editar.setText("Editar equipo")
+        self.editar.clicked.connect(self.change_edicion_equipo)
         self.vista_pokemon_2.addWidget(self.editar)
-    
+        
+    def change_edicion_equipo(self):
+        self.MainWindow.close()
+            
+        from Edicion_equipo import Ui_MainWindow
+        self.edicion_window = Ui_MainWindow()
+        self.edicion_window.setupUi(self.MainWindow)
+        self.MainWindow.show()
+            
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -58,15 +68,15 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addItem(spacerItem)
         self.layout1 = QtWidgets.QHBoxLayout()
         self.layout1.setObjectName("layout1")
-        self.vista_pokemon_1 = VistaPokemonWidget()
+        self.vista_pokemon_1 = VistaPokemonWidget(main_window=MainWindow)
         self.layout1.addWidget(self.vista_pokemon_1)
-        self.vista_pokemon_2 = VistaPokemonWidget()
+        self.vista_pokemon_2 = VistaPokemonWidget(main_window=MainWindow)
         self.layout1.addWidget(self.vista_pokemon_2)
         self.verticalLayout_3.addLayout(self.layout1)
         self.layout2 = QtWidgets.QHBoxLayout()
-        self.vista_pokemon_3 = VistaPokemonWidget()
+        self.vista_pokemon_3 = VistaPokemonWidget(main_window=MainWindow)
         self.layout2.addWidget(self.vista_pokemon_3)
-        self.vista_pokemon_4 = VistaPokemonWidget()  
+        self.vista_pokemon_4 = VistaPokemonWidget(main_window=MainWindow)  
         self.layout2.addWidget(self.vista_pokemon_4)
         self.layout2.setObjectName("layout2")
         self.verticalLayout_3.addLayout(self.layout2)
@@ -158,16 +168,28 @@ class Ui_MainWindow(object):
     def load_team_data(self):
         with open('team_data.json', 'r') as file:
             team_data = json.load(file)
-        self.vista_pokemon_1.label.setText(team_data['team_name'])
-        img_url = team_data['pokemon_team'][0]['img_url']
+        
+        team_name = team_data['team_name']
+        self.vista_pokemon_1.label.setText(team_name)
+        
+        pokemon_name = team_data['pokemon_team'][0]['name']
 
-        pixmap = QtGui.QPixmap()
-        pixmap.loadFromData(requests.get(img_url).content)
-        scene = QtWidgets.QGraphicsScene()
-        scene.addPixmap(pixmap)
-        self.vista_pokemon_1.graphicsView.setScene(scene)
+        response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{pokemon_name.lower()}")
+        if response.status_code == 200:
+            pokemon_data = response.json()
+            img_url = pokemon_data['sprites']['front_default']
 
-        self.vista_pokemon_1.graphicsView.fitInView(scene.sceneRect(), QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+            pixmap = QtGui.QPixmap()
+            pixmap.loadFromData(requests.get(img_url).content)
+            scene = QtWidgets.QGraphicsScene()
+            scene.addPixmap(pixmap)
+            self.vista_pokemon_1.graphicsView.setScene(scene)
+            self.graphicsView_2.setScene(scene)
+            self.vista_pokemon_1.graphicsView.fitInView(scene.sceneRect(), QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+        else:
+            print(f"No se pudo obtener los datos del Pokémon {pokemon_name}.")
+
+
 
 if __name__ == "__main__":
     import sys

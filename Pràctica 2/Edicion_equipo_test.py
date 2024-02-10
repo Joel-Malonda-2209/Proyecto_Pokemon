@@ -8,7 +8,6 @@ class PokemonWidget(QtWidgets.QWidget):
         super().__init__(parent)
         self.setStyleSheet("background-color: rgb(194, 194, 194);")
         self.setObjectName("pokemon_widget")
-
         layout = QtWidgets.QVBoxLayout(self)
         layout.setObjectName("pokemon_widget_layout")
 
@@ -274,6 +273,7 @@ class Ui_MainWindow(object):
         else:
             print("Error al obtener los movimientos del Pokémon")
 
+        # Asignar la imagen del primer Pokémon al img_first_pokemon en TeamInfoWidget
         if widget_index == 1:
             img_first_pokemon = self.team_info_widget.img_first_pokemon
             pixmap = QtGui.QPixmap()
@@ -358,9 +358,9 @@ class Ui_MainWindow(object):
             graphics_view.setScene(scene)
             graphics_view.fitInView(
                 scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
-            graphics_view.img_url = url
         else:
             print("No se pudo cargar la imagen del Pokémon")
+
 
         
     def save_button_clicked(self):
@@ -377,7 +377,6 @@ class Ui_MainWindow(object):
                         pokemon_widget.move_2.currentText(),
                         pokemon_widget.move_3.currentText(),
                         pokemon_widget.move_4.currentText()],
-                'img_url': pokemon_widget.img_pokemon.img_url
             }
             team_data['pokemon_team'].append(pokemon_info)
 
