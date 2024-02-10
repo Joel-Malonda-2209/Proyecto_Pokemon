@@ -274,7 +274,6 @@ class Ui_MainWindow(object):
         else:
             print("Error al obtener los movimientos del Pokémon")
 
-        # Asignar la imagen del primer Pokémon al img_first_pokemon en TeamInfoWidget
         if widget_index == 1:
             img_first_pokemon = self.team_info_widget.img_first_pokemon
             pixmap = QtGui.QPixmap()
@@ -365,8 +364,8 @@ class Ui_MainWindow(object):
 
         
     def save_button_clicked(self):
-        team_name = self.team_info_widget.team_edit.text()  # Obtener el nombre del equipo
-        team_data = {'team_name': team_name, 'pokemon_team': []}  # Crear un diccionario para almacenar el nombre del equipo y los datos de los Pokémon
+        team_name = self.team_info_widget.team_edit.text()
+        team_data = {'team_name': team_name, 'pokemon_team': []}
         for i in range(1, 7):
             pokemon_widget = getattr(self, f"pokemon_widget{i}")
             pokemon_info = {

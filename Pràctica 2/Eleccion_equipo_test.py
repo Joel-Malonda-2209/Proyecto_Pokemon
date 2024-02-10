@@ -58,8 +58,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addItem(spacerItem)
         self.layout1 = QtWidgets.QHBoxLayout()
         self.layout1.setObjectName("layout1")
-
-        # Usar la clase VistaPokemonWidget
         self.vista_pokemon_1 = VistaPokemonWidget()
         self.layout1.addWidget(self.vista_pokemon_1)
         self.vista_pokemon_2 = VistaPokemonWidget()
@@ -99,7 +97,6 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.graphicsView_2.sizePolicy().hasHeightForWidth())
         self.graphicsView_2.setSizePolicy(sizePolicy)
-        self.graphicsView_2.setStyleSheet("border-image: url(:/bulbasur.png);")
         self.graphicsView_2.setObjectName("graphicsView_2")
         self.verticalLayout_14.addWidget(self.graphicsView_2)
         self.verticalLayout_4.addWidget(self.verticalWidget3)
@@ -141,7 +138,6 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         self.MainWindow = MainWindow
 
-        # Llamar a métodos para cargar datos del equipo
         self.load_team_data()
 
     def volver_a_partidas(self):
@@ -160,24 +156,17 @@ class Ui_MainWindow(object):
         self.empezarJugar.setText(_translate("MainWindow", "Empezar a jugar"))
 
     def load_team_data(self):
-        # Obtener los datos del archivo JSON
         with open('team_data.json', 'r') as file:
             team_data = json.load(file)
-
-        # Actualizar el nombre del equipo en la interfaz de usuario
         self.vista_pokemon_1.label.setText(team_data['team_name'])
-
-        # Obtener la URL de la imagen del primer Pokémon
         img_url = team_data['pokemon_team'][0]['img_url']
 
-        # Cargar la imagen del primer Pokémon en la QGraphicsView en la VistaPokemonWidget
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(requests.get(img_url).content)
         scene = QtWidgets.QGraphicsScene()
         scene.addPixmap(pixmap)
         self.vista_pokemon_1.graphicsView.setScene(scene)
 
-        # Ajustar la vista para que se ajuste al contenido de la escena
         self.vista_pokemon_1.graphicsView.fitInView(scene.sceneRect(), QtCore.Qt.AspectRatioMode.KeepAspectRatio)
 
 if __name__ == "__main__":
