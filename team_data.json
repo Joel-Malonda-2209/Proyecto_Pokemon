@@ -1,80 +1,83 @@
-[
-    {
-        "name": "Caterpie",
-        "ability": "Shield-dust",
-        "level": "100",
-        "type": "Bug",
-        "moves": [
-            "Tackle",
-            "Tackle",
-            "Tackle",
-            "Tackle"
-        ],
-        "img_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png"
-    },
-    {
-        "name": "Sandslash",
-        "ability": "Sand-veil",
-        "level": "100",
-        "type": "Ground",
-        "moves": [
-            "Scratch",
-            "Scratch",
-            "Scratch",
-            "Scratch"
-        ],
-        "img_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/28.png"
-    },
-    {
-        "name": "Farfetchd",
-        "ability": "Keen-eye",
-        "level": "100",
-        "type": "Normal/Flying",
-        "moves": [
-            "Razor-wind",
-            "Razor-wind",
-            "Razor-wind",
-            "Razor-wind"
-        ],
-        "img_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/83.png"
-    },
-    {
-        "name": "Raichu",
-        "ability": "Static",
-        "level": "100",
-        "type": "Electric",
-        "moves": [
-            "Mega-punch",
-            "Mega-punch",
-            "Mega-punch",
-            "Mega-punch"
-        ],
-        "img_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/26.png"
-    },
-    {
-        "name": "Blastoise",
-        "ability": "Torrent",
-        "level": "100",
-        "type": "Water",
-        "moves": [
-            "Mega-punch",
-            "Mega-punch",
-            "Mega-punch",
-            "Mega-punch"
-        ],
-        "img_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png"
-    },
-    {
-        "name": "Weepinbell",
-        "ability": "Chlorophyll",
-        "level": "100",
-        "type": "Grass/Poison",
-        "moves": [
-            "Swords-dance",
-            "Swords-dance",
-            "Swords-dance",
-            "Swords-dance"
-        ],
-        "img_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/70.png"
-    }
-]
+{
+    "team_name": "Equipo",
+    "pokemon_team": [
+        {
+            "name": "Blastoise",
+            "ability": "Torrent",
+            "level": "100",
+            "type": "Water",
+            "moves": [
+                "Mega-punch",
+                "Mega-punch",
+                "Mega-punch",
+                "Mega-punch"
+            ],
+            "img_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png"
+        },
+        {
+            "name": "Wigglytuff",
+            "ability": "Cute-charm",
+            "level": "100",
+            "type": "Normal/Fairy",
+            "moves": [
+                "Pound",
+                "Pound",
+                "Pound",
+                "Pound"
+            ],
+            "img_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/40.png"
+        },
+        {
+            "name": "Nidoqueen",
+            "ability": "Poison-point",
+            "level": "100",
+            "type": "Poison/Ground",
+            "moves": [
+                "Mega-punch",
+                "Mega-punch",
+                "Mega-punch",
+                "Mega-punch"
+            ],
+            "img_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/31.png"
+        },
+        {
+            "name": "Charizard",
+            "ability": "Blaze",
+            "level": "100",
+            "type": "Fire/Flying",
+            "moves": [
+                "Mega-punch",
+                "Mega-punch",
+                "Mega-punch",
+                "Mega-punch"
+            ],
+            "img_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
+        },
+        {
+            "name": "Venusaur",
+            "ability": "Overgrow",
+            "level": "100",
+            "type": "Grass/Poison",
+            "moves": [
+                "Swords-dance",
+                "Swords-dance",
+                "Swords-dance",
+                "Swords-dance"
+            ],
+            "img_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
+        },
+        {
+            "name": "Mewtwo",
+            "ability": "Pressure",
+            "level": "100",
+            "type": "Psychic",
+            "moves": [
+                "Mega-punch",
+                "Mega-punch",
+                "Mega-punch",
+                "Mega-punch"
+            ],
+            "img_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png"
+        }
+    ]
+}
