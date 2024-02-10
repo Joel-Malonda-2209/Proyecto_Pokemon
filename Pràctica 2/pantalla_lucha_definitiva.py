@@ -213,18 +213,20 @@ class Ui_MainWindow(object):
 
         self.obtener_pokemon(self.label, self.graphicsView)
         self.obtener_pokemon(self.label_2, self.graphicsView_2)
-        self.agregar_pokeballs()
 
-    def agregar_pokeballs(self):
-        pokeball_image = "image:url(:/pokeball.png)" 
-
+        pokeball_image = QtGui.QPixmap(":/pokeball.png").scaled(50,50)
+        for i in range(3):
+            for j in range(2):
+                label_pokeball = QtWidgets.QLabel(parent=self.gridWidget2)
+                label_pokeball.setPixmap(pokeball_image)
+                self.gridLayout_4.addWidget(label_pokeball, i, j)
         
-        for _ in range(6):
-            pokeball_label = QtWidgets.QLabel(parent=self.gridWidget_2)
-            pokeball_label.setMaximumSize(QtCore.QSize(50, 50))  
-            pokeball_label.setPixmap(QtGui.QPixmap(pokeball_image))
-            self.gridLayout_4.addWidget(pokeball_label)
-        self.gridWidget_2.setLayout(self.gridLayout_4)
+        for i in range(3):
+            for j in range(2):
+                label_pokeball = QtWidgets.QLabel(parent=self.gridWidget)
+                label_pokeball.setPixmap(pokeball_image)
+                self.gridLayout_3.addWidget(label_pokeball, i, j)
+      
 
     def obtener_pokemon(self, label, graphicsView, ):
 
