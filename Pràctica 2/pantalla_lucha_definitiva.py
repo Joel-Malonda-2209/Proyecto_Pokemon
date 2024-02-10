@@ -4,6 +4,7 @@ import requests
 import json
 import random
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         self.MainWindow = MainWindow
@@ -210,11 +211,24 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.obtener_pokemon_1()
-        self.obtener_pokemon_2()
+        self.obtener_pokemon(self.label, self.graphicsView)
+        self.obtener_pokemon(self.label_2, self.graphicsView_2)
 
+        pokeball_image = QtGui.QPixmap(":/pokeball.png").scaled(50,50)
+        for i in range(3):
+            for j in range(2):
+                label_pokeball = QtWidgets.QLabel(parent=self.gridWidget2)
+                label_pokeball.setPixmap(pokeball_image)
+                self.gridLayout_4.addWidget(label_pokeball, i, j)
+        
+        for i in range(3):
+            for j in range(2):
+                label_pokeball = QtWidgets.QLabel(parent=self.gridWidget)
+                label_pokeball.setPixmap(pokeball_image)
+                self.gridLayout_3.addWidget(label_pokeball, i, j)
+      
 
-    def obtener_pokemon_1(self):
+    def obtener_pokemon(self, label, graphicsView, ):
 
         with open("pokemon_first_generation.json", "r") as json_file:
             pokemon_data = json.load(json_file)
@@ -225,8 +239,15 @@ class Ui_MainWindow(object):
         pokemon_life = random_pokemon.get("stats", {}).get("Hp", "")
         pokemon_type = random_pokemon.get("type", "")
 
-        self.label.setText(f"Nombre: {pokemon_name}\nVida: {pokemon_life}\nTipo: {pokemon_type}")
-
+        
+        label.setText(
+            f"<span style='color: white; margin: 5px;'>"
+            f"&nbsp;&nbsp;&nbsp;Nombre: {pokemon_name}<br>"
+            f"&nbsp;&nbsp;&nbsp;Vida: <span style='color: green'>{pokemon_life}</span><br>"
+            f"&nbsp;&nbsp;&nbsp;Tipo: {pokemon_type}"
+            "</span>"
+        )
+           
         image_url = random_pokemon.get("image_url", "")
 
         response = requests.get(image_url)
@@ -234,45 +255,31 @@ class Ui_MainWindow(object):
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(response.content)
 
+        self.obtener_movimientos(pokemon_data)
+
         scene = QtWidgets.QGraphicsScene()
         scene.addPixmap(pixmap)
 
-        self.graphicsView.setScene(scene)
-        self.graphicsView.setSceneRect(0, 0, pixmap.width(), pixmap.height())
+        graphicsView.setScene(scene)
+        graphicsView.setSceneRect(0, 0, pixmap.width(), pixmap.height())
         
-        label_pokemon = QtWidgets.QLabel(parent=self.gridWidget_2)
-        label_pokemon.setPixmap(pixmap)
-        self.gridLayout_4.addWidget(label_pokemon)
-
-    def obtener_pokemon_2(self):
-
-        with open("pokemon_first_generation.json", "r") as json_file:
-            pokemon_data = json.load(json_file)
         
+        
+    def obtener_movimientos(self, pokemon_data):
+
         random_pokemon = random.choice(pokemon_data)
+        moves = random_pokemon.get("moves", [])
+        random_moves = random.sample(moves, min(4, len(moves)))
 
-        pokemon_name = random_pokemon.get("name", "")
-        pokemon_life = random_pokemon.get("stats", {}).get("Hp", "")
-        pokemon_type = random_pokemon.get("type", "")
-
-        self.label_2.setText(f"Nombre: {pokemon_name}\nVida: {pokemon_life}\nTipo: {pokemon_type}")
-
-        image_url = random_pokemon.get("image_url", "")
-
-        response = requests.get(image_url)
-
-        pixmap = QtGui.QPixmap()
-        pixmap.loadFromData(response.content)
-
-        scene = QtWidgets.QGraphicsScene()
-        scene.addPixmap(pixmap)
-
-        self.graphicsView_2.setScene(scene)
-        self.graphicsView_2.setSceneRect(0, 0, pixmap.width(), pixmap.height())
-
-        label_pokemon = QtWidgets.QLabel(parent=self.gridWidget_2)
-        label_pokemon.setPixmap(pixmap)
-        self.gridLayout_3.addWidget(label_pokemon)
+        for i, move_name in enumerate(random_moves):
+            if i == 0:
+                self.pushButton_2.setText(move_name)
+            elif i == 1:
+                self.pushButton_3.setText(move_name)
+            elif i == 2:
+                self.pushButton_4.setText(move_name)
+            elif i == 3:
+                self.pushButton_5.setText(move_name)
     
 
     def cambiarPokemon(self):

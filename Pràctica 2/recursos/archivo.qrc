@@ -10,6 +10,9 @@
     <file>elipse.png</file>
     <file>pickachu.png</file>
     <file>eyeicon.png</file>
+    <file>pokeball.png</file>
+    <file>maya.png</file>
+    <file>leon.png</file>
   </qresource>
   <qresource prefix="prefijoNuevo"/>
 </RCC>
