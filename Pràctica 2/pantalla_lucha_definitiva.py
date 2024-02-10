@@ -1,5 +1,6 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from recursos2 import *
+import requests
 import json
 import random
 
@@ -208,6 +209,71 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+        self.obtener_pokemon_1()
+        self.obtener_pokemon_2()
+
+
+    def obtener_pokemon_1(self):
+
+        with open("pokemon_first_generation.json", "r") as json_file:
+            pokemon_data = json.load(json_file)
+        
+        random_pokemon = random.choice(pokemon_data)
+
+        pokemon_name = random_pokemon.get("name", "")
+        pokemon_life = random_pokemon.get("stats", {}).get("Hp", "")
+        pokemon_type = random_pokemon.get("type", "")
+
+        self.label.setText(f"Nombre: {pokemon_name}\nVida: {pokemon_life}\nTipo: {pokemon_type}")
+
+        image_url = random_pokemon.get("image_url", "")
+
+        response = requests.get(image_url)
+
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(response.content)
+
+        scene = QtWidgets.QGraphicsScene()
+        scene.addPixmap(pixmap)
+
+        self.graphicsView.setScene(scene)
+        self.graphicsView.setSceneRect(0, 0, pixmap.width(), pixmap.height())
+        
+        label_pokemon = QtWidgets.QLabel(parent=self.gridWidget_2)
+        label_pokemon.setPixmap(pixmap)
+        self.gridLayout_4.addWidget(label_pokemon)
+
+    def obtener_pokemon_2(self):
+
+        with open("pokemon_first_generation.json", "r") as json_file:
+            pokemon_data = json.load(json_file)
+        
+        random_pokemon = random.choice(pokemon_data)
+
+        pokemon_name = random_pokemon.get("name", "")
+        pokemon_life = random_pokemon.get("stats", {}).get("Hp", "")
+        pokemon_type = random_pokemon.get("type", "")
+
+        self.label_2.setText(f"Nombre: {pokemon_name}\nVida: {pokemon_life}\nTipo: {pokemon_type}")
+
+        image_url = random_pokemon.get("image_url", "")
+
+        response = requests.get(image_url)
+
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(response.content)
+
+        scene = QtWidgets.QGraphicsScene()
+        scene.addPixmap(pixmap)
+
+        self.graphicsView_2.setScene(scene)
+        self.graphicsView_2.setSceneRect(0, 0, pixmap.width(), pixmap.height())
+
+        label_pokemon = QtWidgets.QLabel(parent=self.gridWidget_2)
+        label_pokemon.setPixmap(pixmap)
+        self.gridLayout_3.addWidget(label_pokemon)
+    
 
     def cambiarPokemon(self):
         self.MainWindow.close()
