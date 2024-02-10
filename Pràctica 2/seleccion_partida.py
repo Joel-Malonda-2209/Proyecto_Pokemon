@@ -136,7 +136,6 @@ class SelPartida(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         
     def iraPartidaRapida(self):
-            self.MainWindow.close()
         
             from pantalla_lucha_definitiva import Ui_MainWindow
             self.rapida = Ui_MainWindow()
