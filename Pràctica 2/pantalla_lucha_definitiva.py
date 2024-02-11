@@ -242,13 +242,15 @@ class Ui_MainWindow(object):
         try:
             with open("correo.json", 'r') as file:
                 correo_data = json.load(file)
-            
+
             genero = correo_data['correo']['genero']
+    
             
             if genero.lower() == "chica":
                 self.mostrar_imagen(":/maya.png", self.verticalWidget1)
             else:
                 self.mostrar_imagen(":/leon.png", self.verticalWidget1)
+
 
         except FileNotFoundError:
             QtWidgets.QMessageBox.critical(self.centralwidget, "Error", "Archivo correo.json no encontrado.")
@@ -265,7 +267,6 @@ class Ui_MainWindow(object):
         """)        
         vertical_widget.setAutoFillBackground(True)
                 
-        
     def obtener_pokemon(self, label, graphicsView, ):
 
         with open("pokemon_first_generation.json", "r") as json_file:
@@ -279,9 +280,9 @@ class Ui_MainWindow(object):
 
         
         label.setText(
-            f"<span style='color: white; margin: 5px;'>"
+            f"<span style='color: white; font-size: 20px;'>"
             f"&nbsp;&nbsp;&nbsp;Nombre: {pokemon_name}<br>"
-            f"&nbsp;&nbsp;&nbsp;Vida: <span style='color: green'>{pokemon_life}</span><br>"
+            f"&nbsp;&nbsp;&nbsp;Vida: <b><span style='color: green'>{pokemon_life}</span></b><br>"
             f"&nbsp;&nbsp;&nbsp;Tipo: {pokemon_type}"
             "</span>"
         )
