@@ -136,17 +136,18 @@ class SelPartida(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         
     def iraPartidaRapida(self):
-        self.MainWindow.close()  
-        from pantalla_lucha_definitiva import Ui_MainWindow
-        self.rapida = Ui_MainWindow()
-        self.rapida.setupUi(self.MainWindow)
-        self.MainWindow.showMaximized()
+            self.MainWindow.close()
+        
+            from pantalla_lucha_definitiva import Ui_MainWindow
+            self.rapida = Ui_MainWindow()
+            self.rapida.setupUi(self.MainWindow) 
+            self.MainWindow.show()
             
 
         
     def abrir_eleccion_equipo(self):
             self.MainWindow.close() 
-            from Eleccion_equipo import Ui_MainWindow
+            from Eleccion_equipo_test import Ui_MainWindow
             self.eleccion = Ui_MainWindow()
             self.eleccion.setupUi(self.MainWindow) 
             self.MainWindow.showMaximized()

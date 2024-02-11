@@ -3,7 +3,7 @@ from recursos2 import *
 import requests
 import json
 import random
-
+from PySide6.QtCore import QTimer, QDateTime
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -213,6 +213,11 @@ class Ui_MainWindow(object):
         self.leer_datos_correo()
         self.obtener_pokemon(self.label, self.graphicsView)
         self.obtener_pokemon(self.label_2, self.graphicsView_2)
+        self.mostrar_imagen(":/leon.png", self.verticalWidget_2)
+        self.timer = QTimer(MainWindow)
+        self.timer.timeout.connect(self.actualizar_hora)
+        self.timer.start(1000)
+
 
         pokeball_image = QtGui.QPixmap(":/pokeball.png").scaled(50,50)
         for i in range(3):
@@ -226,6 +231,11 @@ class Ui_MainWindow(object):
                 label_pokeball = QtWidgets.QLabel(parent=self.gridWidget)
                 label_pokeball.setPixmap(pokeball_image)
                 self.gridLayout_3.addWidget(label_pokeball, i, j)
+
+    def actualizar_hora(self):
+        ahora = QDateTime.currentDateTime()
+        tiempo_actual = ahora.toString("hh:mm:ss")
+        self.label_18.setText(tiempo_actual)
       
     def leer_datos_correo(self):
     
@@ -282,6 +292,8 @@ class Ui_MainWindow(object):
 
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(response.content)
+
+        pixmap = pixmap.scaled(200,200,QtCore.Qt.AspectRatioMode.KeepAspectRatio)
 
         self.obtener_movimientos(pokemon_data)
 

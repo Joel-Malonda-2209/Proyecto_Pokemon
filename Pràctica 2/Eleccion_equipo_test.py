@@ -181,11 +181,14 @@ class Ui_MainWindow(object):
 
             pixmap = QtGui.QPixmap()
             pixmap.loadFromData(requests.get(img_url).content)
+            scaled_pixmap = pixmap.scaledToHeight(250, QtCore.Qt.TransformationMode.SmoothTransformation)
+
             scene = QtWidgets.QGraphicsScene()
-            scene.addPixmap(pixmap)
+            scene.addPixmap(scaled_pixmap)
+
             self.vista_pokemon_1.graphicsView.setScene(scene)
             self.graphicsView_2.setScene(scene)
-            self.vista_pokemon_1.graphicsView.fitInView(scene.sceneRect(), QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+            
         else:
             print(f"No se pudo obtener los datos del Pokémon {pokemon_name}.")
 

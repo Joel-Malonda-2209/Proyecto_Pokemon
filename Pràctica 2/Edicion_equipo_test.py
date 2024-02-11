@@ -145,7 +145,7 @@ class TeamInfoWidget(QtWidgets.QWidget):
         self.team_edit.setText("Equipo")
         layout.addWidget(self.team_edit)
 
-        self.change_team = QtWidgets.QPushButton("Change Team", self)
+        self.change_team = QtWidgets.QPushButton("Cambiar equipo", self)
         self.change_team.setObjectName("change_team")
         layout.addWidget(self.change_team)
 
@@ -181,7 +181,7 @@ class Ui_MainWindow(object):
         self.team_layout.setObjectName("team_layout")
 
         self.back_lobby = QtWidgets.QPushButton(
-            "Back to Lobby", self.team_widget)
+            "Volver atrás", self.team_widget)
         self.back_lobby.setStyleSheet("background-color: rgb(206, 206, 206);")
         self.back_lobby.setObjectName("back_lobby")
         self.team_layout.addWidget(self.back_lobby)
