@@ -42,12 +42,11 @@ class VistaPokemonWidget(QtWidgets.QWidget):
         self.vista_pokemon_2.addWidget(self.editar)
         
     def change_edicion_equipo(self):
-        self.MainWindow.close()
             
         from Edicion_equipo import Ui_MainWindow
         self.edicion_window = Ui_MainWindow()
         self.edicion_window.setupUi(self.MainWindow)
-        self.MainWindow.show()
+        self.MainWindow.showMaximized()
             
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -151,12 +150,11 @@ class Ui_MainWindow(object):
         self.load_team_data()
 
     def volver_a_partidas(self):
-        self.MainWindow.close()
-            
+        self.MainWindow.close()     
         from seleccion_partida import SelPartida
         self.registro_window = SelPartida()
         self.registro_window.setupUi(self.MainWindow) 
-        self.MainWindow.show()
+        self.MainWindow.showMaximized()
         
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -197,5 +195,5 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    MainWindow.show()
+    MainWindow.showMaximized()
     sys.exit(app.exec())

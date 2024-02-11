@@ -136,27 +136,27 @@ class SelPartida(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         
     def iraPartidaRapida(self):
-        
-            from pantalla_lucha_definitiva import Ui_MainWindow
-            self.rapida = Ui_MainWindow()
-            self.rapida.setupUi(self.MainWindow) 
-            self.MainWindow.show()
+        self.MainWindow.close()  
+        from pantalla_lucha_definitiva import Ui_MainWindow
+        self.rapida = Ui_MainWindow()
+        self.rapida.setupUi(self.MainWindow)
+        self.MainWindow.showMaximized()
+            
+
         
     def abrir_eleccion_equipo(self):
-            self.MainWindow.close()
-            
+            self.MainWindow.close() 
             from Eleccion_equipo import Ui_MainWindow
             self.eleccion = Ui_MainWindow()
             self.eleccion.setupUi(self.MainWindow) 
-            self.MainWindow.show()
+            self.MainWindow.showMaximized()
     
     def volver_a_login(self):
-            self.MainWindow.close()
-            
+            self.MainWindow.close() 
             from NovaLogin import Login
             self.registro_window = Login()
             self.registro_window.setupUi(self.MainWindow) 
-            self.MainWindow.show()
+            self.MainWindow.showMaximized()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -173,5 +173,5 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = SelPartida()
     ui.setupUi(MainWindow)
-    MainWindow.show()
+    MainWindow.showMaximized()
     sys.exit(app.exec())

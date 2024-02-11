@@ -177,7 +177,7 @@ class Login(object):
         self.MainWindow.close()
         self.registro_window = PantRegistro()
         self.registro_window.setupUi(self.MainWindow)
-        self.MainWindow.show()
+        self.MainWindow.showMaximized()
 
     def abrirPantallaPartidas(self):
         correo = self.lineEdit.text()
@@ -189,7 +189,7 @@ class Login(object):
 
             for usuario in usuarios:
                 if usuario['correo'] == correo and usuario['contraseña'] == contraseña:
-                    
+                    self.MainWindow.close()
                     for i in reversed(range(self.verticalLayout_2.count())):
                         widget = self.verticalLayout_2.itemAt(i).widget()
                         if widget is not None:
@@ -197,6 +197,7 @@ class Login(object):
 
                     self.ui = Ui_SecondWindow()
                     self.ui.setupUi(self.MainWindow)
+                    self.MainWindow.showMaximized()
                     return
 
            
@@ -220,5 +221,5 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Login()
     ui.setupUi(MainWindow)
-    MainWindow.show()
+    MainWindow.showMaximized()
     sys.exit(app.exec())

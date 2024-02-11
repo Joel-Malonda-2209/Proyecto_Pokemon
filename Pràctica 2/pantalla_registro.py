@@ -190,12 +190,11 @@ class PantRegistro(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         
     def volver_a_login(self):
-            self.MainWindow.close()
-            
+            self.MainWindow.close() 
             from NovaLogin import Login
             self.registro_window = Login()
             self.registro_window.setupUi(self.MainWindow) 
-            self.MainWindow.show()
+            self.MainWindow.showMaximized()
             
 
     def registrar(self):
@@ -260,5 +259,5 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = PantRegistro()
     ui.setupUi(MainWindow)
-    MainWindow.show()
+    MainWindow.showMaximized()
     sys.exit(app.exec())

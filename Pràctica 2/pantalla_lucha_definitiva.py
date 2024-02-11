@@ -311,20 +311,18 @@ class Ui_MainWindow(object):
     
 
     def cambiarPokemon(self):
-        self.MainWindow.close()
-        
+        self.MainWindow.close() 
         from pantalla_cambiar_pokemon import Ui_MainWindow
         self.cambiar = Ui_MainWindow()
         self.cambiar.setupUi(self.MainWindow) 
-        self.MainWindow.show()
+        self.MainWindow.showMaximized()
         
     def abandonarPartida(self):
-        self.MainWindow.close()
-        
+        self.MainWindow.close() 
         from seleccion_partida import SelPartida
         self.rapida = SelPartida()
         self.rapida.setupUi(self.MainWindow) 
-        self.MainWindow.show()
+        self.MainWindow.showMaximized()
     
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -343,5 +341,5 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    MainWindow.show()
+    MainWindow.showMaximized()
     sys.exit(app.exec())
