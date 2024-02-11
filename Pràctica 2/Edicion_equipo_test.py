@@ -167,6 +167,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(778, 712)
         MainWindow.setStyleSheet("background-color: rgb(170, 85, 255);")
+        self.MainWindow = MainWindow
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet(
             "background-color: rgb(255, 251, 207);")
@@ -184,6 +185,7 @@ class Ui_MainWindow(object):
             "Volver atrás", self.team_widget)
         self.back_lobby.setStyleSheet("background-color: rgb(206, 206, 206);")
         self.back_lobby.setObjectName("back_lobby")
+        self.back_lobby.clicked.connect(self.volver_a_partidas)
         self.team_layout.addWidget(self.back_lobby)
 
         self.save_button = QtWidgets.QPushButton(
@@ -219,6 +221,13 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
+    def volver_a_partidas(self):
+        self.MainWindow.close()    
+        from seleccion_partida import SelPartida
+        self.registro_window = SelPartida()
+        self.registro_window.setupUi(self.MainWindow) 
+        self.MainWindow.show()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

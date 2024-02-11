@@ -126,6 +126,7 @@ class SelPartida(object):
         self.team.setStyleSheet("background-color: rgb(255, 0, 255);\n"
 "color: rgb(255, 255, 255);")
         self.team.setObjectName("team")
+        self.team.clicked.connect(self.edicionEquipo)
         self.verticalLayout_5.addWidget(self.team)
         self.verticalLayout_2.addWidget(self.verticalWidget_4)
         self.horizontalLayout.addLayout(self.verticalLayout_2)
@@ -135,13 +136,21 @@ class SelPartida(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         
+    def edicionEquipo(self):
+            self.MainWindow.close()
+        
+            from Edicion_equipo_test import Ui_MainWindow
+            self.rapida = Ui_MainWindow()
+            self.rapida.setupUi(self.MainWindow) 
+            self.MainWindow.showMaximized()
+        
     def iraPartidaRapida(self):
             self.MainWindow.close()
         
             from pantalla_lucha_definitiva import Ui_MainWindow
             self.rapida = Ui_MainWindow()
             self.rapida.setupUi(self.MainWindow) 
-            self.MainWindow.show()
+            self.MainWindow.showMaximized()
             
 
         

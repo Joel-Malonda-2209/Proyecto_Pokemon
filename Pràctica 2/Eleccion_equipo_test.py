@@ -44,7 +44,7 @@ class VistaPokemonWidget(QtWidgets.QWidget):
     def change_edicion_equipo(self):
         self.MainWindow.close()
             
-        from Edicion_equipo import Ui_MainWindow
+        from Edicion_equipo_test import Ui_MainWindow
         self.edicion_window = Ui_MainWindow()
         self.edicion_window.setupUi(self.MainWindow)
         self.MainWindow.show()
@@ -136,6 +136,7 @@ class Ui_MainWindow(object):
         self.empezarJugar = QtWidgets.QPushButton(parent=self.horizontalWidget_4)
         self.empezarJugar.setStyleSheet("background-color: rgb(223, 223, 223);")
         self.empezarJugar.setObjectName("empezarJugar")
+        self.empezarJugar.clicked.connect(self.iraPartidaRapida)
         self.horizontalLayout_5.addWidget(self.empezarJugar)
         self.verticalLayout.addWidget(self.horizontalWidget_4)
         spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed)
@@ -150,9 +151,16 @@ class Ui_MainWindow(object):
 
         self.load_team_data()
 
-    def volver_a_partidas(self):
+    def iraPartidaRapida(self):
         self.MainWindow.close()
+    
+        from pantalla_lucha_definitiva import Ui_MainWindow
+        self.rapida = Ui_MainWindow()
+        self.rapida.setupUi(self.MainWindow) 
+        self.MainWindow.showMaximized()
             
+    def volver_a_partidas(self):
+        self.MainWindow.close()    
         from seleccion_partida import SelPartida
         self.registro_window = SelPartida()
         self.registro_window.setupUi(self.MainWindow) 
@@ -200,5 +208,5 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    MainWindow.show()
+    MainWindow.showMaximized()
     sys.exit(app.exec())
