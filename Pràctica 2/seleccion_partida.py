@@ -164,8 +164,8 @@ class SelPartida(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.cerrarSesion.setText(_translate("MainWindow", "Cerrar Sesión"))
         self.partidaRapida.setText(_translate("MainWindow", "Partida Rápida"))
-        self.ladder.setText(_translate("MainWindow", "Ladder"))
-        self.team.setText(_translate("MainWindow", "Team Builder"))
+        self.ladder.setText(_translate("MainWindow", "Partida Personalizada"))
+        self.team.setText(_translate("MainWindow", "Edición de Equipo"))
 
 
 if __name__ == "__main__":
