@@ -263,7 +263,6 @@ class Ui_MainWindow(object):
             background-image: url({imagen_path});
             background-repeat: no-repeat;
             background-position: center;
-            background-size: 200px 300px;
         """)        
         vertical_widget.setAutoFillBackground(True)
                 

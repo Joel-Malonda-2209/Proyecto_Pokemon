@@ -28,5 +28,17 @@
     "correo": "a@gmail.com",
     "contrase\u00f1a": "1",
     "genero": "Chico"
+  },
+  {
+    "nombre": "joel",
+    "correo": "joel@gmail.com",
+    "contrase\u00f1a": "1234",
+    "genero": "Chico"
+  },
+  {
+    "nombre": "isabelita",
+    "correo": "isa@gmail.com",
+    "contrase\u00f1a": "1234",
+    "genero": "Chica"
   }
 ]

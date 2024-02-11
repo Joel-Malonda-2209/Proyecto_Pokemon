@@ -281,7 +281,6 @@ class Ui_MainWindow(object):
         else:
             print("Error al obtener los movimientos del Pokémon")
 
-        # Asignar la imagen del primer Pokémon al img_first_pokemon en TeamInfoWidget
         if widget_index == 1:
             img_first_pokemon = self.team_info_widget.img_first_pokemon
             pixmap = QtGui.QPixmap()
@@ -293,8 +292,6 @@ class Ui_MainWindow(object):
                 scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
         else:
             print("")
-
-
 
     def get_pokemon_move(self, data, widget_index):
         moves = data.get("moves", [])
@@ -369,8 +366,6 @@ class Ui_MainWindow(object):
         else:
             print("No se pudo cargar la imagen del Pokémon")
 
-
-        
     def save_button_clicked(self):
         team_name = self.team_info_widget.team_edit.text()
         team_data = {'team_name': team_name, 'pokemon_team': []}
@@ -391,14 +386,10 @@ class Ui_MainWindow(object):
         with open('team_data.json', 'w') as file:
             json.dump(team_data, file)
 
-
-
     def save_team_data(self, team_data):
         with open('team_data.json', 'w') as file:
             json.dump(team_data, file)
 
-
-        
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
