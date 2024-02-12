@@ -25,7 +25,7 @@ class SelPartida(object):
         self.verticalLayout_8.setObjectName("verticalLayout_8")
         self.cerrarSesion = QtWidgets.QPushButton(parent=self.verticalWidget_2)
         self.cerrarSesion.setMaximumSize(QtCore.QSize(100, 16777215))
-        self.cerrarSesion.setStyleSheet("background-color: rgb(85, 85, 255);")
+        self.cerrarSesion.setStyleSheet("background-color: rgb(0,0,0); color: rgb(255,255,255);")
         self.cerrarSesion.setObjectName("cerrarSesion")
         self.MainWindow = MainWindow
         self.cerrarSesion.clicked.connect(self.volver_a_login)

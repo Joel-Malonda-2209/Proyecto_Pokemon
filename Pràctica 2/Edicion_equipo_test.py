@@ -385,6 +385,7 @@ class Ui_MainWindow(object):
 
         with open('team_data.json', 'w') as file:
             json.dump(team_data, file)
+    
 
     def save_team_data(self, team_data):
         with open('team_data.json', 'w') as file:

@@ -140,7 +140,7 @@ class Login(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         self.MainWindow = MainWindow
         self.Acceder.clicked.connect(self.verificar_credenciales)
-        self.Acceder.clicked.connect(self.abrirPantallaPartidas)
+        
         
         
     def verificar_credenciales(self):

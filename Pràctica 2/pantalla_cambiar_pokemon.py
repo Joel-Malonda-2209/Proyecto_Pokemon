@@ -237,7 +237,7 @@ class Ui_MainWindow(object):
         self.pushButton_8.setText(_translate("MainWindow", "PushButton"))
         self.abandonar2.setText(_translate("MainWindow", "Abandonar Partida"))
         self.label_18.setText(_translate("MainWindow", "Date Time"))
-
+        
 
 if __name__ == "__main__":
     import sys

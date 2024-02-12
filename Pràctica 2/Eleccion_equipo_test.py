@@ -200,8 +200,6 @@ class Ui_MainWindow(object):
         else:
             print(f"No se pudo obtener los datos del Pokémon {pokemon_name}.")
 
-
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)

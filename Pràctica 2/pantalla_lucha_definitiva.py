@@ -169,7 +169,7 @@ class Ui_MainWindow(object):
         self.Mochila.setStyleSheet("image:url(:/bolsa.png)")
         self.Mochila.setText("")
         self.Mochila.setObjectName("Mochila")
-        self.Mochila.clicked.connect(self.cambiarPokemon)
+        # self.Mochila.clicked.connect(self.cambiarPokemon)
         self.horizontalLayout_3.addWidget(self.Mochila)
         self.verticalLayout_2.addWidget(self.horizontalWidget)
         self.horizontalLayout.addLayout(self.verticalLayout_2)
@@ -220,6 +220,7 @@ class Ui_MainWindow(object):
 
 
         pokeball_image = QtGui.QPixmap(":/pokeball.png").scaled(50,50)
+
         for i in range(3):
             for j in range(2):
                 label_pokeball = QtWidgets.QLabel(parent=self.gridWidget2)
@@ -250,7 +251,6 @@ class Ui_MainWindow(object):
                 self.mostrar_imagen(":/maya.png", self.verticalWidget1)
             else:
                 self.mostrar_imagen(":/leon.png", self.verticalWidget1)
-
 
         except FileNotFoundError:
             QtWidgets.QMessageBox.critical(self.centralwidget, "Error", "Archivo correo.json no encontrado.")
